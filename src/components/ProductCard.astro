@@ -1,0 +1,73 @@
+---
+interface Props {
+  images: string[];
+  title: string;
+  price: string;
+  categories: string[];
+  color: string;
+  sizes: string[];
+}
+
+const { images, title, price, categories, color, sizes } = Astro.props;
+const [mainImage, hoverImage] = images;
+---
+
+<div class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md">
+  <div class="relative h-[400px] overflow-hidden">
+    <!-- Main Image -->
+    <img
+      src={mainImage}
+      alt={title}
+      class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+    />
+    <!-- Hover Image (Second image) -->
+    {hoverImage && (
+      <img
+        src={hoverImage}
+        alt={`${title} - Vista alternativa`}
+        class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      />
+    )}
+    
+    <div class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10"></div>
+    <div class="absolute top-4 left-4 flex flex-col gap-2">
+      <span class="w-fit rounded-full bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-wider text-gray-900 backdrop-blur-sm">
+        {categories[0]}
+      </span>
+      {categories.length > 1 && (
+        <span class="w-fit rounded-full bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-wider text-gray-500 backdrop-blur-sm">
+          +{categories.length - 1}
+        </span>
+      )}
+    </div>
+  </div>
+
+  <div class="p-5">
+    <div class="mb-2 flex items-center justify-between">
+      <span class="text-xs font-medium text-gray-500">{color}</span>
+      <div class="flex gap-1">
+        {categories.map((cat, index) => (
+           <span class="text-[10px] text-gray-400 uppercase tracking-wider">{cat}{index < categories.length - 1 ? ',' : ''}</span>
+        ))}
+      </div>
+    </div>
+
+    <h3 class="text-lg font-medium text-gray-900 group-hover:text-pink-600 transition-colors">
+      {title}
+    </h3>
+    <p class="mt-1 text-gray-500 font-light">{price}</p>
+    
+    <!-- Sizes -->
+    <div class="mt-3 flex gap-2">
+      {sizes.map((size) => (
+        <span class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-xs text-gray-600 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white">
+          {size}
+        </span>
+      ))}
+    </div>
+
+    <button class="mt-4 w-full rounded-lg bg-gray-900 py-3 text-sm font-medium text-white transition-transform active:scale-95 group-hover:bg-pink-600">
+      Ver Detalles
+    </button>
+  </div>
+</div>
