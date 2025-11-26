@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
+
+@theme {
+  --color-primary: #E3CCEF;
+  --color-secondary: #FFB8D2;
+  --color-accent: #F7D1A4;
+}

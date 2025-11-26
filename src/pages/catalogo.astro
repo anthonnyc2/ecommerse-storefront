@@ -1,0 +1,378 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProductCard from "../components/ProductCard.astro";
+import { products } from "../data/products";
+
+// Extract unique values for filters
+const allCategories = [...new Set(products.flatMap((p) => p.categories))];
+const allColors = [...new Set(products.map((p) => p.color))];
+const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
+---
+
+<Layout title="Catálogo | Raquel Boutique">
+  <div class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Catálogo</h1>
+        <p class="mt-2 text-gray-600">Explora nuestra colección completa</p>
+      </div>
+
+      <div class="lg:grid lg:grid-cols-4 lg:gap-x-8">
+        <!-- Filters Sidebar -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-4 space-y-6">
+            <!-- Mobile Filter Toggle (hidden on desktop) -->
+            <button
+              id="mobile-filter-toggle"
+              class="lg:hidden w-full flex items-center justify-between rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900"
+            >
+              <span>Filtros</span>
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+
+            <div id="filters-container" class="space-y-6">
+              <!-- Sort -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">
+                  Ordenar por
+                </h3>
+                <select
+                  id="sort-select"
+                  class="w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="price-asc">Precio: Menor a Mayor</option>
+                  <option value="price-desc">Precio: Mayor a Menor</option>
+                  <option value="name-asc">Nombre: A-Z</option>
+                </select>
+              </div>
+
+              <!-- Categories Filter -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">
+                  Categorías
+                </h3>
+                <div class="space-y-2">
+                  {
+                    allCategories.map((category) => (
+                      <label class="flex items-center cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          value={category}
+                          class="category-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                        />
+                        <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
+                          {category}
+                        </span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <!-- Colors Filter -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
+                <div class="space-y-2">
+                  {
+                    allColors.map((color) => (
+                      <label class="flex items-center cursor-pointer group">
+                        <input
+                          type="checkbox"
+                          value={color}
+                          class="color-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                        />
+                        <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
+                          {color}
+                        </span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <!-- Sizes Filter -->
+              <div>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">Tallas</h3>
+                <div class="flex flex-wrap gap-2">
+                  {
+                    allSizes.map((size) => (
+                      <label class="cursor-pointer">
+                        <input
+                          type="checkbox"
+                          value={size}
+                          class="size-filter sr-only peer"
+                        />
+                        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">
+                          {size}
+                        </span>
+                      </label>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <!-- Clear Filters -->
+              <button
+                id="clear-filters"
+                class="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Products Grid -->
+        <div class="lg:col-span-3">
+          <!-- Results count -->
+          <div class="mb-6 flex items-center justify-between">
+            <p id="results-count" class="text-sm text-gray-600">
+              Mostrando {products.length} productos
+            </p>
+          </div>
+
+          <!-- Products Grid -->
+          <div
+            id="products-grid"
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {
+              products.map((product) => (
+                <ProductCard
+                  id={product.id}
+                  title={product.title}
+                  price={product.price}
+                  categories={product.categories}
+                  color={product.color}
+                  images={product.images}
+                  sizes={product.sizes}
+                />
+              ))
+            }
+          </div>
+
+          <!-- No results message -->
+          <div id="no-results" class="hidden text-center py-12">
+            <svg
+              class="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+              No se encontraron productos
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">
+              Intenta ajustar los filtros
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ products }}>
+    document.addEventListener("DOMContentLoaded", () => {
+      const productsGrid = document.getElementById("products-grid");
+      const noResults = document.getElementById("no-results");
+      const resultsCount = document.getElementById("results-count");
+      const sortSelect = document.getElementById("sort-select");
+      const clearFiltersBtn = document.getElementById("clear-filters");
+
+      const categoryFilters = document.querySelectorAll(".category-filter");
+      const colorFilters = document.querySelectorAll(".color-filter");
+      const sizeFilters = document.querySelectorAll(".size-filter");
+
+      let allProducts = [...products];
+
+      // Read URL parameters and pre-select filters
+      function applyUrlFilters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        const colorParam = urlParams.get("color");
+        const sizeParam = urlParams.get("size");
+
+        if (categoryParam) {
+          categoryFilters.forEach((filter) => {
+            if (filter.value === categoryParam) {
+              filter.checked = true;
+            }
+          });
+        }
+
+        if (colorParam) {
+          colorFilters.forEach((filter) => {
+            if (filter.value === colorParam) {
+              filter.checked = true;
+            }
+          });
+        }
+
+        if (sizeParam) {
+          sizeFilters.forEach((filter) => {
+            if (filter.value === sizeParam) {
+              filter.checked = true;
+            }
+          });
+        }
+
+        // Apply filters after setting checkboxes
+        if (categoryParam || colorParam || sizeParam) {
+          filterAndSortProducts();
+        }
+      }
+
+      function getSelectedFilters(filterClass) {
+        const checkboxes = document.querySelectorAll(`.${filterClass}:checked`);
+        return Array.from(checkboxes).map((cb) => cb.value);
+      }
+
+      function filterAndSortProducts() {
+        const selectedCategories = getSelectedFilters("category-filter");
+        const selectedColors = getSelectedFilters("color-filter");
+        const selectedSizes = getSelectedFilters("size-filter");
+        const sortValue = sortSelect.value;
+
+        // Filter products
+        let filtered = allProducts.filter((product) => {
+          const matchesCategory =
+            selectedCategories.length === 0 ||
+            product.categories.some((cat) => selectedCategories.includes(cat));
+
+          const matchesColor =
+            selectedColors.length === 0 ||
+            selectedColors.includes(product.color);
+
+          const matchesSize =
+            selectedSizes.length === 0 ||
+            product.sizes.some((size) => selectedSizes.includes(size));
+
+          return matchesCategory && matchesColor && matchesSize;
+        });
+
+        // Sort products
+        if (sortValue === "price-asc") {
+          filtered.sort(
+            (a, b) =>
+              parseFloat(a.price.replace("$", "")) -
+              parseFloat(b.price.replace("$", ""))
+          );
+        } else if (sortValue === "price-desc") {
+          filtered.sort(
+            (a, b) =>
+              parseFloat(b.price.replace("$", "")) -
+              parseFloat(a.price.replace("$", ""))
+          );
+        } else if (sortValue === "name-asc") {
+          filtered.sort((a, b) => a.title.localeCompare(b.title));
+        }
+
+        // Update UI
+        renderProducts(filtered);
+      }
+
+      function renderProducts(productsToRender) {
+        if (productsToRender.length === 0) {
+          productsGrid.classList.add("hidden");
+          noResults.classList.remove("hidden");
+          resultsCount.textContent = "No se encontraron productos";
+        } else {
+          productsGrid.classList.remove("hidden");
+          noResults.classList.add("hidden");
+          resultsCount.textContent = `Mostrando ${productsToRender.length} producto${productsToRender.length !== 1 ? "s" : ""}`;
+
+          productsGrid.innerHTML = productsToRender
+            .map(
+              (product) => `
+            <a href="/products/${product.id}" class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md">
+              <div class="relative h-[400px] overflow-hidden">
+                <img
+                  src="${product.images[0]}"
+                  alt="${product.title}"
+                  class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                />
+                ${
+                  product.images[1]
+                    ? `
+                  <img
+                    src="${product.images[1]}"
+                    alt="${product.title} - Vista alternativa"
+                    class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+                `
+                    : ""
+                }
+                <div class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10"></div>
+              </div>
+              <div class="p-5">
+                <h3 class="text-lg font-medium text-gray-900 group-hover:text-secondary transition-colors">
+                  ${product.title}
+                </h3>
+                <p class="mt-1 text-gray-500 font-light">${product.price}</p>
+                <div class="mt-3 flex gap-2">
+                  ${product.sizes
+                    .map(
+                      (size) => `
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-xs text-gray-600 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white">
+                      ${size}
+                    </span>
+                  `
+                    )
+                    .join("")}
+                </div>
+                <div class="mt-4 w-full rounded-lg bg-gray-900 py-3 text-center text-sm font-medium text-white transition-transform active:scale-95 group-hover:bg-secondary">
+                  Ver Detalles
+                </div>
+              </div>
+            </a>
+          `
+            )
+            .join("");
+        }
+      }
+
+      // Event listeners
+      categoryFilters.forEach((filter) =>
+        filter.addEventListener("change", filterAndSortProducts)
+      );
+      colorFilters.forEach((filter) =>
+        filter.addEventListener("change", filterAndSortProducts)
+      );
+      sizeFilters.forEach((filter) =>
+        filter.addEventListener("change", filterAndSortProducts)
+      );
+      sortSelect.addEventListener("change", filterAndSortProducts);
+
+      clearFiltersBtn.addEventListener("click", () => {
+        categoryFilters.forEach((filter) => (filter.checked = false));
+        colorFilters.forEach((filter) => (filter.checked = false));
+        sizeFilters.forEach((filter) => (filter.checked = false));
+        sortSelect.value = "";
+        filterAndSortProducts();
+      });
+
+      // Apply URL filters on page load
+      applyUrlFilters();
+    });
+  </script>
+</Layout>

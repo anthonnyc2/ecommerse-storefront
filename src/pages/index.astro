@@ -1,101 +1,58 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Gallery from '../components/Gallery.astro';
-import ProductCard from '../components/ProductCard.astro';
+import Layout from "../layouts/Layout.astro";
+import Gallery from "../components/Gallery.astro";
+import ProductCard from "../components/ProductCard.astro";
 
-const products = [
-  {
-    id: 1,
-    title: "Vestido Floral de Verano",
-    price: "$45.00",
-    categories: ["Vestidos", "Verano"],
-    color: "Multicolor",
-    images: [
-      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["XS", "S", "M", "L"]
-  },
-  {
-    id: 2,
-    title: "Blusa de Seda Blanca",
-    price: "$32.00",
-    categories: ["Tops", "Elegante"],
-    color: "Blanco",
-    images: [
-      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["S", "M", "L"]
-  },
-  {
-    id: 3,
-    title: "Jeans de Tiro Alto",
-    price: "$55.00",
-    categories: ["Pantalones", "Casual"],
-    color: "Azul",
-    images: [
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1542272617-08f083758693?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["26", "28", "30", "32"]
-  },
-  {
-    id: 4,
-    title: "Chaqueta de Cuero",
-    price: "$120.00",
-    categories: ["Abrigos", "Invierno"],
-    color: "Negro",
-    images: [
-      "https://images.unsplash.com/photo-1551028919-30164775aec8?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1521223619409-8f859bb15e30?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["S", "M", "L", "XL"]
-  },
-  {
-    id: 5,
-    title: "Falda Plisada Midi",
-    price: "$38.00",
-    categories: ["Faldas", "Casual"],
-    color: "Rosa",
-    images: [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["S", "M", "L"]
-  },
-  {
-    id: 6,
-    title: "Suéter de Lana",
-    price: "$65.00",
-    categories: ["Tejidos", "Invierno"],
-    color: "Beige",
-    images: [
-      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop"
-    ],
-    sizes: ["One Size"]
-  }
-];
+import { products } from "../data/products";
 ---
 
 <Layout title="Catálogo de Moda | Colección 2024">
   <main>
     <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
       <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-        <section class="flex flex-col items-center justify-between gap-6 sm:gap-10 md:gap-16 lg:flex-row">
+        <section
+          class="flex flex-col items-center justify-between gap-6 sm:gap-10 md:gap-16 lg:flex-row"
+        >
           <!-- Hero Content -->
-          <div class="flex flex-col justify-center sm:text-center lg:py-12 lg:text-left xl:w-5/12 lg:w-1/2">
-            <p class="mb-4 font-semibold text-pink-500 md:mb-6 md:text-lg xl:text-xl">Nueva Colección</p>
-            <h1 class="mb-8 text-4xl font-bold text-gray-900 sm:text-5xl md:mb-12 md:text-6xl">Descubre tu estilo único</h1>
-            <p class="mb-8 leading-relaxed text-gray-500 md:mb-12 lg:w-4/5 xl:text-lg">Explora nuestra selección exclusiva de prendas diseñadas para resaltar tu belleza y confianza.</p>
-            <div class="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-              <a href="#" class="inline-block rounded-lg bg-gray-900 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-800 focus-visible:ring active:bg-gray-700 md:text-base">Ver Catálogo</a>
+          <div
+            class="flex flex-col justify-center sm:text-center lg:py-12 lg:text-left xl:w-5/12 lg:w-1/2"
+          >
+            <p
+              class="mb-4 font-semibold text-primary md:mb-6 md:text-lg xl:text-xl"
+            >
+              Nueva Colección
+            </p>
+            <h1
+              class="mb-8 text-4xl font-bold text-gray-900 sm:text-5xl md:mb-12 md:text-6xl"
+            >
+              Descubre tu estilo único
+            </h1>
+            <p
+              class="mb-8 leading-relaxed text-gray-500 md:mb-12 lg:w-4/5 xl:text-lg"
+            >
+              Explora nuestra selección exclusiva de prendas diseñadas para
+              resaltar tu belleza y confianza.
+            </p>
+            <div
+              class="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start"
+            >
+              <a
+                href="/catalogo"
+                class="inline-block rounded-lg bg-gray-900 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-800 focus-visible:ring active:bg-gray-700 md:text-base"
+                >Ver Catálogo</a
+              >
             </div>
           </div>
           <!-- Hero Image -->
-          <div class="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12 lg:w-1/2">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop" loading="lazy" alt="Photo by Fakurian Design" class="h-full w-full object-cover object-center" />
+          <div
+            class="h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12 lg:w-1/2"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop"
+              loading="lazy"
+              alt="Photo by Fakurian Design"
+              class="h-full w-full object-cover object-center"
+            />
           </div>
         </section>
       </div>
@@ -103,20 +60,25 @@ const products = [
 
     <div class="text-center mt-16 mb-8">
       <h2 class="text-3xl font-bold text-gray-900">Nuestros Productos</h2>
-      <p class="mt-4 text-gray-500">Lo mejor de la temporada seleccionado para ti</p>
+      <p class="mt-4 text-gray-500">
+        Lo mejor de la temporada seleccionado para ti
+      </p>
     </div>
 
     <Gallery>
-      {products.map((product) => (
-        <ProductCard
-          title={product.title}
-          price={product.price}
-          categories={product.categories}
-          color={product.color}
-          images={product.images}
-          sizes={product.sizes}
-        />
-      ))}
+      {
+        products.map((product) => (
+          <ProductCard
+            id={product.id}
+            title={product.title}
+            price={product.price}
+            categories={product.categories}
+            color={product.color}
+            images={product.images}
+            sizes={product.sizes}
+          />
+        ))
+      }
     </Gallery>
   </main>
 </Layout>
