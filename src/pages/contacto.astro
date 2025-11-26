@@ -1,133 +1,193 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import logo from "../assets/rb_logo.svg";
 ---
 
 <Layout title="Contacto | Raquel Boutique">
   <div class="bg-white py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div
-        class="mx-auto max-w-2xl space-y-16 divide-y divide-gray-100 lg:mx-0 lg:max-w-none"
-      >
-        <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
-          <div>
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900">
-              Ponte en contacto
-            </h2>
-            <p class="mt-4 leading-7 text-gray-600">
-              ¿Tienes alguna pregunta sobre nuestras prendas o tallas?
-              Escríbenos y te responderemos lo antes posible.
-            </p>
+      <!-- Header -->
+      <div class="mx-auto max-w-2xl text-center">
+        <img
+          src={logo.src}
+          alt="Raquel Boutique Logo"
+          class="mx-auto h-24 w-auto mb-8"
+        />
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          Contáctanos
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-gray-600">
+          Estamos aquí para ayudarte. Encuéntranos en nuestras redes sociales o
+          visítanos en nuestra tienda.
+        </p>
+      </div>
 
-            <div class="mt-8">
-              <h3 class="text-base font-semibold leading-7 text-gray-900">
-                Síguenos
-              </h3>
-              <ul role="list" class="mt-2 space-y-1">
-                <li>
-                  <a
-                    href="https://www.instagram.com/raquelboutique.bo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm font-semibold leading-6 text-primary hover:text-primary/80 flex items-center gap-2"
-                  >
-                    <svg
-                      class="h-5 w-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.407-.06 4.123-.06h.08zm-1.634 7.676a3 3 0 113.268 3.932 3 3 0 01-3.268-3.932z"
-                        clip-rule="evenodd"></path>
-                    </svg>
-                    @raquelboutique.bo
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div
-            class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2 lg:col-span-2"
+      <!-- Social Media & Location Cards -->
+      <div class="mx-auto mt-16 max-w-5xl">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          <!-- Instagram Card -->
+          <a
+            href="https://www.instagram.com/raquelboutique.bo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex flex-col items-center rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-8 shadow-md transition-all hover:shadow-xl hover:scale-105"
           >
-            <div class="bg-gray-50 p-8 rounded-2xl lg:col-span-2">
-              <form action="#" method="POST" class="space-y-6">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                  <div>
-                    <label
-                      for="first-name"
-                      class="block text-sm font-semibold leading-6 text-gray-900"
-                      >Nombre</label
-                    >
-                    <div class="mt-2.5">
-                      <input
-                        type="text"
-                        name="first-name"
-                        id="first-name"
-                        autocomplete="given-name"
-                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      for="last-name"
-                      class="block text-sm font-semibold leading-6 text-gray-900"
-                      >Apellido</label
-                    >
-                    <div class="mt-2.5">
-                      <input
-                        type="text"
-                        name="last-name"
-                        id="last-name"
-                        autocomplete="family-name"
-                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                  </div>
-                  <div class="sm:col-span-2">
-                    <label
-                      for="email"
-                      class="block text-sm font-semibold leading-6 text-gray-900"
-                      >Email</label
-                    >
-                    <div class="mt-2.5">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        autocomplete="email"
-                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                      />
-                    </div>
-                  </div>
-                  <div class="sm:col-span-2">
-                    <label
-                      for="message"
-                      class="block text-sm font-semibold leading-6 text-gray-900"
-                      >Mensaje</label
-                    >
-                    <div class="mt-2.5">
-                      <textarea
-                        name="message"
-                        id="message"
-                        rows="4"
-                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-8 flex justify-end">
-                  <button
-                    type="submit"
-                    class="rounded-md bg-gray-900 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
-                    >Enviar mensaje</button
-                  >
-                </div>
-              </form>
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-600 text-white mb-4"
+            >
+              <svg
+                class="h-8 w-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.407-.06 4.123-.06h.08zm-1.634 7.676a3 3 0 113.268 3.932 3 3 0 01-3.268-3.932z"
+                  clip-rule="evenodd"></path>
+              </svg>
             </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Instagram</h3>
+            <p class="text-base text-gray-600 font-medium">
+              @raquelboutique.bo
+            </p>
+            <p class="mt-2 text-sm text-gray-500 text-center">
+              Síguenos para ver nuestras últimas colecciones
+            </p>
+          </a>
+
+          <!-- Facebook Card -->
+          <a
+            href="https://www.facebook.com/raquelboutiquebo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex flex-col items-center rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8 shadow-md transition-all hover:shadow-xl hover:scale-105"
+          >
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white mb-4"
+            >
+              <svg
+                class="h-8 w-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Facebook</h3>
+            <p class="text-base text-gray-600 font-medium">raquelboutiquebo</p>
+            <p class="mt-2 text-sm text-gray-500 text-center">
+              Únete a nuestra comunidad en Facebook
+            </p>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a
+            href="https://api.whatsapp.com/send/?phone=59165864255"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex flex-col items-center rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-8 shadow-md transition-all hover:shadow-xl hover:scale-105"
+          >
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-full bg-green-600 text-white mb-4"
+            >
+              <svg
+                class="h-8 w-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">WhatsApp</h3>
+            <p class="text-base text-gray-600 font-medium">+591 6586 4255</p>
+            <p class="mt-2 text-sm text-gray-500 text-center">
+              Escríbenos directamente para consultas
+            </p>
+          </a>
+
+          <!-- TikTok Card -->
+          <a
+            href="https://www.tiktok.com/@raquelboutiquebo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex flex-col items-center rounded-2xl bg-gradient-to-br from-gray-50 to-slate-50 p-8 shadow-md transition-all hover:shadow-xl hover:scale-105"
+          >
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white mb-4"
+            >
+              <svg
+                class="h-8 w-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">TikTok</h3>
+            <p class="text-base text-gray-600 font-medium">@raquelboutiquebo</p>
+            <p class="mt-2 text-sm text-gray-500 text-center">
+              Diviértete con nuestros videos
+            </p>
+          </a>
+
+          <!-- Location Card -->
+          <div
+            class="group relative flex flex-col items-center rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 p-8 shadow-md"
+          >
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-full bg-orange-600 text-white mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Ubicación</h3>
+            <p class="text-base text-gray-600 font-medium">
+              Santa Cruz, Bolivia
+            </p>
+            <p class="mt-2 text-sm text-gray-500 text-center">Zona Norte</p>
           </div>
+        </div>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="mx-auto mt-16 max-w-2xl text-center">
+        <div class="rounded-2xl bg-gray-50 p-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+            Horario de Atención
+          </h3>
+          <p class="text-gray-600">
+            Estamos disponibles para atenderte a través de nuestras redes
+            sociales.
+            <br />
+            ¡No dudes en contactarnos!
+          </p>
         </div>
       </div>
     </div>

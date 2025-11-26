@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
 
+import logo from "../assets/r_logo.svg";
+import logoText from "../assets/rb_logo_text.svg";
+
 interface Props {
   title?: string;
 }
@@ -28,8 +31,14 @@ const { title = "Raquel Boutique" } = Astro.props;
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between items-center">
           <div class="flex">
-            <a href="/" class="flex flex-shrink-0 items-center">
-              <span class="text-xl font-semibold text-gray-900 tracking-tight"
+            <a href="/" class="flex flex-shrink-0 items-center gap-3">
+              <img
+                src={logo.src}
+                alt="Raquel Boutique Logo"
+                class="h-10 w-auto"
+              />
+              <span
+                class="text-xl font-semibold text-gray-900 tracking-tight letter-spacing-[2px]"
                 >Raquel Boutique</span
               >
             </a>
@@ -37,13 +46,32 @@ const { title = "Raquel Boutique" } = Astro.props;
           <div class="flex space-x-8">
             <a
               href="/"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-primary transition-colors"
+              class:list={[
+                "inline-flex items-center px-1 pt-1 text-sm font-medium hover:text-primary transition-colors",
+                Astro.url.pathname === "/" ? "text-gray-900" : "text-gray-500",
+              ]}
             >
               Inicio
             </a>
             <a
+              href="/catalogo"
+              class:list={[
+                "inline-flex items-center px-1 pt-1 text-sm font-medium hover:text-primary transition-colors",
+                Astro.url.pathname.startsWith("/catalogo")
+                  ? "text-gray-900"
+                  : "text-gray-500",
+              ]}
+            >
+              Catalogo
+            </a>
+            <a
               href="/contacto"
-              class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-primary transition-colors"
+              class:list={[
+                "inline-flex items-center px-1 pt-1 text-sm font-medium hover:text-primary transition-colors",
+                Astro.url.pathname.startsWith("/contacto")
+                  ? "text-gray-900"
+                  : "text-gray-500",
+              ]}
             >
               Contacto
             </a>
