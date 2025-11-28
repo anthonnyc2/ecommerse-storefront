@@ -28,7 +28,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290666/raquel-boutique/Captura_de_pantalla_2025-10-13_182601_q4s45m.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290667/raquel-boutique/Captura_de_pantalla_2025-10-13_182608_mjkcei.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290667/raquel-boutique/Captura_de_pantalla_2025-10-13_182608_mjkcei.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290669/raquel-boutique/Captura_de_pantalla_2025-10-13_182619_r9r4r0.png"
     ], 
     "id": "57464d49-9aaa-4ca6-a2e1-8a671f17b6a9", 
     "categories": [
@@ -46,7 +47,9 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290698/raquel-boutique/Captura_de_pantalla_2025-10-13_183408_gsudc2.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290701/raquel-boutique/Captura_de_pantalla_2025-10-13_183424_kpmc9a.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290701/raquel-boutique/Captura_de_pantalla_2025-10-13_183424_kpmc9a.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290699/raquel-boutique/Captura_de_pantalla_2025-10-13_183417_rsjjwy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290702/raquel-boutique/Captura_de_pantalla_2025-10-13_183435_nxhdvz.png"
     ], 
     "id": "d767fb7f-d41b-4f25-ac54-9a302caffd5d", 
     "categories": [
@@ -64,7 +67,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290714/raquel-boutique/Captura_de_pantalla_2025-10-13_183607_xhi3jv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290715/raquel-boutique/Captura_de_pantalla_2025-10-13_183614_roomau.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290715/raquel-boutique/Captura_de_pantalla_2025-10-13_183614_roomau.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290717/raquel-boutique/Captura_de_pantalla_2025-10-13_183625_w9shcj.png"
     ], 
     "id": "0341db2c-86ef-4410-a26f-9a29b8441a66", 
     "categories": [
@@ -82,7 +86,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764348975/raquel-boutique/175013777702e8c8ba2e599ba754da3d37bf036d98_thumbnail_750x_orxuxw.jpg", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764348977/raquel-boutique/17501377792768368e74fff939e2e45f080c267b06_thumbnail_750x_yr6yus.jpg"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764348977/raquel-boutique/17501377792768368e74fff939e2e45f080c267b06_thumbnail_750x_yr6yus.jpg", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764348978/raquel-boutique/17501377815edd579df0c6f97a106cec699c606432_thumbnail_750x_sen6gn.jpg"
     ], 
     "id": "ec907835-8c11-40a1-aeac-6441d654acc1", 
     "categories": [
@@ -101,7 +106,9 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290601/raquel-boutique/Captura_de_pantalla_2025-10-13_181632_z831s9.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290606/raquel-boutique/Captura_de_pantalla_2025-10-13_181645_wzy9yg.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290606/raquel-boutique/Captura_de_pantalla_2025-10-13_181645_wzy9yg.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290604/raquel-boutique/Captura_de_pantalla_2025-10-13_181638_vg5itg.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290607/raquel-boutique/Captura_de_pantalla_2025-10-13_181657_wt19gk.png"
     ], 
     "id": "c7b043af-57f2-4369-8292-cbbb0d60cb3c", 
     "categories": [
@@ -119,7 +126,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290708/raquel-boutique/Captura_de_pantalla_2025-10-13_183518_dhsaar.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290710/raquel-boutique/Captura_de_pantalla_2025-10-13_183528_gblrr4.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290710/raquel-boutique/Captura_de_pantalla_2025-10-13_183528_gblrr4.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290707/raquel-boutique/Captura_de_pantalla_2025-10-13_183506_bpyvg5.png"
     ], 
     "id": "4e3c8aa8-e50d-43b6-bc98-ece1d9a7c9d7", 
     "categories": [
@@ -155,7 +163,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290643/raquel-boutique/Captura_de_pantalla_2025-10-13_182146_heonwu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290646/raquel-boutique/Captura_de_pantalla_2025-10-13_182158_m1jty5.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290646/raquel-boutique/Captura_de_pantalla_2025-10-13_182158_m1jty5.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290645/raquel-boutique/Captura_de_pantalla_2025-10-13_182152_ypzssh.png"
     ], 
     "id": "0ebc229d-60d5-433a-b5cd-5aced91ab3dd", 
     "categories": [
@@ -173,7 +182,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290653/raquel-boutique/Captura_de_pantalla_2025-10-13_182338_dhbsta.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290652/raquel-boutique/Captura_de_pantalla_2025-10-13_182324_ldxkrr.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290652/raquel-boutique/Captura_de_pantalla_2025-10-13_182324_ldxkrr.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290655/raquel-boutique/Captura_de_pantalla_2025-10-13_182345_fwe9qx.png"
     ], 
     "id": "e7b4429e-d8f8-43b6-b104-8242750973c2", 
     "categories": [
@@ -192,7 +202,9 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290613/raquel-boutique/Captura_de_pantalla_2025-10-13_181752_p0xfef.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290615/raquel-boutique/Captura_de_pantalla_2025-10-13_181758_r1x78i.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290615/raquel-boutique/Captura_de_pantalla_2025-10-13_181758_r1x78i.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290617/raquel-boutique/Captura_de_pantalla_2025-10-13_181806_orbwc7.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290619/raquel-boutique/Captura_de_pantalla_2025-10-13_181814_wjqpmy.png"
     ], 
     "id": "41b0817a-4d09-45c7-bffd-c2ef9cf93c4c", 
     "categories": [
@@ -229,7 +241,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290671/raquel-boutique/Captura_de_pantalla_2025-10-13_182634_neowdx.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290673/raquel-boutique/Captura_de_pantalla_2025-10-13_182640_k24ctw.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290673/raquel-boutique/Captura_de_pantalla_2025-10-13_182640_k24ctw.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290675/raquel-boutique/Captura_de_pantalla_2025-10-13_182647_ugbp8t.png"
     ], 
     "id": "3b781328-006d-4b44-b3b7-49c9d255e3e5", 
     "categories": [
@@ -248,7 +261,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290664/raquel-boutique/Captura_de_pantalla_2025-10-13_182450_cfahl1.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290662/raquel-boutique/Captura_de_pantalla_2025-10-13_182429_ir7lml.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290662/raquel-boutique/Captura_de_pantalla_2025-10-13_182429_ir7lml.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290663/raquel-boutique/Captura_de_pantalla_2025-10-13_182435_sysmoh.png"
     ], 
     "id": "f6d40c80-8ec1-4d60-bf42-7300b53c6068", 
     "categories": [
@@ -323,7 +337,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290631/raquel-boutique/Captura_de_pantalla_2025-10-13_181955_oeet7j.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290628/raquel-boutique/Captura_de_pantalla_2025-10-13_181936_ri2003.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290628/raquel-boutique/Captura_de_pantalla_2025-10-13_181936_ri2003.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290630/raquel-boutique/Captura_de_pantalla_2025-10-13_181944_m2cl65.png"
     ], 
     "id": "a02068e0-7f3e-4599-8832-8d21206937e9", 
     "categories": [
@@ -340,7 +355,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290648/raquel-boutique/Captura_de_pantalla_2025-10-13_182251_pihgmh.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290650/raquel-boutique/Captura_de_pantalla_2025-10-13_182309_s81hdl.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290650/raquel-boutique/Captura_de_pantalla_2025-10-13_182309_s81hdl.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290649/raquel-boutique/Captura_de_pantalla_2025-10-13_182259_avegwb.png"
     ], 
     "id": "588488cc-997a-455b-bce3-79455b723b61", 
     "categories": [
@@ -377,7 +393,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290678/raquel-boutique/Captura_de_pantalla_2025-10-13_182728_j3rqbp.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290680/raquel-boutique/Captura_de_pantalla_2025-10-13_182734_xumhky.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290680/raquel-boutique/Captura_de_pantalla_2025-10-13_182734_xumhky.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290676/raquel-boutique/Captura_de_pantalla_2025-10-13_182720_accseb.png"
     ], 
     "id": "59fcb01e-3a9b-408c-84fc-2f1eabd40792", 
     "categories": [
@@ -431,7 +448,8 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290641/raquel-boutique/Captura_de_pantalla_2025-10-13_182136_dxlyts.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290638/raquel-boutique/Captura_de_pantalla_2025-10-13_182114_n2axs0.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290638/raquel-boutique/Captura_de_pantalla_2025-10-13_182114_n2axs0.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290640/raquel-boutique/Captura_de_pantalla_2025-10-13_182121_hnfj1b.png"
     ], 
     "id": "feedb446-5528-4b34-9e71-c8cbd925ac38", 
     "categories": [
@@ -449,7 +467,9 @@ export const products = [
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290682/raquel-boutique/Captura_de_pantalla_2025-10-13_182744_gkjv3a.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290689/raquel-boutique/Captura_de_pantalla_2025-10-13_182808_adooi4.png"
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290689/raquel-boutique/Captura_de_pantalla_2025-10-13_182808_adooi4.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290685/raquel-boutique/Captura_de_pantalla_2025-10-13_182752_nxasp1.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290686/raquel-boutique/Captura_de_pantalla_2025-10-13_182801_rv4uvd.png"
     ], 
     "id": "e25e3397-b358-4a32-9e24-b14e148cb5f2", 
     "categories": [
