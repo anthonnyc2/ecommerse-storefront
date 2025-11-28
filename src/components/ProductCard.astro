@@ -11,6 +11,17 @@ interface Props {
 
 const { id, images, title, price, categories, color, sizes } = Astro.props;
 const [mainImage, hoverImage] = images;
+
+// Transform Cloudinary URL to add optimization parameters
+const transformCloudinaryUrl = (url: string): string => {
+  if (!url || !url.includes("cloudinary.com")) return url;
+  return url.replace("/upload/", "/upload/w_300,h_300,c_fill,f_auto,q_auto/");
+};
+
+const optimizedMainImage = transformCloudinaryUrl(mainImage);
+const optimizedHoverImage = hoverImage
+  ? transformCloudinaryUrl(hoverImage)
+  : null;
 ---
 
 <a
@@ -20,15 +31,15 @@ const [mainImage, hoverImage] = images;
   <div class="relative h-[400px] overflow-hidden">
     <!-- Main Image -->
     <img
-      src={mainImage}
+      src={optimizedMainImage}
       alt={title}
       class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
     />
     <!-- Hover Image (Second image) -->
     {
-      hoverImage && (
+      optimizedHoverImage && (
         <img
-          src={hoverImage}
+          src={optimizedHoverImage}
           alt={`${title} - Vista alternativa`}
           class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
@@ -47,7 +58,7 @@ const [mainImage, hoverImage] = images;
     >
       {title}
     </h3>
-    <p class="mt-1 text-gray-500 font-light">{price}</p>
+    <p class="mt-1 text-gray-500 font-light">{price} Bs</p>
 
     <!-- Sizes -->
     <div class="mt-3 flex gap-2">
