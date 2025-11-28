@@ -470,6 +470,16 @@ const transformCloudinaryUrl = (
                   const currentUrl = window.location.href;
                   const message = `Hola! Me interesa este producto:\n\n${title}\nTalla: ${selectedSize}\n\n${currentUrl}`;
                   const whatsappUrl = `https://api.whatsapp.com/send/?phone=59165864255&text=${encodeURIComponent(message)}`;
+
+                  // Track WhatsApp click event
+                  if (typeof gtag !== "undefined") {
+                    gtag("event", "click_whatsapp_product", {
+                      event_category: "engagement",
+                      event_label: title,
+                      value: 1,
+                    });
+                  }
+
                   window.open(whatsappUrl, "_blank");
                 });
               });

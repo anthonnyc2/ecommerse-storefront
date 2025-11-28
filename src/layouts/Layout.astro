@@ -25,6 +25,18 @@ const { title = "Raquel Boutique" } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G7R7X57JM7"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-G7R7X57JM7");
+    </script>
   </head>
   <body class="bg-gray-50 text-gray-900 font-['Outfit'] antialiased">
     <nav class="bg-white shadow-sm sticky top-0 z-50">

@@ -27,6 +27,7 @@ import logo from "../assets/rb_logo.svg";
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
           <!-- Instagram Card -->
           <a
+            id="instagram-link"
             href="https://www.instagram.com/raquelboutique.bo"
             target="_blank"
             rel="noopener noreferrer"
@@ -58,6 +59,7 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- Facebook Card -->
           <a
+            id="facebook-link"
             href="https://www.facebook.com/raquelboutiquebo"
             target="_blank"
             rel="noopener noreferrer"
@@ -87,6 +89,7 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- WhatsApp Card -->
           <a
+            id="whatsapp-contact-link"
             href="https://api.whatsapp.com/send/?phone=59165864255"
             target="_blank"
             rel="noopener noreferrer"
@@ -115,6 +118,7 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- TikTok Card -->
           <a
+            id="tiktok-link"
             href="https://www.tiktok.com/@raquelboutiquebo"
             target="_blank"
             rel="noopener noreferrer"
@@ -193,3 +197,39 @@ import logo from "../assets/rb_logo.svg";
     </div>
   </div>
 </Layout>
+
+<script>
+  declare const gtag: any;
+  document.addEventListener("DOMContentLoaded", () => {
+    const whatsappLink = document.getElementById("whatsapp-contact-link");
+    const instagramLink = document.getElementById("instagram-link");
+    const facebookLink = document.getElementById("facebook-link");
+    const tiktokLink = document.getElementById("tiktok-link");
+
+    const trackEvent = (eventName: string, label: string) => {
+      if (typeof gtag !== "undefined") {
+        gtag("event", eventName, {
+          event_category: "engagement",
+          event_label: label,
+          value: 1,
+        });
+      }
+    };
+
+    whatsappLink?.addEventListener("click", () => {
+      trackEvent("click_whatsapp_contact", "Contact Page");
+    });
+
+    instagramLink?.addEventListener("click", () => {
+      trackEvent("click_instagram", "Contact Page");
+    });
+
+    facebookLink?.addEventListener("click", () => {
+      trackEvent("click_facebook", "Contact Page");
+    });
+
+    tiktokLink?.addEventListener("click", () => {
+      trackEvent("click_tiktok", "Contact Page");
+    });
+  });
+</script>
