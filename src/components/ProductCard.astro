@@ -15,7 +15,7 @@ const [mainImage, hoverImage] = images;
 // Transform Cloudinary URL to add optimization parameters
 const transformCloudinaryUrl = (url: string): string => {
   if (!url || !url.includes("cloudinary.com")) return url;
-  return url.replace("/upload/", "/upload/w_300,h_300,c_fill,f_auto,q_auto/");
+  return url.replace("/upload/", "/upload/w_600,h_600,c_fill,f_auto,q_auto/");
 };
 
 const optimizedMainImage = transformCloudinaryUrl(mainImage);
