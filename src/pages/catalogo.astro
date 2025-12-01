@@ -2,11 +2,44 @@
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 import { products } from "../data/products";
+import printImg from "../assets/print.png";
 
 // Extract unique values for filters
 const allCategories = [...new Set(products.flatMap((p) => p.categories))];
 const allColors = [...new Set(products.map((p) => p.color))];
 const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
+
+// Color mapping for visual representation
+const colorMap: Record<string, string> = {
+  negro: "#000000",
+  blanco: "#FFFFFF",
+  rojo: "#DC2626",
+  azul: "#2563EB",
+  verde: "#16A34A",
+  amarillo: "#EAB308",
+  rosa: "#EC4899",
+  morado: "#9333EA",
+  naranja: "#EA580C",
+  gris: "#6B7280",
+  cafe: "#92400E",
+  café: "#92400E",
+  beige: "#D4B896",
+  turquesa: "#14B8A6",
+  celeste: "#7DD3FC",
+  fucsia: "#E879F9",
+  lila: "#C084FC",
+  vino: "#7F1D1D",
+  guindo: "#800040",
+  marino: "#1E3A8A",
+  crema: "#FEF3C7",
+  dorado: "#F59E0B",
+  plateado: "#D1D5DB",
+  coral: "#FB7185",
+  menta: "#6EE7B7",
+  lavanda: "#DDD6FE",
+  print: "animal-print", // Special case for animal print
+  "animal print": "animal-print",
+};
 ---
 
 <Layout title="Catálogo | Raquel Boutique">
@@ -18,18 +51,65 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
         <p class="mt-2 text-gray-600">Explora nuestra colección completa</p>
       </div>
 
-      <div class="lg:grid lg:grid-cols-4 lg:gap-x-8">
-        <!-- Filters Sidebar -->
-        <aside class="hidden lg:block">
-          <div class="sticky top-4 space-y-6">
-            <!-- Mobile Filter Toggle (hidden on desktop) -->
+      <!-- Mobile Toolbar (visible only on mobile) -->
+      <div class="lg:hidden mb-6 flex gap-3">
+        <!-- Filter Button -->
+        <button
+          id="mobile-filter-btn"
+          class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+        >
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+            ></path>
+          </svg>
+          <span>Filtrar</span>
+        </button>
+
+        <!-- Mobile Sort Select -->
+        <select
+          id="mobile-sort-select"
+          class="flex-1 rounded-lg border-gray-300 py-3 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          <option value="">Ordenar por</option>
+          <option value="price-asc">Precio: Menor a Mayor</option>
+          <option value="price-desc">Precio: Mayor a Menor</option>
+          <option value="name-asc">Nombre: A-Z</option>
+        </select>
+      </div>
+
+      <!-- Mobile Side Menu Overlay -->
+      <div
+        id="mobile-filter-overlay"
+        class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden transition-opacity"
+      >
+      </div>
+
+      <!-- Mobile Side Menu -->
+      <div
+        id="mobile-filter-menu"
+        class="fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white z-50 lg:hidden transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto"
+      >
+        <div class="flex flex-col h-full">
+          <!-- Menu Header -->
+          <div
+            class="flex items-center justify-between p-4 border-b border-gray-200"
+          >
+            <h2 class="text-lg font-semibold text-gray-900">Filtros</h2>
             <button
-              id="mobile-filter-toggle"
-              class="lg:hidden w-full flex items-center justify-between rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900"
+              id="mobile-filter-close"
+              class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              <span>Filtros</span>
               <svg
-                class="h-5 w-5"
+                class="h-6 w-6 text-gray-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -38,10 +118,149 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M19 9l-7 7-7-7"></path>
+                  d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
+          </div>
 
+          <!-- Menu Content -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-6">
+            <!-- Categories Filter -->
+            <div>
+              <h3 class="text-sm font-medium text-gray-900 mb-3">Categorías</h3>
+              <div class="space-y-2">
+                {
+                  allCategories.map((category) => (
+                    <label class="flex items-center cursor-pointer group">
+                      <input
+                        type="checkbox"
+                        value={category}
+                        class="category-filter-mobile h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                      />
+                      <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
+                        {category}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Colors Filter -->
+            <div>
+              <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
+              <div class="grid grid-cols-4 gap-3">
+                {
+                  allColors.map((color) => {
+                    const colorValue =
+                      colorMap[color.toLowerCase()] || "#CCCCCC";
+                    const isLight =
+                      color.toLowerCase() === "blanco" ||
+                      color.toLowerCase() === "crema" ||
+                      color.toLowerCase() === "amarillo";
+                    const isAnimalPrint =
+                      color.toLowerCase() === "print" ||
+                      color.toLowerCase() === "animal print";
+                    return (
+                      <label
+                        class="cursor-pointer group relative flex flex-col items-center"
+                        title={color}
+                      >
+                        <input
+                          type="checkbox"
+                          value={color}
+                          class="color-filter-mobile sr-only peer"
+                        />
+                        <div
+                          class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
+                            isAnimalPrint
+                              ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
+                              : ""
+                          }`}
+                          style={
+                            !isAnimalPrint
+                              ? `background-color: ${colorValue}; ${
+                                  isLight ? "border: 2px solid #E5E7EB;" : ""
+                                }`
+                              : ""
+                          }
+                        >
+                          {isAnimalPrint && (
+                            <div
+                              class="w-full h-full rounded-full"
+                              style={`background-image: url('${printImg.src}'); background-size: cover;`}
+                            />
+                          )}
+                          <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                            <svg
+                              class="w-5 h-5 text-white drop-shadow-lg"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
+                          {color}
+                        </span>
+                      </label>
+                    );
+                  })
+                }
+              </div>
+            </div>
+
+            <!-- Sizes Filter -->
+            <div>
+              <h3 class="text-sm font-medium text-gray-900 mb-3">Tallas</h3>
+              <div class="flex flex-wrap gap-2">
+                {
+                  allSizes.map((size) => (
+                    <label class="cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value={size}
+                        class="size-filter-mobile sr-only peer"
+                      />
+                      <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">
+                        {size}
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Clear Filters -->
+            <button
+              id="clear-filters-mobile"
+              class="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              Limpiar filtros
+            </button>
+          </div>
+
+          <!-- Menu Footer -->
+          <div class="p-4 border-t border-gray-200">
+            <button
+              id="apply-filters-mobile"
+              class="w-full rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+            >
+              Aplicar Filtros
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:grid lg:grid-cols-4 lg:gap-x-8">
+        <!-- Desktop Filters Sidebar -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-4 space-y-6">
             <div id="filters-container" class="space-y-6">
               <!-- Sort -->
               <div>
@@ -85,20 +304,68 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
               <!-- Colors Filter -->
               <div>
                 <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
-                <div class="space-y-2">
+                <div class="grid grid-cols-4 gap-3">
                   {
-                    allColors.map((color) => (
-                      <label class="flex items-center cursor-pointer group">
-                        <input
-                          type="checkbox"
-                          value={color}
-                          class="color-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                        />
-                        <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
-                          {color}
-                        </span>
-                      </label>
-                    ))
+                    allColors.map((color) => {
+                      const colorValue =
+                        colorMap[color.toLowerCase()] || "#CCCCCC";
+                      const isLight =
+                        color.toLowerCase() === "blanco" ||
+                        color.toLowerCase() === "crema" ||
+                        color.toLowerCase() === "amarillo";
+                      const isAnimalPrint =
+                        color.toLowerCase() === "print" ||
+                        color.toLowerCase() === "animal print";
+                      return (
+                        <label
+                          class="cursor-pointer group relative flex flex-col items-center"
+                          title={color}
+                        >
+                          <input
+                            type="checkbox"
+                            value={color}
+                            class="color-filter sr-only peer"
+                          />
+                          <div
+                            class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
+                              isAnimalPrint
+                                ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
+                                : ""
+                            }`}
+                            style={
+                              !isAnimalPrint
+                                ? `background-color: ${colorValue}; ${
+                                    isLight ? "border: 2px solid #E5E7EB;" : ""
+                                  }`
+                                : ""
+                            }
+                          >
+                            {isAnimalPrint && (
+                              <div
+                                class="w-full h-full rounded-full"
+                                style={`background-image: url('${printImg.src}'); background-size: cover;`}
+                              />
+                            )}
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                              <svg
+                                class="w-5 h-5 text-white drop-shadow-lg"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
+                            {color}
+                          </span>
+                        </label>
+                      );
+                    })
                   }
                 </div>
               </div>
@@ -197,13 +464,117 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
       const noResults = document.getElementById("no-results");
       const resultsCount = document.getElementById("results-count");
       const sortSelect = document.getElementById("sort-select");
+      const mobileSortSelect = document.getElementById("mobile-sort-select");
       const clearFiltersBtn = document.getElementById("clear-filters");
+      const clearFiltersMobileBtn = document.getElementById(
+        "clear-filters-mobile"
+      );
+
+      // Mobile menu elements
+      const mobileFilterBtn = document.getElementById("mobile-filter-btn");
+      const mobileFilterMenu = document.getElementById("mobile-filter-menu");
+      const mobileFilterOverlay = document.getElementById(
+        "mobile-filter-overlay"
+      );
+      const mobileFilterClose = document.getElementById("mobile-filter-close");
+      const applyFiltersMobile = document.getElementById(
+        "apply-filters-mobile"
+      );
 
       const categoryFilters = document.querySelectorAll(".category-filter");
       const colorFilters = document.querySelectorAll(".color-filter");
       const sizeFilters = document.querySelectorAll(".size-filter");
 
+      const categoryFiltersMobile = document.querySelectorAll(
+        ".category-filter-mobile"
+      );
+      const colorFiltersMobile = document.querySelectorAll(
+        ".color-filter-mobile"
+      );
+      const sizeFiltersMobile = document.querySelectorAll(
+        ".size-filter-mobile"
+      );
+
       let allProducts = [...products];
+
+      // Mobile menu functions
+      function openMobileMenu() {
+        mobileFilterMenu.classList.remove("-translate-x-full");
+        mobileFilterOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+        // Sync desktop filters to mobile
+        syncFiltersToMobile();
+      }
+
+      function closeMobileMenu() {
+        mobileFilterMenu.classList.add("-translate-x-full");
+        mobileFilterOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      function syncFiltersToMobile() {
+        // Sync categories
+        categoryFilters.forEach((filter, index) => {
+          if (categoryFiltersMobile[index]) {
+            categoryFiltersMobile[index].checked = filter.checked;
+          }
+        });
+
+        // Sync colors
+        colorFilters.forEach((filter, index) => {
+          if (colorFiltersMobile[index]) {
+            colorFiltersMobile[index].checked = filter.checked;
+          }
+        });
+
+        // Sync sizes
+        sizeFilters.forEach((filter, index) => {
+          if (sizeFiltersMobile[index]) {
+            sizeFiltersMobile[index].checked = filter.checked;
+          }
+        });
+      }
+
+      function syncFiltersToDesktop() {
+        // Sync categories
+        categoryFiltersMobile.forEach((filter, index) => {
+          if (categoryFilters[index]) {
+            categoryFilters[index].checked = filter.checked;
+          }
+        });
+
+        // Sync colors
+        colorFiltersMobile.forEach((filter, index) => {
+          if (colorFilters[index]) {
+            colorFilters[index].checked = filter.checked;
+          }
+        });
+
+        // Sync sizes
+        sizeFiltersMobile.forEach((filter, index) => {
+          if (sizeFilters[index]) {
+            sizeFilters[index].checked = filter.checked;
+          }
+        });
+      }
+
+      // Mobile menu event listeners
+      mobileFilterBtn.addEventListener("click", openMobileMenu);
+      mobileFilterClose.addEventListener("click", closeMobileMenu);
+      mobileFilterOverlay.addEventListener("click", closeMobileMenu);
+
+      applyFiltersMobile.addEventListener("click", () => {
+        syncFiltersToDesktop();
+        filterAndSortProducts();
+        closeMobileMenu();
+      });
+
+      // Sync mobile sort with desktop sort
+      mobileSortSelect.addEventListener("change", () => {
+        sortSelect.value = mobileSortSelect.value;
+        filterAndSortProducts();
+      });
 
       // Read URL parameters and pre-select filters
       function applyUrlFilters() {
@@ -252,6 +623,9 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
         const selectedColors = getSelectedFilters("color-filter");
         const selectedSizes = getSelectedFilters("size-filter");
         const sortValue = sortSelect.value;
+
+        // Sync mobile sort selector
+        mobileSortSelect.value = sortValue;
 
         // Filter products
         let filtered = allProducts.filter((product) => {
@@ -351,7 +725,7 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
         }
       }
 
-      // Event listeners
+      // Event listeners for desktop filters
       categoryFilters.forEach((filter) =>
         filter.addEventListener("change", filterAndSortProducts)
       );
@@ -363,12 +737,25 @@ const allSizes = [...new Set(products.flatMap((p) => p.sizes))];
       );
       sortSelect.addEventListener("change", filterAndSortProducts);
 
+      // Clear filters buttons
       clearFiltersBtn.addEventListener("click", () => {
         categoryFilters.forEach((filter) => (filter.checked = false));
         colorFilters.forEach((filter) => (filter.checked = false));
         sizeFilters.forEach((filter) => (filter.checked = false));
         sortSelect.value = "";
+        mobileSortSelect.value = "";
         filterAndSortProducts();
+      });
+
+      clearFiltersMobileBtn.addEventListener("click", () => {
+        categoryFiltersMobile.forEach((filter) => (filter.checked = false));
+        colorFiltersMobile.forEach((filter) => (filter.checked = false));
+        sizeFiltersMobile.forEach((filter) => (filter.checked = false));
+
+        // Sync to desktop and apply
+        syncFiltersToDesktop();
+        filterAndSortProducts();
+        closeMobileMenu();
       });
 
       // Apply URL filters on page load
