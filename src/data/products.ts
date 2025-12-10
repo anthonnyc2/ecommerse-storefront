@@ -1,1889 +1,4 @@
 export const products = [
-{
-    "description": "", 
-    "title": "Vestido Magadalena", 
-    "color": "blanco", 
-    "price": "350", 
-    "sizes": [
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368612/raquel-boutique/Captura_de_pantalla_2025-10-17_113708_wtgczj.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368608/raquel-boutique/Captura_de_pantalla_2025-10-17_113645_qhcup8.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368610/raquel-boutique/Captura_de_pantalla_2025-10-17_113700_be9sdt.png"
-    ], 
-    "id": "393961dd-1e51-4e52-958b-da8cd2ec8063", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Veronica", 
-    "color": "amarillo", 
-    "price": "350", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368408/raquel-boutique/Captura_de_pantalla_2025-10-12_114248_fv7rcg.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368409/raquel-boutique/Captura_de_pantalla_2025-10-12_114256_cv9vhd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368406/raquel-boutique/Captura_de_pantalla_2025-10-12_114239_kotdwx.png"
-    ], 
-    "id": "2cac27fa-4091-4338-9f9e-0deb34dc7d63", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Alicia", 
-    "color": "cafe", 
-    "price": "300", 
-    "sizes": [
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368447/raquel-boutique/Captura_de_pantalla_2025-10-14_181859_byokvv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368449/raquel-boutique/Captura_de_pantalla_2025-10-14_181907_u69ar1.png"
-    ], 
-    "id": "24862b59-c00b-4ec3-af30-01d4c20e9904", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nila", 
-    "color": "blanco", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368332/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.32_s8ilnd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368328/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.13_rtnmbd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368326/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.07_ojrtmf.png"
-    ], 
-    "id": "ef20067f-19b4-4c50-ad40-1f644ceadf73", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Ana", 
-    "color": "negro", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368639/raquel-boutique/Captura_de_pantalla_2025-10-17_120536_bwziyq.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368638/raquel-boutique/Captura_de_pantalla_2025-10-17_120526_ccs5si.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368636/raquel-boutique/Captura_de_pantalla_2025-10-17_120518_pnaprf.png"
-    ], 
-    "id": "a07b1430-90c2-4ab8-8638-c4fa892bee0e", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Marioly", 
-    "color": "print", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368721/raquel-boutique/Captura_de_pantalla_2025-10-22_155532_afcpfi.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368722/raquel-boutique/Captura_de_pantalla_2025-10-22_155543_elt7a9.png"
-    ], 
-    "id": "0dcac237-fc15-48ff-b697-517d6aa8f3bf", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Isabel", 
-    "color": "negro", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537622/raquel-boutique/Captura_de_pantalla_2025-06-20_165907_h2eenj.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537620/raquel-boutique/Captura_de_pantalla_2025-06-20_165857_lizovy.png"
-    ], 
-    "id": "b4f4f6a4-1386-43ca-b819-7c1147e90901", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Priscila", 
-    "color": "blanco", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368359/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.16_mje47n.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368356/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.07_krrd0d.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368353/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.01_dovptr.png"
-    ], 
-    "id": "dcd74ab9-5a0c-473c-b736-6eaae396b345", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Esther", 
-    "color": "print", 
-    "price": "300", 
-    "sizes": [
-      "XS"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368702/raquel-boutique/Captura_de_pantalla_2025-10-22_155342_wdwsfb.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368700/raquel-boutique/Captura_de_pantalla_2025-10-22_155332_yflysr.png"
-    ], 
-    "id": "c90769c9-a1ff-4778-95a7-c74e1d683fa0", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nailin", 
-    "color": "rojo", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368208/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.54.28_n1mrz1.png"
-    ], 
-    "id": "87259fb8-4be2-4815-a3f4-f76357d2d90b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Karina", 
-    "color": "print", 
-    "price": "350", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368695/raquel-boutique/Captura_de_pantalla_2025-10-22_155302_k91n3b.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368693/raquel-boutique/Captura_de_pantalla_2025-10-22_155254_uuwryi.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368697/raquel-boutique/Captura_de_pantalla_2025-10-22_155313_qfiyvi.png"
-    ], 
-    "id": "3804eab6-9632-4ef5-8e87-69b8a98bdba4", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Sofia", 
-    "color": "beige", 
-    "price": "280", 
-    "sizes": [
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537644/raquel-boutique/Captura_de_pantalla_2025-06-24_091534_awy1xw.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537646/raquel-boutique/Captura_de_pantalla_2025-06-24_091542_nbh5pl.png"
-    ], 
-    "id": "e28afdf3-1fc8-4a6e-8ed5-8c4fb653ea51", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nairyn", 
-    "color": "rojo", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368300/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.44.33_nabuyo.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368302/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.44.40_p8nvys.png"
-    ], 
-    "id": "3fa2649c-3ede-411d-9496-372895251fe6", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Karla", 
-    "color": "rosa", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368512/raquel-boutique/Captura_de_pantalla_2025-10-14_183634_natyke.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368510/raquel-boutique/Captura_de_pantalla_2025-10-14_183627_dvcz3u.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368516/raquel-boutique/Captura_de_pantalla_2025-10-14_183644_twnyey.png"
-    ], 
-    "id": "ac459844-6a8c-4f19-9f1d-d44a38e64037", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Oriana", 
-    "color": "rojo", 
-    "price": "340", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368253/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.58_fuhehx.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368257/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.17_gfdsmv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368255/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.07_d9kctw.png"
-    ], 
-    "id": "d8eeca7c-7bd2-4dc5-858a-027373a55d43", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kristel", 
-    "color": "multicolor", 
-    "price": "350", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368438/raquel-boutique/Captura_de_pantalla_2025-10-14_181801_bqyxf5.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368436/raquel-boutique/Captura_de_pantalla_2025-10-14_181750_hd5jtq.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368434/raquel-boutique/Captura_de_pantalla_2025-10-14_181743_dzqjtr.png"
-    ], 
-    "id": "5c0b56fa-969a-4b8f-aec7-074fac608e80", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestio Nerea", 
-    "color": "blanco", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368318/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.35_pfpmw4.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368315/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.25_kz3imv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368312/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.18_cmddub.png"
-    ], 
-    "id": "65fa5794-d34a-46bf-be6b-04f81a70263e", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Noa", 
-    "color": "celeste", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368245/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.21_luqao0.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368248/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.29_arqsqu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368251/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.36_v0fkei.png"
-    ], 
-    "id": "5ce73a04-fa82-4230-9892-453ad17ad7e6", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Roberta", 
-    "color": "multicolor", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368599/raquel-boutique/Captura_de_pantalla_2025-10-17_113540_d3ly5v.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368597/raquel-boutique/Captura_de_pantalla_2025-10-17_113523_jdoxeg.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368595/raquel-boutique/Captura_de_pantalla_2025-10-17_113514_k1deny.png"
-    ], 
-    "id": "b10dae8a-316c-4611-a90e-d2c87d981d71", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Luisa", 
-    "color": "blanco", 
-    "price": "250", 
-    "sizes": [
-      "M", 
-      "S", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368371/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.19_wsat33.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368373/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.28_yqqhiy.png"
-    ], 
-    "id": "729bec8d-f507-4655-8b6d-7ea16a128a85", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kendal", 
-    "color": "negro", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368487/raquel-boutique/Captura_de_pantalla_2025-10-14_182419_qypdvz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368488/raquel-boutique/Captura_de_pantalla_2025-10-14_182425_rfw7hu.png"
-    ], 
-    "id": "0e376d21-541c-4741-a4b1-cb0f6f00fe52", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Elena", 
-    "color": "multicolor", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368648/raquel-boutique/Captura_de_pantalla_2025-10-17_120634_epd5fl.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368650/raquel-boutique/Captura_de_pantalla_2025-10-17_120918_o30f3p.png"
-    ], 
-    "id": "3586c0ec-e5ee-4f8f-a5b4-acbdc50d594d", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Michelle", 
-    "color": "rojo", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368184/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.33_jjjudj.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368187/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.41_tdn6b4.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368189/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.49_goxyvr.png"
-    ], 
-    "id": "179a3c1e-a26b-407b-b2c7-60a51b75c419", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Patricia", 
-    "color": "blanco", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368363/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.42_nwrmgd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368366/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.52_k5ijvt.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368368/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.03_noykjj.png"
-    ], 
-    "id": "b9288b34-8b66-4f32-bde5-3b9241ba7ddb", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Rocio", 
-    "color": "negro", 
-    "price": "280", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368583/raquel-boutique/Captura_de_pantalla_2025-10-14_190738_s1cej6.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368586/raquel-boutique/Captura_de_pantalla_2025-10-14_190744_wtak3p.png"
-    ], 
-    "id": "f2b443d5-7e55-48b9-8c13-b1601fef07c8", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Vania", 
-    "color": "celeste", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537575/raquel-boutique/Captura_de_pantalla_2025-03-18_164524_q78hw4.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537578/raquel-boutique/Captura_de_pantalla_2025-03-18_164538_agfcqy.png"
-    ], 
-    "id": "01dfc227-fda9-4d89-80cf-a365e1864d5f", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Leticia", 
-    "color": "beige", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368673/raquel-boutique/Captura_de_pantalla_2025-10-17_213716_pmic7r.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368675/raquel-boutique/Captura_de_pantalla_2025-10-17_213723_lytzfw.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368680/raquel-boutique/Captura_de_pantalla_2025-10-17_213759_rxe5oy.png"
-    ], 
-    "id": "e3bf1994-0912-4604-b6c5-db09fd0021ca", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Martina", 
-    "color": "multicolor", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368661/raquel-boutique/Captura_de_pantalla_2025-10-17_213535_bpp5ni.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368663/raquel-boutique/Captura_de_pantalla_2025-10-17_213543_donzdy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368665/raquel-boutique/Captura_de_pantalla_2025-10-17_213609_oqrcrk.png"
-    ], 
-    "id": "38b2e95d-7832-4c96-94a3-cfe8de3b79b2", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Karla", 
-    "color": "guindo", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368476/raquel-boutique/Captura_de_pantalla_2025-10-14_182254_qthiag.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368471/raquel-boutique/Captura_de_pantalla_2025-10-14_182237_z0xgtd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368478/raquel-boutique/Captura_de_pantalla_2025-10-14_182313_i64yrw.png"
-    ], 
-    "id": "71d4fbe5-67b6-436a-a305-0bf2df347f0b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Karin", 
-    "color": "multicolor", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537589/raquel-boutique/Captura_de_pantalla_2025-03-18_165430_bmyumd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537592/raquel-boutique/Captura_de_pantalla_2025-03-18_165438_mvri2l.png"
-    ], 
-    "id": "b61153d6-b128-4e2b-9e23-5d7e0b752d43", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Katia", 
-    "color": "beige", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368490/raquel-boutique/Captura_de_pantalla_2025-10-14_183405_r7mcqr.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368491/raquel-boutique/Captura_de_pantalla_2025-10-14_183412_mgpwed.png"
-    ], 
-    "id": "7c5809b1-bae6-4cd8-87d3-69879789a4c7", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Salome", 
-    "color": "cafe", 
-    "price": "320", 
-    "sizes": [
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368588/raquel-boutique/Captura_de_pantalla_2025-10-17_113435_bxaufu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368592/raquel-boutique/Captura_de_pantalla_2025-10-17_113501_pbs1fq.png"
-    ], 
-    "id": "49126eda-1c39-4140-bfdd-45316272a2b7", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Jireh", 
-    "color": "multicolor", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368452/raquel-boutique/Captura_de_pantalla_2025-10-14_181934_ixzbfk.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368455/raquel-boutique/Captura_de_pantalla_2025-10-14_181942_ht1wun.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368456/raquel-boutique/Captura_de_pantalla_2025-10-14_181954_jxd19g.png"
-    ], 
-    "id": "50b5d92d-ea6f-470a-a587-725af089630a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Lourdes", 
-    "color": "print", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368709/raquel-boutique/Captura_de_pantalla_2025-10-22_155411_osi46c.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368706/raquel-boutique/Captura_de_pantalla_2025-10-22_155400_cetci9.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368704/raquel-boutique/Captura_de_pantalla_2025-10-22_155352_rwn8ns.png"
-    ], 
-    "id": "73ba8cfb-7622-4343-832a-ad848f7dd4ba", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Liliana", 
-    "color": "celeste", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368531/raquel-boutique/Captura_de_pantalla_2025-10-14_183815_k6oouy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368533/raquel-boutique/Captura_de_pantalla_2025-10-14_183821_kkgdu7.png"
-    ], 
-    "id": "79198041-5313-4ccb-87ce-14912022c54f", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Sofia", 
-    "color": "naranja", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537572/raquel-boutique/Captura_de_pantalla_2025-03-18_164459_fi1pd5.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537573/raquel-boutique/Captura_de_pantalla_2025-03-18_164508_qt6jv3.png"
-    ], 
-    "id": "7c431c60-03be-47a9-b236-a334ba3fb82a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Donatela", 
-    "color": "beige", 
-    "price": "300", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368422/raquel-boutique/Captura_de_pantalla_2025-10-12_131903_r3bmrc.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368421/raquel-boutique/Captura_de_pantalla_2025-10-12_131856_witnmc.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368420/raquel-boutique/Captura_de_pantalla_2025-10-12_131850_m2bkb5.png"
-    ], 
-    "id": "d9864813-f3a1-41f9-8250-71e845407ec7", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Melissa", 
-    "color": "verde", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368580/raquel-boutique/Captura_de_pantalla_2025-10-14_190721_kf1guv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368582/raquel-boutique/Captura_de_pantalla_2025-10-14_190729_kijqrf.png"
-    ], 
-    "id": "b57c6955-fc4f-4c0e-adaf-e4bd95b4df29", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nila", 
-    "color": "rojo", 
-    "price": "380", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537555/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.42_idcr3g.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537553/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.30_tqjzth.png"
-    ], 
-    "id": "895a4201-0797-400f-803a-8fbe7d397fa3", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kendal", 
-    "color": "amarillo", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368570/raquel-boutique/Captura_de_pantalla_2025-10-14_185805_bvzofr.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368572/raquel-boutique/Captura_de_pantalla_2025-10-14_185812_p8qxo7.png"
-    ], 
-    "id": "0d81ade3-6d05-40b3-a630-0dad52fa1129", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Marelisa", 
-    "color": "blanco", 
-    "price": "250", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537568/raquel-boutique/Captura_de_pantalla_2025-03-18_164423_aoami6.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537570/raquel-boutique/Captura_de_pantalla_2025-03-18_164434_ymfxgg.png"
-    ], 
-    "id": "f5e246c9-a781-4bb4-bd8e-dc925059372f", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Pilar", 
-    "color": "blanco", 
-    "price": "380", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368321/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.45_hrdgbz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368324/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.52_xgp77n.png"
-    ], 
-    "id": "ff12e2d4-7eeb-4842-96d1-c40676ad14f2", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Sabrina", 
-    "color": "blanco", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537579/raquel-boutique/Captura_de_pantalla_2025-03-18_164938_mh23i0.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537582/raquel-boutique/Captura_de_pantalla_2025-03-18_164945_gopxgt.png"
-    ], 
-    "id": "f4661846-5930-45fb-8303-47cee8c35e9b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Lara", 
-    "color": "verde", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537624/raquel-boutique/Captura_de_pantalla_2025-06-20_170047_j9wkts.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537629/raquel-boutique/Captura_de_pantalla_2025-06-20_170117_nideyi.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537628/raquel-boutique/Captura_de_pantalla_2025-06-20_170102_wdkst8.png"
-    ], 
-    "id": "f3b48bd0-1c39-42ee-8271-c8a35fa67524", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Aurora", 
-    "color": "rosa", 
-    "price": "280", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537653/raquel-boutique/Captura_de_pantalla_2025-06-24_092214_vpepx6.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537654/raquel-boutique/Captura_de_pantalla_2025-06-24_092221_z0dspp.png"
-    ], 
-    "id": "843d896f-067c-4918-8e13-bc688cf84ad1", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Alicia", 
-    "color": "print", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368447/raquel-boutique/Captura_de_pantalla_2025-10-14_181859_byokvv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368449/raquel-boutique/Captura_de_pantalla_2025-10-14_181907_u69ar1.png"
-    ], 
-    "id": "3774d4b5-9863-4a06-9a88-20d649b62e9a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Rafaela", 
-    "color": "blanco", 
-    "price": "300", 
-    "sizes": [
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368600/raquel-boutique/Captura_de_pantalla_2025-10-17_113555_vez2do.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368602/raquel-boutique/Captura_de_pantalla_2025-10-17_113606_rruat0.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368603/raquel-boutique/Captura_de_pantalla_2025-10-17_113621_bmdunt.png"
-    ], 
-    "id": "f88261e4-b6fa-480a-9fa4-ee8ad36a651a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestio Nerea", 
-    "color": "rojo", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368215/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.11_ddzus5.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368218/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.18_swtweb.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368221/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.26_eqisdx.png"
-    ], 
-    "id": "15b266a2-db0c-4507-b9cf-abf5031b686c", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Maite", 
-    "color": "multicolor", 
-    "price": "270", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537560/raquel-boutique/Captura_de_pantalla_2025-03-17_184706_ts4vgs.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537562/raquel-boutique/Captura_de_pantalla_2025-03-17_184713_ecuigi.png"
-    ], 
-    "id": "e8392880-7563-4090-b7dd-859b205ada46", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Ines", 
-    "color": "multicolor", 
-    "price": "320", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537585/raquel-boutique/Captura_de_pantalla_2025-03-18_165240_gvsquv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537587/raquel-boutique/Captura_de_pantalla_2025-03-18_165248_hawwgl.png"
-    ], 
-    "id": "68c9d3a1-1af2-409a-ab56-f21a42666635", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Pandora", 
-    "color": "blanco", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368383/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.12_iwpmwu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368377/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.03_dp4bvo.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368375/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.25.56_bmygak.png"
-    ], 
-    "id": "054f9973-68f3-4d59-a90f-b9e0b201d914", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Mariana", 
-    "color": "rojo", 
-    "price": "340", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368179/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.08_a6ppu6.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368177/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.59_twpxsd.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368181/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.18_bo45bu.png"
-    ], 
-    "id": "fbbe6ac7-c1ba-4689-8f85-324e91992c76", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Mabel", 
-    "color": "cafe", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368566/raquel-boutique/Captura_de_pantalla_2025-10-14_185745_mwft5b.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368568/raquel-boutique/Captura_de_pantalla_2025-10-14_185753_t3clna.png"
-    ], 
-    "id": "ccded2bc-64d6-456b-bebd-c50cd0ada07c", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Eva", 
-    "color": "beige", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368651/raquel-boutique/Captura_de_pantalla_2025-10-17_120933_upgam9.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368652/raquel-boutique/Captura_de_pantalla_2025-10-17_120940_ustnrj.png"
-    ], 
-    "id": "9286c888-ab4a-4aa9-aa01-14b9e16d672e", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Eva", 
-    "color": "print", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368717/raquel-boutique/Captura_de_pantalla_2025-10-22_155514_pq1ckp.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368719/raquel-boutique/Captura_de_pantalla_2025-10-22_155522_ifx425.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368716/raquel-boutique/Captura_de_pantalla_2025-10-22_155459_ptp5r7.png"
-    ], 
-    "id": "293498e5-cbea-4dc1-8d98-c8c5e64047d2", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nailin", 
-    "color": "blanco", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368349/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.55_afgdnq.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368347/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.49_fyn4wt.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368350/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.44.01_dztpmu.png"
-    ], 
-    "id": "a979e820-411c-495b-b267-59b2bade8bc2", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Leonela", 
-    "color": "beige", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537612/raquel-boutique/Captura_de_pantalla_2025-06-20_165721_ez1bkv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537610/raquel-boutique/Captura_de_pantalla_2025-06-20_165707_xunwz4.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537609/raquel-boutique/Captura_de_pantalla_2025-06-20_165659_efxw3t.png"
-    ], 
-    "id": "c4b52d96-a389-4f92-9145-a97929c9d086", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Rosalia", 
-    "color": "multicolor", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368645/raquel-boutique/Captura_de_pantalla_2025-10-17_120611_nvbvrb.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368643/raquel-boutique/Captura_de_pantalla_2025-10-17_120600_ehz5re.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368646/raquel-boutique/Captura_de_pantalla_2025-10-17_120621_uu06k1.png"
-    ], 
-    "id": "f48b7a4e-cddb-4e99-b590-62a6ea47348b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nicole", 
-    "color": "rojo", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368152/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.37_vskwvy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368154/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.44_klbp8d.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368213/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.55.04_szhr8i.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368157/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.52_lxw8na.png"
-    ], 
-    "id": "b39a74f7-9d13-4336-85c3-c95026eb2ad3", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Monica", 
-    "color": "beige", 
-    "price": "360", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368426/raquel-boutique/Captura_de_pantalla_2025-10-14_181706_wjl5ts.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368431/raquel-boutique/Captura_de_pantalla_2025-10-14_181733_pn7efs.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368428/raquel-boutique/Captura_de_pantalla_2025-10-14_181714_krxzxu.png"
-    ], 
-    "id": "d11e62a1-ad92-4730-a699-b66b4ed82a29", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Olga", 
-    "color": "rojo", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368292/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.13_leeqda.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368294/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.21_mugqdr.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368297/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.29_fhhfpe.png"
-    ], 
-    "id": "edf47f32-411c-4ebd-b8fa-e65c20414a0b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Paula", 
-    "color": "blanco", 
-    "price": "280", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368340/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.09_xgmo5t.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368343/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.25_lsyo7s.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368345/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.37_kkdp7j.png"
-    ], 
-    "id": "59227383-250a-464e-a381-909dc770d7be", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Damaris", 
-    "color": "negro", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368411/raquel-boutique/Captura_de_pantalla_2025-10-12_131740_pcypvs.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368413/raquel-boutique/Captura_de_pantalla_2025-10-12_131747_l4ncva.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368414/raquel-boutique/Captura_de_pantalla_2025-10-12_131757_wih6fg.png"
-    ], 
-    "id": "14e801bd-0b42-46da-b429-91f8672dda91", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Pamela", 
-    "color": "blanco", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368338/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.59_mqagzb.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368336/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.50_ljod0m.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368334/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.44_lrgqxg.png"
-    ], 
-    "id": "e93d7607-b995-4512-b179-e0de10d29d19", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Ruth", 
-    "color": "beige", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368667/raquel-boutique/Captura_de_pantalla_2025-10-17_213621_akc95i.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368669/raquel-boutique/Captura_de_pantalla_2025-10-17_213629_ncbqfk.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368670/raquel-boutique/Captura_de_pantalla_2025-10-17_213649_ybdkxm.png"
-    ], 
-    "id": "a58c5743-c4b4-4997-ba98-c63644f132f6", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Jana", 
-    "color": "multicolor", 
-    "price": "350", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537604/raquel-boutique/Captura_de_pantalla_2025-06-20_165214_cxft5x.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537607/raquel-boutique/Captura_de_pantalla_2025-06-20_165235_urjyfl.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537606/raquel-boutique/Captura_de_pantalla_2025-06-20_165225_ilzddg.png"
-    ], 
-    "id": "d21dfa34-3ce8-4708-abf7-77be7bf0e831", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kathe", 
-    "color": "beige", 
-    "price": "360", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368686/raquel-boutique/Captura_de_pantalla_2025-10-21_170247_mtf4lz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368684/raquel-boutique/Captura_de_pantalla_2025-10-21_170235_jg3jag.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368682/raquel-boutique/Captura_de_pantalla_2025-10-21_170226_rwiwzs.png"
-    ], 
-    "id": "704db294-485b-40c0-b3ae-6c19c4e0b264", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Olivia", 
-    "color": "rojo", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368283/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.47_x4olbm.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368287/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.54_fhhdgw.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368280/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.39_ykgggs.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368289/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.01_auppak.png"
-    ], 
-    "id": "4440cb7c-7551-47cb-a538-f4a6433dee40", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Lucila", 
-    "color": "multicolor", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368550/raquel-boutique/Captura_de_pantalla_2025-10-14_185630_jn0ojx.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368548/raquel-boutique/Captura_de_pantalla_2025-10-14_185617_xxmomn.png"
-    ], 
-    "id": "f7cb14f1-c36a-4bfa-9b87-b9074cd2e5cd", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Leonela", 
-    "color": "negro", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537618/raquel-boutique/Captura_de_pantalla_2025-06-20_165801_sdy50z.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537615/raquel-boutique/Captura_de_pantalla_2025-06-20_165741_gb1ykj.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537614/raquel-boutique/Captura_de_pantalla_2025-06-20_165733_w9cvch.png"
-    ], 
-    "id": "11d76de8-ab31-4f6e-ad03-d614c2fa3e0b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Julieta", 
-    "color": "beige", 
-    "price": "320", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537601/raquel-boutique/Captura_de_pantalla_2025-06-20_165153_fybpoy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537602/raquel-boutique/Captura_de_pantalla_2025-06-20_165203_mdaotk.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537597/raquel-boutique/Captura_de_pantalla_2025-06-20_165121_cvh0vv.png"
-    ], 
-    "id": "4dada152-650d-4ecf-b9d8-c28936893f9a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Pia", 
-    "color": "blanco", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537665/raquel-boutique/Captura_de_pantalla_2025-11-25_122133_yd6003.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537664/raquel-boutique/Captura_de_pantalla_2025-11-25_122119_jrwcob.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537662/raquel-boutique/Captura_de_pantalla_2025-11-25_122110_s9gdkw.png"
-    ], 
-    "id": "fd303121-b929-48f8-8d4a-fca4e298ea80", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nila", 
-    "color": "print", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368710/raquel-boutique/Captura_de_pantalla_2025-10-22_155428_zupyeu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368712/raquel-boutique/Captura_de_pantalla_2025-10-22_155438_lqncmz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368714/raquel-boutique/Captura_de_pantalla_2025-10-22_155448_iorwnc.png"
-    ], 
-    "id": "af8342b0-96b7-4548-b142-b07710e49845", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Laila", 
-    "color": "beige", 
-    "price": "360", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368503/raquel-boutique/Captura_de_pantalla_2025-10-14_183531_o42hti.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368502/raquel-boutique/Captura_de_pantalla_2025-10-14_183519_ctjtrw.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368500/raquel-boutique/Captura_de_pantalla_2025-10-14_183511_myidvj.png"
-    ], 
-    "id": "3425d787-7bf1-4324-9391-23b9428a2b6a", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Susana", 
-    "color": "multicolor", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368687/raquel-boutique/Captura_de_pantalla_2025-10-22_141911_fksovp.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368690/raquel-boutique/Captura_de_pantalla_2025-10-22_141920_pmsyn3.png"
-    ], 
-    "id": "89b955ef-a2a4-4ff2-95b7-ccd95901c673", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kiara", 
-    "color": "cafe", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368445/raquel-boutique/Captura_de_pantalla_2025-10-14_181840_uar0vo.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368442/raquel-boutique/Captura_de_pantalla_2025-10-14_181824_t15juo.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368440/raquel-boutique/Captura_de_pantalla_2025-10-14_181818_gaqp4e.png"
-    ], 
-    "id": "0f49e974-d161-4cb8-8d89-06ad7a9143a3", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Kiara", 
-    "color": "print", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368552/raquel-boutique/Captura_de_pantalla_2025-10-14_185642_nfvnik.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368554/raquel-boutique/Captura_de_pantalla_2025-10-14_185649_yv3vte.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368556/raquel-boutique/Captura_de_pantalla_2025-10-14_185659_v0yb4r.png"
-    ], 
-    "id": "3fb07511-89bc-48cc-8b19-ea9d5390767b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Pandora", 
-    "color": "rojo", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368393/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.27.05_uxac8r.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368389/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.49_mhwzhs.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368387/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.42_rfmvkh.png"
-    ], 
-    "id": "7401bee9-14fd-4e27-8b09-cc36d0ff1814", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Denise", 
-    "color": "negro", 
-    "price": "320", 
-    "sizes": [
-      "L", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368615/raquel-boutique/Captura_de_pantalla_2025-10-17_113720_rnjm2p.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368618/raquel-boutique/Captura_de_pantalla_2025-10-17_113728_bktgj9.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368620/raquel-boutique/Captura_de_pantalla_2025-10-17_113740_fr29et.png"
-    ], 
-    "id": "f1759f03-ffa3-4c21-acc5-e61aa5495ec7", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Mayerlin", 
-    "color": "print", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368724/raquel-boutique/Captura_de_pantalla_2025-10-22_155653_cccqhv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368727/raquel-boutique/Captura_de_pantalla_2025-10-22_155700_oazxia.png"
-    ], 
-    "id": "b9661ec8-4020-471a-b160-523b4cd68c9b", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Malena", 
-    "color": "rojo", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368168/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.29_w5xujv.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368165/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.15_nddrw0.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368161/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.08_eyvbui.png"
-    ], 
-    "id": "8fe47d47-eb4b-4e24-9a5b-63494c5e6e47", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Karla", 
-    "color": "cafe", 
-    "price": "350", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368522/raquel-boutique/Captura_de_pantalla_2025-10-14_183701_enykgz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368519/raquel-boutique/Captura_de_pantalla_2025-10-14_183653_ksmvgn.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368524/raquel-boutique/Captura_de_pantalla_2025-10-14_183711_qyjwst.png"
-    ], 
-    "id": "23b33b99-6702-4be2-a4c4-043c4e9f0364", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Elena", 
-    "color": "celeste", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368654/raquel-boutique/Captura_de_pantalla_2025-10-17_120956_usnzeq.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368656/raquel-boutique/Captura_de_pantalla_2025-10-17_121004_lp9njr.png"
-    ], 
-    "id": "1944dc63-27d4-454e-8e44-753376b60839", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Leandra", 
-    "color": "multicolor", 
-    "price": "320", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368544/raquel-boutique/Captura_de_pantalla_2025-10-14_185546_gjsmqe.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368542/raquel-boutique/Captura_de_pantalla_2025-10-14_185537_bildot.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368540/raquel-boutique/Captura_de_pantalla_2025-10-14_185529_ny6wnj.png"
-    ], 
-    "id": "3556f85b-9485-47e1-8449-d9cf4743f79d", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Melissa", 
-    "color": "azul", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368576/raquel-boutique/Captura_de_pantalla_2025-10-14_190659_rl7ltk.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368578/raquel-boutique/Captura_de_pantalla_2025-10-14_190707_f4q7uj.png"
-    ], 
-    "id": "2b9c522c-48d5-4be5-a1fc-ed8cf6b46220", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Vanessa", 
-    "color": "multicolor", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368537/raquel-boutique/Captura_de_pantalla_2025-10-14_183842_ytj78s.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368538/raquel-boutique/Captura_de_pantalla_2025-10-14_183851_eoy0lw.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368535/raquel-boutique/Captura_de_pantalla_2025-10-14_183834_jjwpfi.png"
-    ], 
-    "id": "6bfcce5f-67dc-4916-82a5-1bc3e755acd1", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Veronica", 
-    "color": "negro", 
-    "price": "350", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368402/raquel-boutique/Captura_de_pantalla_2025-10-12_114210_lrneku.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368405/raquel-boutique/Captura_de_pantalla_2025-10-12_114228_ymbdsu.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368404/raquel-boutique/Captura_de_pantalla_2025-10-12_114220_y6arcj.png"
-    ], 
-    "id": "bd1f44e2-676c-4146-9ab5-8f69c4498df6", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Milena", 
-    "color": "blanco", 
-    "price": "280", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537556/raquel-boutique/Captura_de_pantalla_2025-03-17_184601_spnvwi.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537558/raquel-boutique/Captura_de_pantalla_2025-03-17_184609_opoeqc.png"
-    ], 
-    "id": "72a4f71c-6e9f-4cbe-b458-de02c4d897c9", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Laura", 
-    "color": "beige", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368483/raquel-boutique/Captura_de_pantalla_2025-10-14_182337_fvygez.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368481/raquel-boutique/Captura_de_pantalla_2025-10-14_182329_vycx3w.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368479/raquel-boutique/Captura_de_pantalla_2025-10-14_182323_d5w695.png"
-    ], 
-    "id": "fcd07580-6ad4-4cb3-8ac0-2e98e79e51c7", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Leticia", 
-    "color": "azul", 
-    "price": "350", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368505/raquel-boutique/Captura_de_pantalla_2025-10-14_183541_jm8zlp.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368506/raquel-boutique/Captura_de_pantalla_2025-10-14_183549_tguwae.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368508/raquel-boutique/Captura_de_pantalla_2025-10-14_183602_d4vudj.png"
-    ], 
-    "id": "b0b8e9dd-ddb1-447c-b023-b9835be15c5c", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Lorena", 
-    "color": "print", 
-    "price": "350", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368526/raquel-boutique/Captura_de_pantalla_2025-10-14_183722_qwc5do.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368528/raquel-boutique/Captura_de_pantalla_2025-10-14_183730_kcy3yj.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368530/raquel-boutique/Captura_de_pantalla_2025-10-14_183739_q5trdi.png"
-    ], 
-    "id": "c8bfc424-1ab9-426d-adad-13ff489c7435", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Sasha", 
-    "color": "beige", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368239/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.56_zywv0n.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368242/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.07_ueknca.png"
-    ], 
-    "id": "30874a73-38c1-44ea-9b5d-7c8810799592", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Marisol", 
-    "color": "rojo", 
-    "price": "280", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368146/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.48.51_cnsvns.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368149/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.48.59_vtyd9i.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368150/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.09_sbqwt0.png"
-    ], 
-    "id": "e14d8bcb-6601-4321-919a-1358bbedffef", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Sasha", 
-    "color": "rojo", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368232/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.22_xiz0b6.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368236/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.31_u1ddfn.png"
-    ], 
-    "id": "4f06543f-2ddb-4f74-a7bc-de607d681026", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Odette", 
-    "color": "rojo", 
-    "price": "380", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368267/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.01_jlxgh2.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368269/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.08_elfa2m.png"
-    ], 
-    "id": "ce8497cc-15b7-4eb2-8e1d-f12c635dfb19", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Gala", 
-    "color": "multicolor", 
-    "price": "280", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537594/raquel-boutique/Captura_de_pantalla_2025-06-20_145239_dvoqpy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537596/raquel-boutique/Captura_de_pantalla_2025-06-20_145248_fw8zbc.png"
-    ], 
-    "id": "8beeaf72-2a5f-4694-b2c2-befeb6a9474d", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nayeli", 
-    "color": "rojo", 
-    "price": "300", 
-    "sizes": [
-      "S", 
-      "M", 
-      "L"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368223/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.11_qvi68h.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368226/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.18_lsmzes.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368228/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.29_ecuiuo.png"
-    ], 
-    "id": "d5a18c3c-5d94-4d61-a13f-daa9543281e0", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Nancy", 
-    "color": "rojo", 
-    "price": "250", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368171/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.21_vvzk4c.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368173/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.30_am7ptx.png"
-    ], 
-    "id": "b2ea5e95-1aac-46fc-91d7-6d4a41ce2311", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Lisbeth", 
-    "color": "beige", 
-    "price": "280", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537649/raquel-boutique/Captura_de_pantalla_2025-06-24_091711_ma3pmb.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537651/raquel-boutique/Captura_de_pantalla_2025-06-24_091724_jfhpcn.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537647/raquel-boutique/Captura_de_pantalla_2025-06-24_091705_fx08jz.png"
-    ], 
-    "id": "0d25bc5a-eaa1-4e9a-b941-39496c7aaff2", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Marta", 
-    "color": "guindo", 
-    "price": "300", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368196/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.53.46_fttqbz.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368204/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.54.02_zsftfe.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368200/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.53.56_a8adrl.png"
-    ], 
-    "id": "97ecf06b-617a-471c-86a1-f2db374b0342", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Norkys", 
-    "color": "multicolor", 
-    "price": "290", 
-    "sizes": [
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537564/raquel-boutique/Captura_de_pantalla_2025-03-17_185001_aqzyus.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537566/raquel-boutique/Captura_de_pantalla_2025-03-17_185009_kmhfsu.png"
-    ], 
-    "id": "d85d55cf-1683-4073-a78f-c4a8d5513a12", 
-    "categories": [
-      "Vestidos"
-    ]
-  }, 
-  {
-    "description": "", 
-    "title": "Vestido Alicia", 
-    "color": "beige", 
-    "price": "320", 
-    "sizes": [
-      "S", 
-      "M"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368493/raquel-boutique/Captura_de_pantalla_2025-10-14_183424_hljop3.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368496/raquel-boutique/Captura_de_pantalla_2025-10-14_183432_nllhns.png"
-    ], 
-    "id": "931ccb59-b187-4a53-b0d6-9d0a9e054c6f", 
-    "categories": [
-      "Vestidos"
-    ]
-  },
   {
     "description": "Blusa elegante y cómoda, con diseño entallado y botones decorativos. Perfecta para cualquier look.", 
     "title": "Blusa Gisela", 
@@ -1917,26 +32,6 @@ export const products = [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290669/raquel-boutique/Captura_de_pantalla_2025-10-13_182619_r9r4r0.png"
     ], 
     "id": "57464d49-9aaa-4ca6-a2e1-8a671f17b6a9", 
-    "categories": [
-      "Blusas"
-    ]
-  }, 
-  {
-    "description": "Blusa elegante y cómoda, con diseño entallado y botones decorativos. Perfecta para cualquier look.", 
-    "title": "Blusa Gabriela", 
-    "color": "verde", 
-    "price": "250", 
-    "sizes": [
-      "M", 
-      "S"
-    ], 
-    "images": [
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290698/raquel-boutique/Captura_de_pantalla_2025-10-13_183408_gsudc2.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290701/raquel-boutique/Captura_de_pantalla_2025-10-13_183424_kpmc9a.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290699/raquel-boutique/Captura_de_pantalla_2025-10-13_183417_rsjjwy.png", 
-      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290702/raquel-boutique/Captura_de_pantalla_2025-10-13_183435_nxhdvz.png"
-    ], 
-    "id": "d767fb7f-d41b-4f25-ac54-9a302caffd5d", 
     "categories": [
       "Blusas"
     ]
@@ -2025,8 +120,7 @@ export const products = [
     "color": "azul", 
     "price": "290", 
     "sizes": [
-      "S", 
-      "M"
+      "S"
     ], 
     "images": [
       "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764290729/raquel-boutique/Captura_de_pantalla_2025-10-21_170310_kprqbt.png", 
@@ -2395,6 +489,1743 @@ export const products = [
     "id": "4f68dcb2-3d10-4412-bed7-32d122535f8b", 
     "categories": [
       "Blusas"
+    ]
+  }
+  ,{
+    "description": "", 
+    "title": "Vestido Magadalena", 
+    "color": "blanco", 
+    "price": "350", 
+    "sizes": [
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368612/raquel-boutique/Captura_de_pantalla_2025-10-17_113708_wtgczj.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368608/raquel-boutique/Captura_de_pantalla_2025-10-17_113645_qhcup8.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368610/raquel-boutique/Captura_de_pantalla_2025-10-17_113700_be9sdt.png"
+    ], 
+    "id": "393961dd-1e51-4e52-958b-da8cd2ec8063", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Veronica", 
+    "color": "amarillo", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368408/raquel-boutique/Captura_de_pantalla_2025-10-12_114248_fv7rcg.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368409/raquel-boutique/Captura_de_pantalla_2025-10-12_114256_cv9vhd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368406/raquel-boutique/Captura_de_pantalla_2025-10-12_114239_kotdwx.png"
+    ], 
+    "id": "2cac27fa-4091-4338-9f9e-0deb34dc7d63", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Alicia", 
+    "color": "cafe", 
+    "price": "300", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368447/raquel-boutique/Captura_de_pantalla_2025-10-14_181859_byokvv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368449/raquel-boutique/Captura_de_pantalla_2025-10-14_181907_u69ar1.png"
+    ], 
+    "id": "24862b59-c00b-4ec3-af30-01d4c20e9904", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nila", 
+    "color": "blanco", 
+    "price": "360", 
+    "sizes": [
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368332/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.32_s8ilnd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368328/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.13_rtnmbd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368330/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.19_emu3cl.png"
+    ], 
+    "id": "ef20067f-19b4-4c50-ad40-1f644ceadf73", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Ana", 
+    "color": "negro", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368639/raquel-boutique/Captura_de_pantalla_2025-10-17_120536_bwziyq.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368638/raquel-boutique/Captura_de_pantalla_2025-10-17_120526_ccs5si.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368636/raquel-boutique/Captura_de_pantalla_2025-10-17_120518_pnaprf.png"
+    ], 
+    "id": "a07b1430-90c2-4ab8-8638-c4fa892bee0e", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Marioly", 
+    "color": "print", 
+    "price": "360", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368721/raquel-boutique/Captura_de_pantalla_2025-10-22_155532_afcpfi.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368722/raquel-boutique/Captura_de_pantalla_2025-10-22_155543_elt7a9.png"
+    ], 
+    "id": "0dcac237-fc15-48ff-b697-517d6aa8f3bf", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Isabel", 
+    "color": "negro", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537622/raquel-boutique/Captura_de_pantalla_2025-06-20_165907_h2eenj.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537620/raquel-boutique/Captura_de_pantalla_2025-06-20_165857_lizovy.png"
+    ], 
+    "id": "b4f4f6a4-1386-43ca-b819-7c1147e90901", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Priscila", 
+    "color": "blanco", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368359/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.16_mje47n.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368356/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.07_krrd0d.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368353/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.01_dovptr.png"
+    ], 
+    "id": "dcd74ab9-5a0c-473c-b736-6eaae396b345", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Esther", 
+    "color": "print", 
+    "price": "300", 
+    "sizes": [
+      "XS"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368702/raquel-boutique/Captura_de_pantalla_2025-10-22_155342_wdwsfb.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368700/raquel-boutique/Captura_de_pantalla_2025-10-22_155332_yflysr.png"
+    ], 
+    "id": "c90769c9-a1ff-4778-95a7-c74e1d683fa0", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nailin", 
+    "color": "rojo", 
+    "price": "350", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368208/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.54.28_n1mrz1.png"
+    ], 
+    "id": "87259fb8-4be2-4815-a3f4-f76357d2d90b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Karina", 
+    "color": "print", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368695/raquel-boutique/Captura_de_pantalla_2025-10-22_155302_k91n3b.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368693/raquel-boutique/Captura_de_pantalla_2025-10-22_155254_uuwryi.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368697/raquel-boutique/Captura_de_pantalla_2025-10-22_155313_qfiyvi.png"
+    ], 
+    "id": "3804eab6-9632-4ef5-8e87-69b8a98bdba4", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Roberta", 
+    "color": "multicolor", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368599/raquel-boutique/Captura_de_pantalla_2025-10-17_113540_d3ly5v.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368597/raquel-boutique/Captura_de_pantalla_2025-10-17_113523_jdoxeg.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368595/raquel-boutique/Captura_de_pantalla_2025-10-17_113514_k1deny.png"
+    ], 
+    "id": "b10dae8a-316c-4611-a90e-d2c87d981d71", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nairyn", 
+    "color": "rojo", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368300/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.44.33_nabuyo.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368302/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.44.40_p8nvys.png"
+    ], 
+    "id": "3fa2649c-3ede-411d-9496-372895251fe6", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Karla", 
+    "color": "rosa", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368512/raquel-boutique/Captura_de_pantalla_2025-10-14_183634_natyke.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368510/raquel-boutique/Captura_de_pantalla_2025-10-14_183627_dvcz3u.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368516/raquel-boutique/Captura_de_pantalla_2025-10-14_183644_twnyey.png"
+    ], 
+    "id": "ac459844-6a8c-4f19-9f1d-d44a38e64037", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestio Nerea", 
+    "color": "blanco", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368318/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.35_pfpmw4.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368315/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.25_kz3imv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368312/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.18_cmddub.png"
+    ], 
+    "id": "65fa5794-d34a-46bf-be6b-04f81a70263e", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Noa", 
+    "color": "celeste", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368245/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.21_luqao0.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368248/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.29_arqsqu.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368251/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.36_v0fkei.png"
+    ], 
+    "id": "5ce73a04-fa82-4230-9892-453ad17ad7e6", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Sofia", 
+    "color": "beige", 
+    "price": "280", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537644/raquel-boutique/Captura_de_pantalla_2025-06-24_091534_awy1xw.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537646/raquel-boutique/Captura_de_pantalla_2025-06-24_091542_nbh5pl.png"
+    ], 
+    "id": "e28afdf3-1fc8-4a6e-8ed5-8c4fb653ea51", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Luisa", 
+    "color": "blanco", 
+    "price": "250", 
+    "sizes": [
+      "M", 
+      "S", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368371/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.19_wsat33.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368373/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.28_yqqhiy.png"
+    ], 
+    "id": "729bec8d-f507-4655-8b6d-7ea16a128a85", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Kendal", 
+    "color": "negro", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368487/raquel-boutique/Captura_de_pantalla_2025-10-14_182419_qypdvz.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368488/raquel-boutique/Captura_de_pantalla_2025-10-14_182425_rfw7hu.png"
+    ], 
+    "id": "0e376d21-541c-4741-a4b1-cb0f6f00fe52", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Elena", 
+    "color": "multicolor", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368648/raquel-boutique/Captura_de_pantalla_2025-10-17_120634_epd5fl.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368650/raquel-boutique/Captura_de_pantalla_2025-10-17_120918_o30f3p.png"
+    ], 
+    "id": "3586c0ec-e5ee-4f8f-a5b4-acbdc50d594d", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Michelle", 
+    "color": "rojo", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368184/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.33_jjjudj.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368187/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.41_tdn6b4.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368189/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.49_goxyvr.png"
+    ], 
+    "id": "179a3c1e-a26b-407b-b2c7-60a51b75c419", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Patricia", 
+    "color": "blanco", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368363/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.42_nwrmgd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368366/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.16.52_k5ijvt.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368368/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.17.03_noykjj.png"
+    ], 
+    "id": "b9288b34-8b66-4f32-bde5-3b9241ba7ddb", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Rocio", 
+    "color": "negro", 
+    "price": "280", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368583/raquel-boutique/Captura_de_pantalla_2025-10-14_190738_s1cej6.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368586/raquel-boutique/Captura_de_pantalla_2025-10-14_190744_wtak3p.png"
+    ], 
+    "id": "f2b443d5-7e55-48b9-8c13-b1601fef07c8", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Vania", 
+    "color": "celeste", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537575/raquel-boutique/Captura_de_pantalla_2025-03-18_164524_q78hw4.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537578/raquel-boutique/Captura_de_pantalla_2025-03-18_164538_agfcqy.png"
+    ], 
+    "id": "01dfc227-fda9-4d89-80cf-a365e1864d5f", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Leticia", 
+    "color": "beige", 
+    "price": "360", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368673/raquel-boutique/Captura_de_pantalla_2025-10-17_213716_pmic7r.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368675/raquel-boutique/Captura_de_pantalla_2025-10-17_213723_lytzfw.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368680/raquel-boutique/Captura_de_pantalla_2025-10-17_213759_rxe5oy.png"
+    ], 
+    "id": "e3bf1994-0912-4604-b6c5-db09fd0021ca", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Martina", 
+    "color": "multicolor", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368661/raquel-boutique/Captura_de_pantalla_2025-10-17_213535_bpp5ni.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368663/raquel-boutique/Captura_de_pantalla_2025-10-17_213543_donzdy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368665/raquel-boutique/Captura_de_pantalla_2025-10-17_213609_oqrcrk.png"
+    ], 
+    "id": "38b2e95d-7832-4c96-94a3-cfe8de3b79b2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Jana", 
+    "color": "multicolor", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537604/raquel-boutique/Captura_de_pantalla_2025-06-20_165214_cxft5x.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537607/raquel-boutique/Captura_de_pantalla_2025-06-20_165235_urjyfl.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537606/raquel-boutique/Captura_de_pantalla_2025-06-20_165225_ilzddg.png"
+    ], 
+    "id": "d21dfa34-3ce8-4708-abf7-77be7bf0e831", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Karin", 
+    "color": "multicolor", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537589/raquel-boutique/Captura_de_pantalla_2025-03-18_165430_bmyumd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537592/raquel-boutique/Captura_de_pantalla_2025-03-18_165438_mvri2l.png"
+    ], 
+    "id": "b61153d6-b128-4e2b-9e23-5d7e0b752d43", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Katia", 
+    "color": "beige", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368490/raquel-boutique/Captura_de_pantalla_2025-10-14_183405_r7mcqr.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368491/raquel-boutique/Captura_de_pantalla_2025-10-14_183412_mgpwed.png"
+    ], 
+    "id": "7c5809b1-bae6-4cd8-87d3-69879789a4c7", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Salome", 
+    "color": "cafe", 
+    "price": "320", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368588/raquel-boutique/Captura_de_pantalla_2025-10-17_113435_bxaufu.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368592/raquel-boutique/Captura_de_pantalla_2025-10-17_113501_pbs1fq.png"
+    ], 
+    "id": "49126eda-1c39-4140-bfdd-45316272a2b7", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Jireh", 
+    "color": "multicolor", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368452/raquel-boutique/Captura_de_pantalla_2025-10-14_181934_ixzbfk.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368455/raquel-boutique/Captura_de_pantalla_2025-10-14_181942_ht1wun.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368456/raquel-boutique/Captura_de_pantalla_2025-10-14_181954_jxd19g.png"
+    ], 
+    "id": "50b5d92d-ea6f-470a-a587-725af089630a", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Lourdes", 
+    "color": "print", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368709/raquel-boutique/Captura_de_pantalla_2025-10-22_155411_osi46c.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368706/raquel-boutique/Captura_de_pantalla_2025-10-22_155400_cetci9.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368704/raquel-boutique/Captura_de_pantalla_2025-10-22_155352_rwn8ns.png"
+    ], 
+    "id": "73ba8cfb-7622-4343-832a-ad848f7dd4ba", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Liliana", 
+    "color": "celeste", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368531/raquel-boutique/Captura_de_pantalla_2025-10-14_183815_k6oouy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368533/raquel-boutique/Captura_de_pantalla_2025-10-14_183821_kkgdu7.png"
+    ], 
+    "id": "79198041-5313-4ccb-87ce-14912022c54f", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Sofia", 
+    "color": "naranja", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537572/raquel-boutique/Captura_de_pantalla_2025-03-18_164459_fi1pd5.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537573/raquel-boutique/Captura_de_pantalla_2025-03-18_164508_qt6jv3.png"
+    ], 
+    "id": "7c431c60-03be-47a9-b236-a334ba3fb82a", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Donatela", 
+    "color": "beige", 
+    "price": "300", 
+    "sizes": [
+      "M", 
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368422/raquel-boutique/Captura_de_pantalla_2025-10-12_131903_r3bmrc.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368421/raquel-boutique/Captura_de_pantalla_2025-10-12_131856_witnmc.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368420/raquel-boutique/Captura_de_pantalla_2025-10-12_131850_m2bkb5.png"
+    ], 
+    "id": "d9864813-f3a1-41f9-8250-71e845407ec7", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Melissa", 
+    "color": "verde", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368580/raquel-boutique/Captura_de_pantalla_2025-10-14_190721_kf1guv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368582/raquel-boutique/Captura_de_pantalla_2025-10-14_190729_kijqrf.png"
+    ], 
+    "id": "b57c6955-fc4f-4c0e-adaf-e4bd95b4df29", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nila", 
+    "color": "rojo", 
+    "price": "380", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537555/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.42_idcr3g.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537553/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.41.30_tqjzth.png"
+    ], 
+    "id": "895a4201-0797-400f-803a-8fbe7d397fa3", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Kendal", 
+    "color": "amarillo", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368570/raquel-boutique/Captura_de_pantalla_2025-10-14_185805_bvzofr.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368572/raquel-boutique/Captura_de_pantalla_2025-10-14_185812_p8qxo7.png"
+    ], 
+    "id": "0d81ade3-6d05-40b3-a630-0dad52fa1129", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Marelisa", 
+    "color": "blanco", 
+    "price": "250", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537568/raquel-boutique/Captura_de_pantalla_2025-03-18_164423_aoami6.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537570/raquel-boutique/Captura_de_pantalla_2025-03-18_164434_ymfxgg.png"
+    ], 
+    "id": "f5e246c9-a781-4bb4-bd8e-dc925059372f", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Pilar", 
+    "color": "blanco", 
+    "price": "380", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368321/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.45_hrdgbz.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368324/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.41.52_xgp77n.png"
+    ], 
+    "id": "ff12e2d4-7eeb-4842-96d1-c40676ad14f2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Sabrina", 
+    "color": "blanco", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537579/raquel-boutique/Captura_de_pantalla_2025-03-18_164938_mh23i0.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537582/raquel-boutique/Captura_de_pantalla_2025-03-18_164945_gopxgt.png"
+    ], 
+    "id": "f4661846-5930-45fb-8303-47cee8c35e9b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Lara", 
+    "color": "verde", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537624/raquel-boutique/Captura_de_pantalla_2025-06-20_170047_j9wkts.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537629/raquel-boutique/Captura_de_pantalla_2025-06-20_170117_nideyi.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537628/raquel-boutique/Captura_de_pantalla_2025-06-20_170102_wdkst8.png"
+    ], 
+    "id": "f3b48bd0-1c39-42ee-8271-c8a35fa67524", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Aurora", 
+    "color": "rosa", 
+    "price": "280", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537653/raquel-boutique/Captura_de_pantalla_2025-06-24_092214_vpepx6.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537654/raquel-boutique/Captura_de_pantalla_2025-06-24_092221_z0dspp.png"
+    ], 
+    "id": "843d896f-067c-4918-8e13-bc688cf84ad1", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Alicia", 
+    "color": "print", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368447/raquel-boutique/Captura_de_pantalla_2025-10-14_181859_byokvv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368449/raquel-boutique/Captura_de_pantalla_2025-10-14_181907_u69ar1.png"
+    ], 
+    "id": "3774d4b5-9863-4a06-9a88-20d649b62e9a", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Rafaela", 
+    "color": "blanco", 
+    "price": "300", 
+    "sizes": [
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368600/raquel-boutique/Captura_de_pantalla_2025-10-17_113555_vez2do.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368602/raquel-boutique/Captura_de_pantalla_2025-10-17_113606_rruat0.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368603/raquel-boutique/Captura_de_pantalla_2025-10-17_113621_bmdunt.png"
+    ], 
+    "id": "f88261e4-b6fa-480a-9fa4-ee8ad36a651a", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestio Nerea", 
+    "color": "rojo", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368215/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.11_ddzus5.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368218/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.18_swtweb.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368221/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.56.26_eqisdx.png"
+    ], 
+    "id": "15b266a2-db0c-4507-b9cf-abf5031b686c", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Maite", 
+    "color": "multicolor", 
+    "price": "270", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537560/raquel-boutique/Captura_de_pantalla_2025-03-17_184706_ts4vgs.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537562/raquel-boutique/Captura_de_pantalla_2025-03-17_184713_ecuigi.png"
+    ], 
+    "id": "e8392880-7563-4090-b7dd-859b205ada46", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Ines", 
+    "color": "multicolor", 
+    "price": "320", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537585/raquel-boutique/Captura_de_pantalla_2025-03-18_165240_gvsquv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537587/raquel-boutique/Captura_de_pantalla_2025-03-18_165248_hawwgl.png"
+    ], 
+    "id": "68c9d3a1-1af2-409a-ab56-f21a42666635", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Kayla", 
+    "color": "beige", 
+    "price": "360", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368462/raquel-boutique/Captura_de_pantalla_2025-10-14_182120_xkp3ee.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368469/raquel-boutique/Captura_de_pantalla_2025-10-14_182227_qlbbb1.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368467/raquel-boutique/Captura_de_pantalla_2025-10-14_182135_mi9mdp.png"
+    ], 
+    "id": "466ea742-8d21-48af-a28a-a819c7c5a5f2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Pandora", 
+    "color": "blanco", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368383/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.12_iwpmwu.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368377/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.26.03_dp4bvo.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368375/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_12.25.56_bmygak.png"
+    ], 
+    "id": "054f9973-68f3-4d59-a90f-b9e0b201d914", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Mariana", 
+    "color": "rojo", 
+    "price": "340", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368179/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.08_a6ppu6.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368177/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.59_twpxsd.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368181/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.52.18_bo45bu.png"
+    ], 
+    "id": "fbbe6ac7-c1ba-4689-8f85-324e91992c76", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Mabel", 
+    "color": "cafe", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368566/raquel-boutique/Captura_de_pantalla_2025-10-14_185745_mwft5b.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368568/raquel-boutique/Captura_de_pantalla_2025-10-14_185753_t3clna.png"
+    ], 
+    "id": "ccded2bc-64d6-456b-bebd-c50cd0ada07c", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Eva", 
+    "color": "beige", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368651/raquel-boutique/Captura_de_pantalla_2025-10-17_120933_upgam9.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368652/raquel-boutique/Captura_de_pantalla_2025-10-17_120940_ustnrj.png"
+    ], 
+    "id": "9286c888-ab4a-4aa9-aa01-14b9e16d672e", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Eva", 
+    "color": "print", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368717/raquel-boutique/Captura_de_pantalla_2025-10-22_155514_pq1ckp.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368719/raquel-boutique/Captura_de_pantalla_2025-10-22_155522_ifx425.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368716/raquel-boutique/Captura_de_pantalla_2025-10-22_155459_ptp5r7.png"
+    ], 
+    "id": "293498e5-cbea-4dc1-8d98-c8c5e64047d2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nailin", 
+    "color": "blanco", 
+    "price": "360", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368349/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.55_afgdnq.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368347/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.49_fyn4wt.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368350/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.44.01_dztpmu.png"
+    ], 
+    "id": "a979e820-411c-495b-b267-59b2bade8bc2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Rosalia", 
+    "color": "multicolor", 
+    "price": "300", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368645/raquel-boutique/Captura_de_pantalla_2025-10-17_120611_nvbvrb.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368643/raquel-boutique/Captura_de_pantalla_2025-10-17_120600_ehz5re.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368646/raquel-boutique/Captura_de_pantalla_2025-10-17_120621_uu06k1.png"
+    ], 
+    "id": "f48b7a4e-cddb-4e99-b590-62a6ea47348b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nicole", 
+    "color": "rojo", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368152/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.37_vskwvy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368154/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.44_klbp8d.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368213/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.55.04_szhr8i.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368157/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.52_lxw8na.png"
+    ], 
+    "id": "b39a74f7-9d13-4336-85c3-c95026eb2ad3", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Monica", 
+    "color": "beige", 
+    "price": "360", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368426/raquel-boutique/Captura_de_pantalla_2025-10-14_181706_wjl5ts.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368431/raquel-boutique/Captura_de_pantalla_2025-10-14_181733_pn7efs.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368428/raquel-boutique/Captura_de_pantalla_2025-10-14_181714_krxzxu.png"
+    ], 
+    "id": "d11e62a1-ad92-4730-a699-b66b4ed82a29", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Olga", 
+    "color": "rojo", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368292/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.13_leeqda.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368294/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.21_mugqdr.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368297/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.29_fhhfpe.png"
+    ], 
+    "id": "edf47f32-411c-4ebd-b8fa-e65c20414a0b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Paula", 
+    "color": "blanco", 
+    "price": "280", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368340/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.09_xgmo5t.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368343/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.25_lsyo7s.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368345/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.43.37_kkdp7j.png"
+    ], 
+    "id": "59227383-250a-464e-a381-909dc770d7be", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Damaris", 
+    "color": "negro", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368411/raquel-boutique/Captura_de_pantalla_2025-10-12_131740_pcypvs.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368413/raquel-boutique/Captura_de_pantalla_2025-10-12_131747_l4ncva.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368414/raquel-boutique/Captura_de_pantalla_2025-10-12_131757_wih6fg.png"
+    ], 
+    "id": "14e801bd-0b42-46da-b429-91f8672dda91", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Pamela", 
+    "color": "blanco", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368338/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.59_mqagzb.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368336/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.50_ljod0m.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368334/raquel-boutique/Captura_de_Pantalla_2025-10-16_a_la_s_11.42.44_lrgqxg.png"
+    ], 
+    "id": "e93d7607-b995-4512-b179-e0de10d29d19", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Ruth", 
+    "color": "beige", 
+    "price": "360", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368667/raquel-boutique/Captura_de_pantalla_2025-10-17_213621_akc95i.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368669/raquel-boutique/Captura_de_pantalla_2025-10-17_213629_ncbqfk.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368670/raquel-boutique/Captura_de_pantalla_2025-10-17_213649_ybdkxm.png"
+    ], 
+    "id": "a58c5743-c4b4-4997-ba98-c63644f132f6", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Kathe", 
+    "color": "beige", 
+    "price": "360", 
+    "sizes": [
+      "M", 
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368686/raquel-boutique/Captura_de_pantalla_2025-10-21_170247_mtf4lz.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368684/raquel-boutique/Captura_de_pantalla_2025-10-21_170235_jg3jag.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368682/raquel-boutique/Captura_de_pantalla_2025-10-21_170226_rwiwzs.png"
+    ], 
+    "id": "704db294-485b-40c0-b3ae-6c19c4e0b264", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Olivia", 
+    "color": "rojo", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368283/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.47_x4olbm.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368287/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.54_fhhdgw.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368280/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.39_ykgggs.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368289/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.43.01_auppak.png"
+    ], 
+    "id": "4440cb7c-7551-47cb-a538-f4a6433dee40", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Lucila", 
+    "color": "multicolor", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368550/raquel-boutique/Captura_de_pantalla_2025-10-14_185630_jn0ojx.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368548/raquel-boutique/Captura_de_pantalla_2025-10-14_185617_xxmomn.png"
+    ], 
+    "id": "f7cb14f1-c36a-4bfa-9b87-b9074cd2e5cd", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Leonela", 
+    "color": "negro", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537618/raquel-boutique/Captura_de_pantalla_2025-06-20_165801_sdy50z.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537615/raquel-boutique/Captura_de_pantalla_2025-06-20_165741_gb1ykj.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537614/raquel-boutique/Captura_de_pantalla_2025-06-20_165733_w9cvch.png"
+    ], 
+    "id": "11d76de8-ab31-4f6e-ad03-d614c2fa3e0b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Julieta", 
+    "color": "beige", 
+    "price": "320", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537601/raquel-boutique/Captura_de_pantalla_2025-06-20_165153_fybpoy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537602/raquel-boutique/Captura_de_pantalla_2025-06-20_165203_mdaotk.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537597/raquel-boutique/Captura_de_pantalla_2025-06-20_165121_cvh0vv.png"
+    ], 
+    "id": "4dada152-650d-4ecf-b9d8-c28936893f9a", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Pia", 
+    "color": "blanco", 
+    "price": "300", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537665/raquel-boutique/Captura_de_pantalla_2025-11-25_122133_yd6003.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537664/raquel-boutique/Captura_de_pantalla_2025-11-25_122119_jrwcob.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537662/raquel-boutique/Captura_de_pantalla_2025-11-25_122110_s9gdkw.png"
+    ], 
+    "id": "fd303121-b929-48f8-8d4a-fca4e298ea80", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nila", 
+    "color": "print", 
+    "price": "360", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368710/raquel-boutique/Captura_de_pantalla_2025-10-22_155428_zupyeu.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368712/raquel-boutique/Captura_de_pantalla_2025-10-22_155438_lqncmz.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368714/raquel-boutique/Captura_de_pantalla_2025-10-22_155448_iorwnc.png"
+    ], 
+    "id": "af8342b0-96b7-4548-b142-b07710e49845", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Susana", 
+    "color": "multicolor", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368687/raquel-boutique/Captura_de_pantalla_2025-10-22_141911_fksovp.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368690/raquel-boutique/Captura_de_pantalla_2025-10-22_141920_pmsyn3.png"
+    ], 
+    "id": "89b955ef-a2a4-4ff2-95b7-ccd95901c673", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Kiara", 
+    "color": "cafe", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368445/raquel-boutique/Captura_de_pantalla_2025-10-14_181840_uar0vo.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368442/raquel-boutique/Captura_de_pantalla_2025-10-14_181824_t15juo.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368440/raquel-boutique/Captura_de_pantalla_2025-10-14_181818_gaqp4e.png"
+    ], 
+    "id": "0f49e974-d161-4cb8-8d89-06ad7a9143a3", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Denise", 
+    "color": "negro", 
+    "price": "320", 
+    "sizes": [
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368615/raquel-boutique/Captura_de_pantalla_2025-10-17_113720_rnjm2p.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368618/raquel-boutique/Captura_de_pantalla_2025-10-17_113728_bktgj9.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368620/raquel-boutique/Captura_de_pantalla_2025-10-17_113740_fr29et.png"
+    ], 
+    "id": "f1759f03-ffa3-4c21-acc5-e61aa5495ec7", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Mayerlin", 
+    "color": "print", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368724/raquel-boutique/Captura_de_pantalla_2025-10-22_155653_cccqhv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368727/raquel-boutique/Captura_de_pantalla_2025-10-22_155700_oazxia.png"
+    ], 
+    "id": "b9661ec8-4020-471a-b160-523b4cd68c9b", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Malena", 
+    "color": "rojo", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368168/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.29_w5xujv.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368165/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.15_nddrw0.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368161/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.50.08_eyvbui.png"
+    ], 
+    "id": "8fe47d47-eb4b-4e24-9a5b-63494c5e6e47", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Elena", 
+    "color": "celeste", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368654/raquel-boutique/Captura_de_pantalla_2025-10-17_120956_usnzeq.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368656/raquel-boutique/Captura_de_pantalla_2025-10-17_121004_lp9njr.png"
+    ], 
+    "id": "1944dc63-27d4-454e-8e44-753376b60839", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Leandra", 
+    "color": "multicolor", 
+    "price": "320", 
+    "sizes": [
+      "M", 
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368544/raquel-boutique/Captura_de_pantalla_2025-10-14_185546_gjsmqe.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368542/raquel-boutique/Captura_de_pantalla_2025-10-14_185537_bildot.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368540/raquel-boutique/Captura_de_pantalla_2025-10-14_185529_ny6wnj.png"
+    ], 
+    "id": "3556f85b-9485-47e1-8449-d9cf4743f79d", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Melissa", 
+    "color": "azul", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368576/raquel-boutique/Captura_de_pantalla_2025-10-14_190659_rl7ltk.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368578/raquel-boutique/Captura_de_pantalla_2025-10-14_190707_f4q7uj.png"
+    ], 
+    "id": "2b9c522c-48d5-4be5-a1fc-ed8cf6b46220", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Vanessa", 
+    "color": "multicolor", 
+    "price": "350", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368537/raquel-boutique/Captura_de_pantalla_2025-10-14_183842_ytj78s.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368538/raquel-boutique/Captura_de_pantalla_2025-10-14_183851_eoy0lw.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368535/raquel-boutique/Captura_de_pantalla_2025-10-14_183834_jjwpfi.png"
+    ], 
+    "id": "6bfcce5f-67dc-4916-82a5-1bc3e755acd1", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Veronica", 
+    "color": "negro", 
+    "price": "350", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368402/raquel-boutique/Captura_de_pantalla_2025-10-12_114210_lrneku.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368405/raquel-boutique/Captura_de_pantalla_2025-10-12_114228_ymbdsu.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368404/raquel-boutique/Captura_de_pantalla_2025-10-12_114220_y6arcj.png"
+    ], 
+    "id": "bd1f44e2-676c-4146-9ab5-8f69c4498df6", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Milena", 
+    "color": "blanco", 
+    "price": "280", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537556/raquel-boutique/Captura_de_pantalla_2025-03-17_184601_spnvwi.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537558/raquel-boutique/Captura_de_pantalla_2025-03-17_184609_opoeqc.png"
+    ], 
+    "id": "72a4f71c-6e9f-4cbe-b458-de02c4d897c9", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Laura", 
+    "color": "beige", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368483/raquel-boutique/Captura_de_pantalla_2025-10-14_182337_fvygez.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368481/raquel-boutique/Captura_de_pantalla_2025-10-14_182329_vycx3w.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368479/raquel-boutique/Captura_de_pantalla_2025-10-14_182323_d5w695.png"
+    ], 
+    "id": "fcd07580-6ad4-4cb3-8ac0-2e98e79e51c7", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Leticia", 
+    "color": "azul", 
+    "price": "350", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368505/raquel-boutique/Captura_de_pantalla_2025-10-14_183541_jm8zlp.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368506/raquel-boutique/Captura_de_pantalla_2025-10-14_183549_tguwae.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368508/raquel-boutique/Captura_de_pantalla_2025-10-14_183602_d4vudj.png"
+    ], 
+    "id": "b0b8e9dd-ddb1-447c-b023-b9835be15c5c", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Lorena", 
+    "color": "print", 
+    "price": "350", 
+    "sizes": [
+      "M", 
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368526/raquel-boutique/Captura_de_pantalla_2025-10-14_183722_qwc5do.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368528/raquel-boutique/Captura_de_pantalla_2025-10-14_183730_kcy3yj.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368530/raquel-boutique/Captura_de_pantalla_2025-10-14_183739_q5trdi.png"
+    ], 
+    "id": "c8bfc424-1ab9-426d-adad-13ff489c7435", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Sasha", 
+    "color": "beige", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368239/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.56_zywv0n.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368242/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.40.07_ueknca.png"
+    ], 
+    "id": "30874a73-38c1-44ea-9b5d-7c8810799592", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Marisol", 
+    "color": "rojo", 
+    "price": "280", 
+    "sizes": [
+      "S", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368146/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.48.51_cnsvns.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368149/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.48.59_vtyd9i.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368150/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.49.09_sbqwt0.png"
+    ], 
+    "id": "e14d8bcb-6601-4321-919a-1358bbedffef", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Sasha", 
+    "color": "rojo", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M", 
+      "L"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368232/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.22_xiz0b6.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368236/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.39.31_u1ddfn.png"
+    ], 
+    "id": "4f06543f-2ddb-4f74-a7bc-de607d681026", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Odette", 
+    "color": "rojo", 
+    "price": "380", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368267/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.01_jlxgh2.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368269/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_18.42.08_elfa2m.png"
+    ], 
+    "id": "ce8497cc-15b7-4eb2-8e1d-f12c635dfb19", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Gala", 
+    "color": "multicolor", 
+    "price": "280", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537594/raquel-boutique/Captura_de_pantalla_2025-06-20_145239_dvoqpy.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537596/raquel-boutique/Captura_de_pantalla_2025-06-20_145248_fw8zbc.png"
+    ], 
+    "id": "8beeaf72-2a5f-4694-b2c2-befeb6a9474d", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nayeli", 
+    "color": "rojo", 
+    "price": "300", 
+    "sizes": [
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368223/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.11_qvi68h.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368226/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.18_lsmzes.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368228/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.57.29_ecuiuo.png"
+    ], 
+    "id": "d5a18c3c-5d94-4d61-a13f-daa9543281e0", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Nancy", 
+    "color": "rojo", 
+    "price": "250", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368171/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.21_vvzk4c.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368173/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.51.30_am7ptx.png"
+    ], 
+    "id": "b2ea5e95-1aac-46fc-91d7-6d4a41ce2311", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Lisbeth", 
+    "color": "beige", 
+    "price": "280", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537649/raquel-boutique/Captura_de_pantalla_2025-06-24_091711_ma3pmb.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537651/raquel-boutique/Captura_de_pantalla_2025-06-24_091724_jfhpcn.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537647/raquel-boutique/Captura_de_pantalla_2025-06-24_091705_fx08jz.png"
+    ], 
+    "id": "0d25bc5a-eaa1-4e9a-b941-39496c7aaff2", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Marta", 
+    "color": "guindo", 
+    "price": "300", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368196/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.53.46_fttqbz.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368204/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.54.02_zsftfe.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368200/raquel-boutique/Captura_de_Pantalla_2025-10-15_a_la_s_17.53.56_a8adrl.png"
+    ], 
+    "id": "97ecf06b-617a-471c-86a1-f2db374b0342", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Norkys", 
+    "color": "multicolor", 
+    "price": "290", 
+    "sizes": [
+      "S"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537564/raquel-boutique/Captura_de_pantalla_2025-03-17_185001_aqzyus.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764537566/raquel-boutique/Captura_de_pantalla_2025-03-17_185009_kmhfsu.png"
+    ], 
+    "id": "d85d55cf-1683-4073-a78f-c4a8d5513a12", 
+    "categories": [
+      "vestidos"
+    ]
+  }, 
+  {
+    "description": "", 
+    "title": "Vestido Alicia", 
+    "color": "beige", 
+    "price": "320", 
+    "sizes": [
+      "S", 
+      "M"
+    ], 
+    "images": [
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368493/raquel-boutique/Captura_de_pantalla_2025-10-14_183424_hljop3.png", 
+      "https://res.cloudinary.com/dopwfzjhw/image/upload/v1764368496/raquel-boutique/Captura_de_pantalla_2025-10-14_183432_nllhns.png"
+    ], 
+    "id": "931ccb59-b187-4a53-b0d6-9d0a9e054c6f", 
+    "categories": [
+      "vestidos"
     ]
   }
 ];
