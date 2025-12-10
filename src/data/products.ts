@@ -490,8 +490,8 @@ export const products = [
     "categories": [
       "Blusas"
     ]
-  }
-  ,{
+  },
+  {
     "description": "", 
     "title": "Vestido Magadalena", 
     "color": "blanco", 
@@ -506,7 +506,7 @@ export const products = [
     ], 
     "id": "393961dd-1e51-4e52-958b-da8cd2ec8063", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -524,7 +524,7 @@ export const products = [
     ], 
     "id": "2cac27fa-4091-4338-9f9e-0deb34dc7d63", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -541,7 +541,7 @@ export const products = [
     ], 
     "id": "24862b59-c00b-4ec3-af30-01d4c20e9904", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -560,7 +560,7 @@ export const products = [
     ], 
     "id": "ef20067f-19b4-4c50-ad40-1f644ceadf73", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -580,7 +580,7 @@ export const products = [
     ], 
     "id": "a07b1430-90c2-4ab8-8638-c4fa892bee0e", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -598,7 +598,7 @@ export const products = [
     ], 
     "id": "0dcac237-fc15-48ff-b697-517d6aa8f3bf", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -616,7 +616,7 @@ export const products = [
     ], 
     "id": "b4f4f6a4-1386-43ca-b819-7c1147e90901", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -636,7 +636,7 @@ export const products = [
     ], 
     "id": "dcd74ab9-5a0c-473c-b736-6eaae396b345", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -653,7 +653,7 @@ export const products = [
     ], 
     "id": "c90769c9-a1ff-4778-95a7-c74e1d683fa0", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -669,7 +669,7 @@ export const products = [
     ], 
     "id": "87259fb8-4be2-4815-a3f4-f76357d2d90b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -687,7 +687,7 @@ export const products = [
     ], 
     "id": "3804eab6-9632-4ef5-8e87-69b8a98bdba4", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -706,7 +706,7 @@ export const products = [
     ], 
     "id": "b10dae8a-316c-4611-a90e-d2c87d981d71", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -724,7 +724,7 @@ export const products = [
     ], 
     "id": "3fa2649c-3ede-411d-9496-372895251fe6", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -742,7 +742,7 @@ export const products = [
     ], 
     "id": "ac459844-6a8c-4f19-9f1d-d44a38e64037", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -761,7 +761,7 @@ export const products = [
     ], 
     "id": "65fa5794-d34a-46bf-be6b-04f81a70263e", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -781,7 +781,7 @@ export const products = [
     ], 
     "id": "5ce73a04-fa82-4230-9892-453ad17ad7e6", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -798,7 +798,7 @@ export const products = [
     ], 
     "id": "e28afdf3-1fc8-4a6e-8ed5-8c4fb653ea51", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -817,7 +817,7 @@ export const products = [
     ], 
     "id": "729bec8d-f507-4655-8b6d-7ea16a128a85", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -835,7 +835,7 @@ export const products = [
     ], 
     "id": "0e376d21-541c-4741-a4b1-cb0f6f00fe52", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -853,7 +853,7 @@ export const products = [
     ], 
     "id": "3586c0ec-e5ee-4f8f-a5b4-acbdc50d594d", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -872,7 +872,7 @@ export const products = [
     ], 
     "id": "179a3c1e-a26b-407b-b2c7-60a51b75c419", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -892,7 +892,7 @@ export const products = [
     ], 
     "id": "b9288b34-8b66-4f32-bde5-3b9241ba7ddb", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -909,7 +909,7 @@ export const products = [
     ], 
     "id": "f2b443d5-7e55-48b9-8c13-b1601fef07c8", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -927,7 +927,7 @@ export const products = [
     ], 
     "id": "01dfc227-fda9-4d89-80cf-a365e1864d5f", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -945,7 +945,7 @@ export const products = [
     ], 
     "id": "e3bf1994-0912-4604-b6c5-db09fd0021ca", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -964,7 +964,7 @@ export const products = [
     ], 
     "id": "38b2e95d-7832-4c96-94a3-cfe8de3b79b2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -982,7 +982,7 @@ export const products = [
     ], 
     "id": "d21dfa34-3ce8-4708-abf7-77be7bf0e831", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -999,7 +999,7 @@ export const products = [
     ], 
     "id": "b61153d6-b128-4e2b-9e23-5d7e0b752d43", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1017,7 +1017,7 @@ export const products = [
     ], 
     "id": "7c5809b1-bae6-4cd8-87d3-69879789a4c7", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1034,7 +1034,7 @@ export const products = [
     ], 
     "id": "49126eda-1c39-4140-bfdd-45316272a2b7", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1053,7 +1053,7 @@ export const products = [
     ], 
     "id": "50b5d92d-ea6f-470a-a587-725af089630a", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1072,7 +1072,7 @@ export const products = [
     ], 
     "id": "73ba8cfb-7622-4343-832a-ad848f7dd4ba", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1090,7 +1090,7 @@ export const products = [
     ], 
     "id": "79198041-5313-4ccb-87ce-14912022c54f", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1107,7 +1107,7 @@ export const products = [
     ], 
     "id": "7c431c60-03be-47a9-b236-a334ba3fb82a", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1126,7 +1126,7 @@ export const products = [
     ], 
     "id": "d9864813-f3a1-41f9-8250-71e845407ec7", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1144,7 +1144,7 @@ export const products = [
     ], 
     "id": "b57c6955-fc4f-4c0e-adaf-e4bd95b4df29", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1162,7 +1162,7 @@ export const products = [
     ], 
     "id": "895a4201-0797-400f-803a-8fbe7d397fa3", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1180,7 +1180,7 @@ export const products = [
     ], 
     "id": "0d81ade3-6d05-40b3-a630-0dad52fa1129", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1197,7 +1197,7 @@ export const products = [
     ], 
     "id": "f5e246c9-a781-4bb4-bd8e-dc925059372f", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1215,7 +1215,7 @@ export const products = [
     ], 
     "id": "ff12e2d4-7eeb-4842-96d1-c40676ad14f2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1232,7 +1232,7 @@ export const products = [
     ], 
     "id": "f4661846-5930-45fb-8303-47cee8c35e9b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1251,7 +1251,7 @@ export const products = [
     ], 
     "id": "f3b48bd0-1c39-42ee-8271-c8a35fa67524", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1269,7 +1269,7 @@ export const products = [
     ], 
     "id": "843d896f-067c-4918-8e13-bc688cf84ad1", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1286,7 +1286,7 @@ export const products = [
     ], 
     "id": "3774d4b5-9863-4a06-9a88-20d649b62e9a", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1305,7 +1305,7 @@ export const products = [
     ], 
     "id": "f88261e4-b6fa-480a-9fa4-ee8ad36a651a", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1324,7 +1324,7 @@ export const products = [
     ], 
     "id": "15b266a2-db0c-4507-b9cf-abf5031b686c", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1341,7 +1341,7 @@ export const products = [
     ], 
     "id": "e8392880-7563-4090-b7dd-859b205ada46", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1358,7 +1358,7 @@ export const products = [
     ], 
     "id": "68c9d3a1-1af2-409a-ab56-f21a42666635", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1376,7 +1376,7 @@ export const products = [
     ], 
     "id": "466ea742-8d21-48af-a28a-a819c7c5a5f2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1395,7 +1395,7 @@ export const products = [
     ], 
     "id": "054f9973-68f3-4d59-a90f-b9e0b201d914", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1414,7 +1414,7 @@ export const products = [
     ], 
     "id": "fbbe6ac7-c1ba-4689-8f85-324e91992c76", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1432,7 +1432,7 @@ export const products = [
     ], 
     "id": "ccded2bc-64d6-456b-bebd-c50cd0ada07c", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1450,7 +1450,7 @@ export const products = [
     ], 
     "id": "9286c888-ab4a-4aa9-aa01-14b9e16d672e", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1469,7 +1469,7 @@ export const products = [
     ], 
     "id": "293498e5-cbea-4dc1-8d98-c8c5e64047d2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1488,7 +1488,7 @@ export const products = [
     ], 
     "id": "a979e820-411c-495b-b267-59b2bade8bc2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1506,7 +1506,7 @@ export const products = [
     ], 
     "id": "f48b7a4e-cddb-4e99-b590-62a6ea47348b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1526,7 +1526,7 @@ export const products = [
     ], 
     "id": "b39a74f7-9d13-4336-85c3-c95026eb2ad3", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1544,7 +1544,7 @@ export const products = [
     ], 
     "id": "d11e62a1-ad92-4730-a699-b66b4ed82a29", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1563,7 +1563,7 @@ export const products = [
     ], 
     "id": "edf47f32-411c-4ebd-b8fa-e65c20414a0b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1582,7 +1582,7 @@ export const products = [
     ], 
     "id": "59227383-250a-464e-a381-909dc770d7be", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1601,7 +1601,7 @@ export const products = [
     ], 
     "id": "14e801bd-0b42-46da-b429-91f8672dda91", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1620,7 +1620,7 @@ export const products = [
     ], 
     "id": "e93d7607-b995-4512-b179-e0de10d29d19", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1639,7 +1639,7 @@ export const products = [
     ], 
     "id": "a58c5743-c4b4-4997-ba98-c63644f132f6", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1658,7 +1658,7 @@ export const products = [
     ], 
     "id": "704db294-485b-40c0-b3ae-6c19c4e0b264", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1678,7 +1678,7 @@ export const products = [
     ], 
     "id": "4440cb7c-7551-47cb-a538-f4a6433dee40", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1696,7 +1696,7 @@ export const products = [
     ], 
     "id": "f7cb14f1-c36a-4bfa-9b87-b9074cd2e5cd", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1714,7 +1714,7 @@ export const products = [
     ], 
     "id": "11d76de8-ab31-4f6e-ad03-d614c2fa3e0b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1732,7 +1732,7 @@ export const products = [
     ], 
     "id": "4dada152-650d-4ecf-b9d8-c28936893f9a", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1751,7 +1751,7 @@ export const products = [
     ], 
     "id": "fd303121-b929-48f8-8d4a-fca4e298ea80", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1770,7 +1770,7 @@ export const products = [
     ], 
     "id": "af8342b0-96b7-4548-b142-b07710e49845", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1787,7 +1787,7 @@ export const products = [
     ], 
     "id": "89b955ef-a2a4-4ff2-95b7-ccd95901c673", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1805,7 +1805,7 @@ export const products = [
     ], 
     "id": "0f49e974-d161-4cb8-8d89-06ad7a9143a3", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1823,7 +1823,7 @@ export const products = [
     ], 
     "id": "f1759f03-ffa3-4c21-acc5-e61aa5495ec7", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1841,7 +1841,7 @@ export const products = [
     ], 
     "id": "b9661ec8-4020-471a-b160-523b4cd68c9b", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1861,7 +1861,7 @@ export const products = [
     ], 
     "id": "8fe47d47-eb4b-4e24-9a5b-63494c5e6e47", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1879,7 +1879,7 @@ export const products = [
     ], 
     "id": "1944dc63-27d4-454e-8e44-753376b60839", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1898,7 +1898,7 @@ export const products = [
     ], 
     "id": "3556f85b-9485-47e1-8449-d9cf4743f79d", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1916,7 +1916,7 @@ export const products = [
     ], 
     "id": "2b9c522c-48d5-4be5-a1fc-ed8cf6b46220", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1935,7 +1935,7 @@ export const products = [
     ], 
     "id": "6bfcce5f-67dc-4916-82a5-1bc3e755acd1", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1953,7 +1953,7 @@ export const products = [
     ], 
     "id": "bd1f44e2-676c-4146-9ab5-8f69c4498df6", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1970,7 +1970,7 @@ export const products = [
     ], 
     "id": "72a4f71c-6e9f-4cbe-b458-de02c4d897c9", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -1989,7 +1989,7 @@ export const products = [
     ], 
     "id": "fcd07580-6ad4-4cb3-8ac0-2e98e79e51c7", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2007,7 +2007,7 @@ export const products = [
     ], 
     "id": "b0b8e9dd-ddb1-447c-b023-b9835be15c5c", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2026,7 +2026,7 @@ export const products = [
     ], 
     "id": "c8bfc424-1ab9-426d-adad-13ff489c7435", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2045,7 +2045,7 @@ export const products = [
     ], 
     "id": "30874a73-38c1-44ea-9b5d-7c8810799592", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2064,7 +2064,7 @@ export const products = [
     ], 
     "id": "e14d8bcb-6601-4321-919a-1358bbedffef", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2083,7 +2083,7 @@ export const products = [
     ], 
     "id": "4f06543f-2ddb-4f74-a7bc-de607d681026", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2100,7 +2100,7 @@ export const products = [
     ], 
     "id": "ce8497cc-15b7-4eb2-8e1d-f12c635dfb19", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2118,7 +2118,7 @@ export const products = [
     ], 
     "id": "8beeaf72-2a5f-4694-b2c2-befeb6a9474d", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2136,7 +2136,7 @@ export const products = [
     ], 
     "id": "d5a18c3c-5d94-4d61-a13f-daa9543281e0", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2154,7 +2154,7 @@ export const products = [
     ], 
     "id": "b2ea5e95-1aac-46fc-91d7-6d4a41ce2311", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2172,7 +2172,7 @@ export const products = [
     ], 
     "id": "0d25bc5a-eaa1-4e9a-b941-39496c7aaff2", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2190,7 +2190,7 @@ export const products = [
     ], 
     "id": "97ecf06b-617a-471c-86a1-f2db374b0342", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2207,7 +2207,7 @@ export const products = [
     ], 
     "id": "d85d55cf-1683-4073-a78f-c4a8d5513a12", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }, 
   {
@@ -2225,7 +2225,7 @@ export const products = [
     ], 
     "id": "931ccb59-b187-4a53-b0d6-9d0a9e054c6f", 
     "categories": [
-      "vestidos"
+      "Vestidos"
     ]
   }
 ];
