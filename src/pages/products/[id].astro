@@ -28,9 +28,18 @@ const transformCloudinaryUrl = (
 
   return url.replace("/upload/", `/upload/${transformations[type]}/`);
 };
+
+// Use the lightbox version (high qual, 1200px) for Social Sharing
+const socialImage = transformCloudinaryUrl(mainImage, "lightbox");
+const socialDescription =
+  description || `Compra ${title} - ${categories[0]} en Raquel Boutique.`;
 ---
 
-<Layout title={`${title} | Raquel Boutique`}>
+<Layout
+  title={`${title} | Raquel Boutique`}
+  description={socialDescription}
+  image={socialImage}
+>
   <div class="bg-white">
     <div class="pt-6 pb-16 sm:pb-24">
       <nav
