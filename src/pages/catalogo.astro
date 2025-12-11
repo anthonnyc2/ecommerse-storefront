@@ -431,6 +431,32 @@ const colorMap: Record<string, string> = {
             }
           </div>
 
+          <!-- Loading sentinel -->
+          <div
+            id="sentinel"
+            class="h-10 w-full mt-8 flex justify-center items-center opacity-0 transition-opacity"
+          >
+            <svg
+              class="animate-spin h-8 w-8 text-gray-900"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+
           <!-- No results message -->
           <div id="no-results" class="hidden text-center py-12">
             <svg
@@ -469,6 +495,7 @@ const colorMap: Record<string, string> = {
       const clearFiltersMobileBtn = document.getElementById(
         "clear-filters-mobile"
       );
+      const sentinel = document.getElementById("sentinel");
 
       // Mobile menu elements
       const mobileFilterBtn = document.getElementById("mobile-filter-btn");
@@ -496,6 +523,25 @@ const colorMap: Record<string, string> = {
       );
 
       let allProducts = [...products];
+      let currentFilteredProducts = [];
+      let displayedCount = 0;
+      const itemsPerPage = 12;
+      let observer;
+
+      // Initialize observer
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      };
+
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadMoreProducts();
+          }
+        });
+      }, observerOptions);
 
       // Mobile menu functions
       function openMobileMenu() {
@@ -607,10 +653,8 @@ const colorMap: Record<string, string> = {
           });
         }
 
-        // Apply filters after setting checkboxes
-        if (categoryParam || colorParam || sizeParam) {
-          filterAndSortProducts();
-        }
+        // Always run initial filter/sort to set up state
+        filterAndSortProducts();
       }
 
       function getSelectedFilters(filterClass) {
@@ -661,23 +705,77 @@ const colorMap: Record<string, string> = {
           filtered.sort((a, b) => a.title.localeCompare(b.title));
         }
 
-        // Update UI
-        renderProducts(filtered);
+        // Update state
+        currentFilteredProducts = filtered;
+        displayedCount = 0;
+
+        // Reset grid
+        productsGrid.innerHTML = "";
+
+        // Reset scroll to top of grid
+        if (window.scrollY > productsGrid.offsetTop) {
+          // Optional: Smooth scroll to top of results if needed
+          // window.scrollTo({ top: productsGrid.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // Initial load
+        loadMoreProducts();
+
+        // Start observing if there are products
+        if (filtered.length > 0) {
+          observer.observe(sentinel);
+        } else {
+          observer.unobserve(sentinel);
+        }
       }
 
-      function renderProducts(productsToRender) {
-        if (productsToRender.length === 0) {
+      function loadMoreProducts() {
+        if (displayedCount >= currentFilteredProducts.length) {
+          observer.unobserve(sentinel);
+          sentinel.classList.remove("opacity-100");
+          sentinel.classList.add("opacity-0");
+          return;
+        }
+
+        // Show loading spinner
+        sentinel.classList.remove("opacity-0");
+        sentinel.classList.add("opacity-100");
+
+        const nextBatch = currentFilteredProducts.slice(
+          displayedCount,
+          displayedCount + itemsPerPage
+        );
+
+        renderBatch(nextBatch);
+        displayedCount += nextBatch.length;
+
+        updateResultsCount();
+
+        // Hide loading spinner if we reached the end
+        if (displayedCount >= currentFilteredProducts.length) {
+          sentinel.classList.remove("opacity-100");
+          sentinel.classList.add("opacity-0");
+        }
+      }
+
+      function updateResultsCount() {
+        if (currentFilteredProducts.length === 0) {
           productsGrid.classList.add("hidden");
           noResults.classList.remove("hidden");
+          sentinel.classList.add("hidden");
           resultsCount.textContent = "No se encontraron productos";
         } else {
           productsGrid.classList.remove("hidden");
           noResults.classList.add("hidden");
-          resultsCount.textContent = `Mostrando ${productsToRender.length} producto${productsToRender.length !== 1 ? "s" : ""}`;
+          sentinel.classList.remove("hidden");
+          resultsCount.textContent = `Mostrando ${Math.min(displayedCount, currentFilteredProducts.length)} de ${currentFilteredProducts.length} productos`;
+        }
+      }
 
-          productsGrid.innerHTML = productsToRender
-            .map(
-              (product) => `
+      function renderBatch(productsToRender) {
+        const html = productsToRender
+          .map(
+            (product) => `
             <a href="/products/${product.id}" class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md">
               <div class="relative h-[400px] overflow-hidden">
                 <img
@@ -720,9 +818,10 @@ const colorMap: Record<string, string> = {
               </div>
             </a>
           `
-            )
-            .join("");
-        }
+          )
+          .join("");
+
+        productsGrid.insertAdjacentHTML("beforeend", html);
       }
 
       // Event listeners for desktop filters
