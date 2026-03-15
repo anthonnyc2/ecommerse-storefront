@@ -3,12 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import Gallery from "../components/Gallery.astro";
 import ProductCard from "../components/ProductCard.astro";
 
-import { products } from "../data/products";
+import { getLatestProducts } from "../services/api";
 
 // Show maximum 8 products on home page
-const MAX_PRODUCTS = 8;
-const displayedProducts = products.slice(0, MAX_PRODUCTS);
-const hasMoreProducts = products.length > MAX_PRODUCTS;
+const displayedProducts = await getLatestProducts(8);
+const hasMoreProducts = displayedProducts.length >= 8; // Approximation for home
 ---
 
 <Layout title="Catálogo de Moda | Colección 2025">
@@ -73,15 +72,7 @@ const hasMoreProducts = products.length > MAX_PRODUCTS;
     <Gallery>
       {
         displayedProducts.map((product) => (
-          <ProductCard
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            categories={product.categories}
-            color={product.color}
-            images={product.images}
-            sizes={product.sizes}
-          />
+          <ProductCard product={product} />
         ))
       }
     </Gallery>

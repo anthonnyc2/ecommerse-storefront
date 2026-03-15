@@ -51,3 +51,14 @@ Thumbs.db
 # Astro
 .astro/
 data-store.json
+
+# Environment variables
+.env
+.env.[all].local
+.env.production
+.env.development
+.env.local
+
+# Editor and Workspace
+*.code-workspace
+.vscode/
