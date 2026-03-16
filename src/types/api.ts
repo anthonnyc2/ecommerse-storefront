@@ -6,6 +6,7 @@ export interface PublicProductVariant {
   compareAtPrice: number | null;
   color: string | null;
   size: string | null;
+  stock: number;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -45,4 +46,17 @@ export interface CatalogFiltersData {
   categories: string[];
   colors: string[];
   sizes: string[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  code: string | null;
+}
+
+export interface Color {
+  id: string;
+  name: string;
+  hexCode: string | null;
 }

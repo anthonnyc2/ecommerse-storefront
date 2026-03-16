@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
-import { getCatalogProducts, getCatalogFilters } from "../services/api";
+import { getCatalogProducts, getCatalogFilters, getCategories, getColors } from "../services/api";
 import printImg from "../assets/print.png";
 
 // Get query parameters for filtering
@@ -12,48 +12,21 @@ const sort = Astro.url.searchParams.get("sort") || "";
 const page = parseInt(Astro.url.searchParams.get("page") || "1");
 
 // Fetch data from API
-const filtersData = await getCatalogFilters();
-const { products, total } = await getCatalogProducts({
-  category,
-  color,
-  size,
-  sort,
-  page,
-  limit: 12
-});
+const [categories, colors, filtersData, { products, total }] = await Promise.all([
+  getCategories(),
+  getColors(),
+  getCatalogFilters(),
+  getCatalogProducts({
+    category,
+    color,
+    size,
+    sort,
+    page,
+    limit: 12
+  })
+]);
 
-const { categories, colors, sizes } = filtersData;
-
-// Color mapping for visual representation
-const colorMap: Record<string, string> = {
-  negro: "#000000",
-  blanco: "#FFFFFF",
-  rojo: "#DC2626",
-  azul: "#2563EB",
-  verde: "#16A34A",
-  amarillo: "#EAB308",
-  rosa: "#EC4899",
-  morado: "#9333EA",
-  naranja: "#EA580C",
-  gris: "#6B7280",
-  cafe: "#92400E",
-  café: "#92400E",
-  beige: "#D4B896",
-  turquesa: "#14B8A6",
-  celeste: "#7DD3FC",
-  fucsia: "#E879F9",
-  lila: "#C084FC",
-  vino: "#7F1D1D",
-  guindo: "#800040",
-  marino: "#1E3A8A",
-  crema: "#FEF3C7",
-  dorado: "#F59E0B",
-  plateado: "#D1D5DB",
-  coral: "#FB7185",
-  menta: "#6EE7B7",
-  lavanda: "#DDD6FE",
-  print: "animal-print",
-};
+const { sizes } = filtersData;
 
 // Pagination logic
 const totalPages = Math.ceil(total / 12);
@@ -147,16 +120,16 @@ const totalPages = Math.ceil(total / 12);
               <h3 class="text-sm font-medium text-gray-900 mb-3">Categorías</h3>
               <div class="space-y-2">
                 {
-                  categories.map((item: string) => (
+                  categories.map((item) => (
                     <label class="flex items-center cursor-pointer group">
                       <input
                         type="checkbox"
-                        value={item}
-                        checked={category === item}
+                        value={item.name}
+                        checked={category.toLowerCase() === item.name.toLowerCase()}
                         class="category-filter-mobile h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                       />
                       <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
-                        {item}
+                        {item.name}
                       </span>
                     </label>
                   ))
@@ -169,19 +142,19 @@ const totalPages = Math.ceil(total / 12);
               <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
               <div class="grid grid-cols-4 gap-3">
                 {
-                  colors.map((item: string) => {
-                    const colorValue = colorMap[item.toLowerCase()] || "#CCCCCC";
-                    const isLight = ["blanco", "crema", "amarillo"].includes(item.toLowerCase());
-                    const isAnimalPrint = item.toLowerCase() === "print";
+                  colors.map((item) => {
+                    const colorValue = item.hexCode || "#CCCCCC";
+                    const isLight = ["blanco", "crema", "amarillo", "blanco", "white"].includes(item.name.toLowerCase());
+                    const isAnimalPrint = item.name.toLowerCase() === "print";
                     return (
                       <label
                         class="cursor-pointer group relative flex flex-col items-center"
-                        title={item}
+                        title={item.name}
                       >
                         <input
                           type="checkbox"
-                          value={item}
-                          checked={color === item}
+                          value={item.name}
+                          checked={color.toLowerCase() === item.name.toLowerCase()}
                           class="color-filter-mobile sr-only peer"
                         />
                         <div
@@ -202,7 +175,7 @@ const totalPages = Math.ceil(total / 12);
                             </svg>
                           </div>
                         </div>
-                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item}</span>
+                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item.name}</span>
                       </label>
                     );
                   })
@@ -220,7 +193,7 @@ const totalPages = Math.ceil(total / 12);
                       <input
                         type="checkbox"
                         value={item}
-                        checked={size === item}
+                        checked={size.toLowerCase() === item.toLowerCase()}
                         class="size-filter-mobile sr-only peer"
                       />
                       <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">
@@ -258,6 +231,17 @@ const totalPages = Math.ceil(total / 12);
         <aside class="hidden lg:block">
           <div class="sticky top-4 space-y-6">
             <div id="filters-container" class="space-y-6">
+              { (category || color || size || sort) && (
+                <button
+                  id="clear-filters"
+                  class="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                  Limpiar filtros
+                </button>
+              )}
               <!-- Sort -->
               <div>
                 <h3 class="text-sm font-medium text-gray-900 mb-3">
@@ -279,16 +263,16 @@ const totalPages = Math.ceil(total / 12);
                 <h3 class="text-sm font-medium text-gray-900 mb-3">Categorías</h3>
                 <div class="space-y-2">
                   {
-                    categories.map((item: string) => (
+                    categories.map((item) => (
                       <label class="flex items-center cursor-pointer group">
                         <input
                           type="checkbox"
-                          value={item}
-                          checked={category === item}
+                          value={item.name}
+                          checked={category.toLowerCase() === item.name.toLowerCase()}
                           class="category-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                         />
                         <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
-                          {item}
+                          {item.name}
                         </span>
                       </label>
                     ))
@@ -301,19 +285,19 @@ const totalPages = Math.ceil(total / 12);
                 <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
                 <div class="grid grid-cols-4 gap-3">
                   {
-                    colors.map((item: string) => {
-                      const colorValue = colorMap[item.toLowerCase()] || "#CCCCCC";
-                      const isLight = ["blanco", "crema", "amarillo"].includes(item.toLowerCase());
-                      const isAnimalPrint = item.toLowerCase() === "print";
+                    colors.map((item) => {
+                      const colorValue = item.hexCode || "#CCCCCC";
+                      const isLight = ["blanco", "crema", "amarillo", "blanco", "white"].includes(item.name.toLowerCase());
+                      const isAnimalPrint = item.name.toLowerCase() === "print";
                       return (
                         <label
                           class="cursor-pointer group relative flex flex-col items-center"
-                          title={item}
+                          title={item.name}
                         >
                           <input
                             type="checkbox"
-                            value={item}
-                            checked={color === item}
+                            value={item.name}
+                            checked={color.toLowerCase() === item.name.toLowerCase()}
                             class="color-filter sr-only peer"
                           />
                           <div
@@ -334,7 +318,7 @@ const totalPages = Math.ceil(total / 12);
                               </svg>
                             </div>
                           </div>
-                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item}</span>
+                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item.name}</span>
                         </label>
                       );
                     })
@@ -352,7 +336,7 @@ const totalPages = Math.ceil(total / 12);
                         <input
                           type="checkbox"
                           value={item}
-                          checked={size === item}
+                          checked={size.toLowerCase() === item.toLowerCase()}
                           class="size-filter sr-only peer"
                         />
                         <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">

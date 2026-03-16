@@ -1,5 +1,5 @@
 ---
-import { getProductBySlug } from "../../services/api";
+import { getProductBySlug, getColors, getCategories } from "../../services/api";
 import defaultImg from "../../assets/default-product-image.png";
 import printImg from "../../assets/print.png";
 import Layout from "../../layouts/Layout.astro";
@@ -10,7 +10,11 @@ if (!slug) {
   return Astro.redirect("/404");
 }
 
-const product = await getProductBySlug(slug);
+const [product, allColors, allCategories] = await Promise.all([
+  getProductBySlug(slug),
+  getColors(),
+  getCategories()
+]);
 
 if (!product) {
   return Astro.redirect("/404");
@@ -26,35 +30,10 @@ const basePrice = variants.length > 0 ? Math.min(...variants.map(v => v.price)) 
 const uniqueSizes = [...new Set(variants.map(v => v.size).filter(Boolean))];
 const uniqueColors = [...new Set(variants.map(v => v.color).filter(Boolean))];
 
-// Color mapping for visual representation
-const colorMap: Record<string, string> = {
-  negro: "#000000",
-  blanco: "#FFFFFF",
-  rojo: "#DC2626",
-  azul: "#2563EB",
-  verde: "#16A34A",
-  amarillo: "#EAB308",
-  rosa: "#EC4899",
-  morado: "#9333EA",
-  naranja: "#EA580C",
-  gris: "#6B7280",
-  cafe: "#92400E",
-  café: "#92400E",
-  beige: "#D4B896",
-  turquesa: "#14B8A6",
-  celeste: "#7DD3FC",
-  fucsia: "#E879F9",
-  lila: "#C084FC",
-  vino: "#7F1D1D",
-  guindo: "#800040",
-  marino: "#1E3A8A",
-  crema: "#FEF3C7",
-  dorado: "#F59E0B",
-  plateado: "#D1D5DB",
-  coral: "#FB7185",
-  menta: "#6EE7B7",
-  lavanda: "#DDD6FE",
-  print: "animal-print",
+// Dynamic color mapping
+const getColorHex = (colorName: string) => {
+  const colorObj = allColors.find(c => c.name.toLowerCase() === colorName.toLowerCase());
+  return colorObj?.hexCode || "#CCCCCC";
 };
 
 // Optimization helper
@@ -168,8 +147,8 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
                 <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {uniqueColors.map((colorAttr) => {
                     const color = colorAttr as string;
-                    const colorValue = colorMap[color.toLowerCase()] || "#CCCCCC";
-                    const isLight = ["blanco", "crema", "amarillo"].includes(color.toLowerCase());
+                    const colorValue = getColorHex(color);
+                    const isLight = ["blanco", "crema", "amarillo", "white", "blanco"].includes(color.toLowerCase());
                     const isAnimalPrint = color.toLowerCase() === "print";
                     
                     return (
@@ -180,7 +159,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
                       >
                         <div 
                           class={`h-4 w-4 rounded-full border border-black/10 shrink-0 ${isAnimalPrint ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800" : ""}`}
-                          style={!isAnimalPrint ? `background-color: ${colorValue};` : ""}
+                          style={!isAnimalPrint ? `background-color: ${colorValue}; ${isLight ? "border: 1px solid #E5E7EB;" : ""}` : ""}
                         >
                           {isAnimalPrint && (
                             <div
@@ -214,6 +193,13 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
               </div>
             )}
 
+            <!-- Stock indicator -->
+            <div id="stock-indicator" class="mt-4 hidden">
+              <p class="text-sm font-medium text-gray-900">
+                Disponibilidad: <span id="stock-value" class="text-secondary font-bold"></span>
+              </p>
+            </div>
+
             <div class="mt-10">
               <button
                 type="button"
@@ -232,8 +218,14 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           </div>
         </div>
       </div>
+      </div>
     </div>
   </div>
+
+  <!-- Pass data to script -->
+  <script is:inline define:vars={{ variants }}>
+    window.productVariants = variants;
+  </script>
 
   <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
@@ -242,9 +234,55 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       const sizeBtns = document.querySelectorAll(".size-option");
       const colorBtns = document.querySelectorAll(".color-option");
       const whatsappBtn = document.getElementById("whatsapp-btn");
+      const stockIndicator = document.getElementById("stock-indicator");
+      const stockValue = document.getElementById("stock-value");
       
+      const variants = window.productVariants || [];
       let selectedSize = "";
       let selectedColor = "";
+
+      function updateStockDisplay() {
+        if (!selectedSize || !selectedColor) {
+          stockIndicator.classList.add("hidden");
+          return;
+        }
+
+        const variant = variants.find(v => 
+          v.size?.toLowerCase() === selectedSize.toLowerCase() && 
+          v.color?.toLowerCase() === selectedColor.toLowerCase()
+        );
+
+        if (variant) {
+          stockIndicator.classList.remove("hidden");
+          stockValue.textContent = variant.stock > 5 ? "En stock" : `¡Últimas ${variant.stock} unidades!`;
+        } else {
+          stockIndicator.classList.add("hidden");
+        }
+      }
+
+      function updateSizeAvailability() {
+        if (!selectedColor) return;
+
+        const availableSizes = variants
+          .filter(v => v.color?.toLowerCase() === selectedColor.toLowerCase() && v.stock > 0)
+          .map(v => v.size?.toLowerCase());
+
+        sizeBtns.forEach(btn => {
+          const btnSize = btn.getAttribute("data-size")?.toLowerCase();
+          if (availableSizes.includes(btnSize)) {
+            btn.classList.remove("opacity-20", "cursor-not-allowed", "pointer-events-none");
+            btn.classList.add("opacity-100", "cursor-pointer");
+          } else {
+            btn.classList.add("opacity-20", "cursor-not-allowed", "pointer-events-none");
+            btn.classList.remove("opacity-100", "cursor-pointer");
+            if (selectedSize.toLowerCase() === btnSize) {
+              selectedSize = "";
+              btn.classList.remove("border-secondary", "bg-secondary/10", "text-secondary");
+              btn.classList.add("border-gray-300");
+            }
+          }
+        });
+      }
 
       // Image switching
       thumbBtns.forEach(btn => {
@@ -297,6 +335,9 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
               firstVisibleThumb.classList.add("ring-2", "ring-secondary");
             }
           }
+
+          updateSizeAvailability();
+          updateStockDisplay();
         });
       });
 
@@ -310,6 +351,8 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           });
           btn.classList.remove("border-gray-300");
           btn.classList.add("border-secondary", "bg-secondary/10", "text-secondary");
+          
+          updateStockDisplay();
         });
       });
 

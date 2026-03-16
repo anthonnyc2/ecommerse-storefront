@@ -2,6 +2,8 @@ import type {
   PublicProductWithDetails,
   ApiResponse,
   CatalogFiltersData,
+  Category,
+  Color,
 } from "../types/api";
 
 const API_URL = import.meta.env.PUBLIC_API_URL;
@@ -66,6 +68,34 @@ export async function getCatalogFilters(): Promise<CatalogFiltersData> {
   } catch (error) {
     console.error("API Error (getCatalogFilters):", error);
     return { categories: [], colors: [], sizes: [] };
+  }
+}
+
+export async function getCategories(): Promise<Category[]> {
+  try {
+    const url = `${API_URL}/categories?onlyInUse=true`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Error fetching categories");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("API Error (getCategories):", error);
+    return [];
+  }
+}
+
+export async function getColors(): Promise<Color[]> {
+  try {
+    const url = `${API_URL}/colors?onlyInUse=true`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Error fetching colors");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("API Error (getColors):", error);
+    return [];
   }
 }
 
