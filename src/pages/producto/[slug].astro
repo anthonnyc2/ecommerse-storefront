@@ -254,7 +254,8 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
         if (variant) {
           stockIndicator.classList.remove("hidden");
-          stockValue.textContent = variant.stock > 5 ? "En stock" : `¡Últimas ${variant.stock} unidades!`;
+          // stockValue.textContent = variant.stock > 5 ? "En stock" : `¡Últimas ${variant.stock} unidades!`;
+          stockValue.textContent = variant.stock > 0 ? "En stock" : `Agotado`;
         } else {
           stockIndicator.classList.add("hidden");
         }
