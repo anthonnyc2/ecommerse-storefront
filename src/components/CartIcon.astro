@@ -1,0 +1,57 @@
+---
+// CartIcon.astro
+---
+
+<button
+  id="cart-button"
+  type="button"
+  class="group -m-2 flex items-center p-2 transition-all hover:scale-110 relative"
+  aria-label="Ver carrito"
+>
+  <svg
+    class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-primary"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+    />
+  </svg>
+  <span
+    id="cart-count"
+    class="ml-2 text-sm font-medium text-gray-700 group-hover:text-primary hidden absolute -top-1 -right-1 bg-secondary text-white rounded-full h-5 w-5 flex items-center justify-center text-[10px]"
+  >
+    0
+  </span>
+  <span class="sr-only">items en el carrito, ver carrito</span>
+</button>
+
+<script>
+  import { cartItems } from '../services/cartStore';
+
+  const cartCount = document.getElementById('cart-count');
+  const cartButton = document.getElementById('cart-button');
+
+  // Subscribe to cart changes
+  cartItems.subscribe((items) => {
+    const totalCount = items.reduce((acc, item) => acc + item.quantity, 0);
+    if (cartCount) {
+      cartCount.textContent = totalCount.toString();
+      if (totalCount > 0) {
+        cartCount.classList.remove('hidden');
+      } else {
+        cartCount.classList.add('hidden');
+      }
+    }
+  });
+
+  cartButton?.addEventListener('click', () => {
+    // Dispatch custom event to open cart drawer
+    window.dispatchEvent(new CustomEvent('toggle-cart'));
+  });
+</script>

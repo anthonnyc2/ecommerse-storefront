@@ -3,6 +3,8 @@ import "../styles/global.css";
 
 import logo from "../assets/r_logo.svg";
 import logoText from "../assets/rb_logo_text.svg";
+import CartIcon from "../components/CartIcon.astro";
+import CartDrawer from "../components/CartDrawer.astro";
 
 interface Props {
   title?: string;
@@ -118,9 +120,13 @@ const socialImageURL = new URL(image, Astro.url);
               Contacto
             </a>
           </div>
+          <div class="flex items-center">
+            <CartIcon />
+          </div>
         </div>
       </div>
     </nav>
     <slot />
+    <CartDrawer />
   </body>
 </html>
