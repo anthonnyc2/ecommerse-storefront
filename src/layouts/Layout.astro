@@ -69,6 +69,10 @@ const socialImageURL = new URL(image, Astro.url);
 
       gtag("config", "G-G7R7X57JM7");
     </script>
+    <script>
+      import Clarity from '@microsoft/clarity';
+      Clarity.init(import.meta.env.PUBLIC_CLARITY_PROJECT_ID);
+    </script>
   </head>
   <body class="bg-gray-50 text-gray-900 font-['Outfit'] antialiased">
     <nav class="bg-white shadow-sm sticky top-0 z-50">

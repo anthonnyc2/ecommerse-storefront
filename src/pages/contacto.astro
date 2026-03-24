@@ -200,6 +200,7 @@ import logo from "../assets/rb_logo.svg";
 
 <script>
   declare const gtag: any;
+  import Clarity from '@microsoft/clarity';
   document.addEventListener("DOMContentLoaded", () => {
     const whatsappLink = document.getElementById("whatsapp-contact-link");
     const instagramLink = document.getElementById("instagram-link");
@@ -214,6 +215,7 @@ import logo from "../assets/rb_logo.svg";
           value: 1,
         });
       }
+      Clarity.event(eventName);
     };
 
     whatsappLink?.addEventListener("click", () => {
