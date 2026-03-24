@@ -47,6 +47,8 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
     <img
       src={optimizedMainImage}
       alt={name}
+      width="400"
+      height="400"
       class="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
     />
     <!-- Hover Image (Second image) -->
@@ -55,6 +57,8 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
         <img
           src={optimizedHoverImage}
           alt={`${name} - Vista alternativa`}
+          width="400"
+          height="400"
           class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
       )
