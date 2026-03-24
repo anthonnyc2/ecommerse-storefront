@@ -73,6 +73,7 @@ import defaultImg from "../assets/default-product-image.png";
 </div>
 
 <script>
+  import Clarity from '@microsoft/clarity';
   import { cartItems, removeItem, updateQuantity } from '../services/cartStore';
 
   const cartDrawer = document.getElementById('cart-drawer');
@@ -167,7 +168,10 @@ import defaultImg from "../assets/default-product-image.png";
     document.querySelectorAll('.remove-item').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = (e.target as HTMLElement).getAttribute('data-id');
-        if (id) removeItem(id);
+        if (id) {
+          Clarity.event('RemoveFromCart');
+          removeItem(id);
+        }
       });
     });
 
@@ -191,6 +195,8 @@ import defaultImg from "../assets/default-product-image.png";
   checkoutBtn?.addEventListener('click', () => {
     const items = cartItems.get();
     if (items.length === 0) return;
+
+    Clarity.event('CheckoutStarted');
 
     const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     

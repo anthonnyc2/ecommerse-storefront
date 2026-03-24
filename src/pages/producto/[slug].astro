@@ -237,9 +237,15 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
   </script>
 
   <script>
+    import Clarity from '@microsoft/clarity';
     import { addItem } from '../../services/cartStore';
 
     document.addEventListener("DOMContentLoaded", () => {
+      // Track ViewProduct
+      const productName = document.querySelector("h1")?.textContent || "";
+      const productCategory = document.querySelector('nav[aria-label="Breadcrumb"] li:nth-child(2) a')?.textContent?.trim() || "";
+      
+      Clarity.event('ViewProduct');
       const mainImg = document.getElementById("main-product-image") as HTMLImageElement | null;
       const thumbBtns = document.querySelectorAll<HTMLElement>(".thumb-btn");
       const sizeBtns = document.querySelectorAll<HTMLElement>(".size-option");
@@ -401,6 +407,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       document.getElementById('add-to-cart-btn')?.addEventListener('click', () => {
         const productData = getProductData();
         if (productData) {
+          Clarity.event('AddToCart');
           addItem(productData);
           const btn = document.getElementById('add-to-cart-btn');
           if (btn) {
@@ -418,6 +425,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       document.getElementById('buy-now-btn')?.addEventListener('click', () => {
         const productData = getProductData();
         if (productData) {
+          Clarity.event('AddToCart');
           addItem(productData);
           window.dispatchEvent(new CustomEvent('toggle-cart'));
         }
