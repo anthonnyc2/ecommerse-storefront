@@ -3,11 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import Gallery from "../components/Gallery.astro";
 import ProductCard from "../components/ProductCard.astro";
 
-import { getLatestProducts } from "../services/api";
+import { getCatalogProducts } from "../services/api";
 
-// Show maximum 8 products on home page
-const displayedProducts = await getLatestProducts(8);
-const hasMoreProducts = displayedProducts.length >= 8; // Approximation for home
+// Fetch more products so the interleave-by-category logic on the API
+// has enough variety to mix categories properly, then slice to 8 for display.
+const catalogResult = await getCatalogProducts({
+  limit: 24,
+  page: 1,
+});
+const displayedProducts = {
+  products: catalogResult.products.slice(0, 8),
+  total: catalogResult.total,
+};
+const hasMoreProducts = catalogResult.total > 8;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -72,7 +80,7 @@ const currentYear = new Date().getFullYear();
 
     <Gallery>
       {
-        displayedProducts.map((product) => (
+        displayedProducts.products.map((product) => (
           <ProductCard product={product} />
         ))
       }
