@@ -5,17 +5,11 @@ import ProductCard from "../components/ProductCard.astro";
 
 import { getCatalogProducts } from "../services/api";
 
-// Fetch more products so the interleave-by-category logic on the API
-// has enough variety to mix categories properly, then slice to 8 for display.
-const catalogResult = await getCatalogProducts({
-  limit: 24,
-  page: 1,
-});
-const displayedProducts = {
-  products: catalogResult.products.slice(0, 8),
-  total: catalogResult.total,
-};
-const hasMoreProducts = catalogResult.total > 8;
+// sort=mix tells the backend to fetch ALL products, interleave by category,
+// and then apply the limit — guaranteeing a real mix in a single request.
+const { products: mixed, total } = await getCatalogProducts({ sort: "mix", limit: 8, page: 1 });
+
+const hasMoreProducts = total > 8;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -80,7 +74,7 @@ const currentYear = new Date().getFullYear();
 
     <Gallery>
       {
-        displayedProducts.products.map((product) => (
+        mixed.map((product) => (
           <ProductCard product={product} />
         ))
       }
