@@ -1,0 +1,37 @@
+
+echo "🔍 Validando el proyecto antes del push (audit + seguridad + tests)..."
+
+# 1. Auditoría de seguridad de dependencias
+echo "🛡️  Revisando vulnerabilidades de seguridad..."
+npm audit --audit-level=high
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error: Se encontraron vulnerabilidades críticas. El push ha sido cancelado."
+  exit 1
+fi
+
+# 2. Escaneo de secretos expuestos (Gitleaks)
+if command -v gitleaks > /dev/null 2>&1; then
+  echo "🔑 Buscando posibles secretos expuestos con Gitleaks..."
+  gitleaks detect --source .
+  
+  if [ $? -ne 0 ]; then
+    echo "❌ Error: Posibles secretos detectados. Revisa tu código antes de subirlo."
+    exit 1
+  fi
+else
+  echo "⚠️  Aviso: Gitleaks no está instalado en este entorno. Saltando el escaneo de secretos."
+fi
+
+# 3. Pruebas Unitarias
+# Como es un proyecto nuevo, esto fallará si no hay tests. 
+# Si quieres saltarlo la primera vez puedes comentar esta línea.
+npm run test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error: Las pruebas unitarias fallaron. El push ha sido cancelado."
+  exit 1
+fi
+
+echo "✅ Validación completa y exitosa. Procediendo con el push..."
+exit 0

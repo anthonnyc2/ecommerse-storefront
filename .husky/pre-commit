@@ -1,0 +1,23 @@
+
+echo "🔍 Optimizando el commit (lint-staged + typecheck)..."
+
+# Formateamos y corregimos linting solo en archivos modificados
+npx lint-staged
+
+# Verificamos tipos de Astro/TypeScript en todo el proyecto
+npm run typecheck
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error: Validación de tipos fallida. El commit ha sido cancelado."
+  exit 1
+fi
+
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Error: La construcción del proyecto falló. El commit ha sido cancelado."
+  exit 1
+fi
+
+echo "✅ Validación exitosa. Procediendo con el commit..."
+exit 0
