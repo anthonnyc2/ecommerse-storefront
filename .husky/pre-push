@@ -3,7 +3,7 @@ echo "🔍 Validando el proyecto antes del push (audit + seguridad + tests)..."
 
 # 1. Auditoría de seguridad de dependencias
 echo "🛡️  Revisando vulnerabilidades de seguridad..."
-npm audit --audit-level=high
+npm audit --registry=https://registry.npmjs.org --audit-level=high
 
 if [ $? -ne 0 ]; then
   echo "❌ Error: Se encontraron vulnerabilidades críticas. El push ha sido cancelado."
