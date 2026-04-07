@@ -17,9 +17,9 @@ export default defineConfig({
 
   integrations: [
     sentry({
-      dsn: process.env.SENTRY_DSN,
-      // Record 0% of traces in development, 50% in production.
-      tracesSampleRate: process.env.NODE_ENV === "development" ? 0 : 0.5,
+      project: "catalogo-rb",
+      org: "democompany-0j",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
 });
