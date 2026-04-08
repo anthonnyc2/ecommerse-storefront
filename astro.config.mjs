@@ -1,10 +1,14 @@
-// @ts-check
+import process from "node:process";
 import { defineConfig } from "astro/config";
+import { loadEnv } from "vite";
 
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 
 import sentry from "@sentry/astro";
+
+const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +23,7 @@ export default defineConfig({
     sentry({
       project: "catalogo-rb",
       org: "democompany-0j",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
+      authToken: env.PUBLIC_SENTRY_AUTH_TOKEN,
     }),
   ],
 });
