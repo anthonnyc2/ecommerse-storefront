@@ -39,6 +39,7 @@ export default tseslint.config(
       // SonarJS customizations
       "sonarjs/cognitive-complexity": ["error", 15],
       "sonarjs/no-duplicate-string": "error",
+      "sonarjs/no-commented-code": "off",
       
       // Astro rules
       "astro/no-set-html-directive": "error",

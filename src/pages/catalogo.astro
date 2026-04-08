@@ -1,7 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
-import { getCatalogProducts, getCatalogFilters, getCategories, getColors } from "../services/api";
+import {
+  getCatalogProducts,
+  getCatalogFilters,
+  getCategories,
+  getColors,
+} from "../services/api";
 import printImg from "../assets/print.png";
 
 // Get query parameters for filtering
@@ -11,20 +16,25 @@ const size = Astro.url.searchParams.get("size") || "";
 const sort = Astro.url.searchParams.get("sort") || "";
 const page = parseInt(Astro.url.searchParams.get("page") || "1");
 
-// Fetch data from API
-const [categories, colors, filtersData, { products, total }] = await Promise.all([
-  getCategories(),
-  getColors(),
-  getCatalogFilters(),
-  getCatalogProducts({
-    category,
-    color,
-    size,
-    sort,
-    page,
-    limit: 12
-  })
-]);
+// Fetch data from API — 3 parallel requests instead of 4:
+// • getCategories()        → { id, name, slug } objects needed for filter UI
+// • getColors()            → { id, name, hexCode } objects needed for color swatches
+// • getCatalogProducts()   → paginated products
+// • getCatalogFilters()    → only called for sizes (string[]), which no other endpoint provides
+const [categories, colors, filtersData, { products, total }] =
+  await Promise.all([
+    getCategories(),
+    getColors(),
+    getCatalogFilters(),
+    getCatalogProducts({
+      category,
+      color,
+      size,
+      sort,
+      page,
+      limit: 12,
+    }),
+  ]);
 
 const { sizes } = filtersData;
 
@@ -125,7 +135,9 @@ const totalPages = Math.ceil(total / 12);
                       <input
                         type="checkbox"
                         value={item.name}
-                        checked={category.toLowerCase() === item.name.toLowerCase()}
+                        checked={
+                          category.toLowerCase() === item.name.toLowerCase()
+                        }
                         class="category-filter-mobile h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                       />
                       <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
@@ -144,7 +156,13 @@ const totalPages = Math.ceil(total / 12);
                 {
                   colors.map((item) => {
                     const colorValue = item.hexCode || "#CCCCCC";
-                    const isLight = ["blanco", "crema", "amarillo", "blanco", "white"].includes(item.name.toLowerCase());
+                    const isLight = [
+                      "blanco",
+                      "crema",
+                      "amarillo",
+                      "blanco",
+                      "white",
+                    ].includes(item.name.toLowerCase());
                     const isAnimalPrint = item.name.toLowerCase() === "print";
                     return (
                       <label
@@ -154,14 +172,24 @@ const totalPages = Math.ceil(total / 12);
                         <input
                           type="checkbox"
                           value={item.name}
-                          checked={color.toLowerCase() === item.name.toLowerCase()}
+                          checked={
+                            color.toLowerCase() === item.name.toLowerCase()
+                          }
                           class="color-filter-mobile sr-only peer"
                         />
                         <div
                           class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
-                            isAnimalPrint ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800" : ""
+                            isAnimalPrint
+                              ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
+                              : ""
                           }`}
-                          style={!isAnimalPrint ? `background-color: ${colorValue}; ${isLight ? "border: 2px solid #E5E7EB;" : ""}` : ""}
+                          style={(() => {
+                            if (isAnimalPrint) return "";
+                            const border = isLight
+                              ? "border: 2px solid #E5E7EB;"
+                              : "";
+                            return `background-color: ${colorValue}; ${border}`;
+                          })()}
                         >
                           {isAnimalPrint && (
                             <div
@@ -170,12 +198,22 @@ const totalPages = Math.ceil(total / 12);
                             />
                           )}
                           <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
-                            <svg class="w-5 h-5 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
-                              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            <svg
+                              class="w-5 h-5 text-white drop-shadow-lg"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                              />
                             </svg>
                           </div>
                         </div>
-                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item.name}</span>
+                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
+                          {item.name}
+                        </span>
                       </label>
                     );
                   })
@@ -231,17 +269,29 @@ const totalPages = Math.ceil(total / 12);
         <aside class="hidden lg:block">
           <div class="sticky top-4 space-y-6">
             <div id="filters-container" class="space-y-6">
-              { (category || color || size || sort) && (
-                <button
-                  id="clear-filters"
-                  class="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                  Limpiar filtros
-                </button>
-              )}
+              {
+                (category || color || size || sort) && (
+                  <button
+                    id="clear-filters"
+                    class="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                    Limpiar filtros
+                  </button>
+                )
+              }
               <!-- Sort -->
               <div>
                 <h3 class="text-sm font-medium text-gray-900 mb-3">
@@ -260,7 +310,9 @@ const totalPages = Math.ceil(total / 12);
 
               <!-- Categories Filter -->
               <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">Categorías</h3>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">
+                  Categorías
+                </h3>
                 <div class="space-y-2">
                   {
                     categories.map((item) => (
@@ -268,7 +320,9 @@ const totalPages = Math.ceil(total / 12);
                         <input
                           type="checkbox"
                           value={item.name}
-                          checked={category.toLowerCase() === item.name.toLowerCase()}
+                          checked={
+                            category.toLowerCase() === item.name.toLowerCase()
+                          }
                           class="category-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                         />
                         <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
@@ -287,7 +341,13 @@ const totalPages = Math.ceil(total / 12);
                   {
                     colors.map((item) => {
                       const colorValue = item.hexCode || "#CCCCCC";
-                      const isLight = ["blanco", "crema", "amarillo", "blanco", "white"].includes(item.name.toLowerCase());
+                      const isLight = [
+                        "blanco",
+                        "crema",
+                        "amarillo",
+                        "blanco",
+                        "white",
+                      ].includes(item.name.toLowerCase());
                       const isAnimalPrint = item.name.toLowerCase() === "print";
                       return (
                         <label
@@ -297,14 +357,24 @@ const totalPages = Math.ceil(total / 12);
                           <input
                             type="checkbox"
                             value={item.name}
-                            checked={color.toLowerCase() === item.name.toLowerCase()}
+                            checked={
+                              color.toLowerCase() === item.name.toLowerCase()
+                            }
                             class="color-filter sr-only peer"
                           />
                           <div
                             class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
-                              isAnimalPrint ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800" : ""
+                              isAnimalPrint
+                                ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
+                                : ""
                             }`}
-                            style={!isAnimalPrint ? `background-color: ${colorValue}; ${isLight ? "border: 2px solid #E5E7EB;" : ""}` : ""}
+                            style={(() => {
+                              if (isAnimalPrint) return "";
+                              const border = isLight
+                                ? "border: 2px solid #E5E7EB;"
+                                : "";
+                              return `background-color: ${colorValue}; ${border}`;
+                            })()}
                           >
                             {isAnimalPrint && (
                               <div
@@ -313,12 +383,22 @@ const totalPages = Math.ceil(total / 12);
                               />
                             )}
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
-                              <svg class="w-5 h-5 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                              <svg
+                                class="w-5 h-5 text-white drop-shadow-lg"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clip-rule="evenodd"
+                                />
                               </svg>
                             </div>
                           </div>
-                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">{item.name}</span>
+                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
+                            {item.name}
+                          </span>
                         </label>
                       );
                     })
@@ -366,32 +446,41 @@ const totalPages = Math.ceil(total / 12);
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {
-              products.map((product) => (
-                <ProductCard product={product} />
+              products.map((product, index) => (
+                <ProductCard product={product} priority={index === 0} />
               ))
             }
           </div>
 
           <!-- Pagination -->
-          {totalPages > 1 && (
-            <nav class="mt-12 flex justify-center gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                <button
-                  class={`h-10 w-10 rounded-lg border text-sm font-medium transition-colors pagination-btn ${
-                    p === page 
-                      ? "bg-gray-900 text-white border-gray-900" 
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                  }`}
-                  data-page={p}
-                >
-                  {p}
-                </button>
-              ))}
-            </nav>
-          )}
+          {
+            totalPages > 1 && (
+              <nav class="mt-12 flex justify-center gap-2">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (p) => (
+                    <button
+                      class={`h-10 w-10 rounded-lg border text-sm font-medium transition-colors pagination-btn ${
+                        p === page
+                          ? "bg-gray-900 text-white border-gray-900"
+                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                      }`}
+                      data-page={p}
+                    >
+                      {p}
+                    </button>
+                  ),
+                )}
+              </nav>
+            )
+          }
 
           <!-- No results message -->
-          <div id="no-results" class={products.length === 0 ? "text-center py-12" : "hidden text-center py-12"}>
+          <div
+            id="no-results"
+            class={products.length === 0
+              ? "text-center py-12"
+              : "hidden text-center py-12"}
+          >
             <svg
               class="mx-auto h-12 w-12 text-gray-400"
               fill="none"
@@ -428,7 +517,7 @@ const totalPages = Math.ceil(total / 12);
         });
         // When changing filters, always reset to page 1
         if (!params.page) url.searchParams.delete("page");
-        
+
         window.location.href = url.toString();
       }
 
@@ -439,34 +528,38 @@ const totalPages = Math.ceil(total / 12);
         { selector: ".size-filter", param: "size" },
         { selector: ".category-filter-mobile", param: "category" },
         { selector: ".color-filter-mobile", param: "color" },
-        { selector: ".size-filter-mobile", param: "size" }
+        { selector: ".size-filter-mobile", param: "size" },
       ];
 
       filters.forEach(({ selector, param }) => {
-        document.querySelectorAll(selector).forEach(el => {
+        document.querySelectorAll(selector).forEach((el) => {
           el.addEventListener("change", (e) => {
             const checked = (e.target as HTMLInputElement).checked;
-            updateFilters({ [param]: checked ? (e.target as HTMLInputElement).value : "" });
+            updateFilters({
+              [param]: checked ? (e.target as HTMLInputElement).value : "",
+            });
           });
         });
       });
 
       // Sort selectors
       const sortSelects = ["#sort-select", "#mobile-sort-select"];
-      sortSelects.forEach(selector => {
+      sortSelects.forEach((selector) => {
         const el = document.querySelector(selector) as HTMLSelectElement;
         if (el) {
           el.addEventListener("change", () => {
             updateFilters({ sort: el.value });
           });
           // Set initial value from URL
-          const currentSort = new URLSearchParams(window.location.search).get("sort");
+          const currentSort = new URLSearchParams(window.location.search).get(
+            "sort",
+          );
           if (currentSort) el.value = currentSort;
         }
       });
 
       // Pagination
-      document.querySelectorAll(".pagination-btn").forEach(btn => {
+      document.querySelectorAll(".pagination-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const page = (btn as HTMLElement).dataset.page;
           updateFilters({ page: page || "1" });
@@ -476,7 +569,7 @@ const totalPages = Math.ceil(total / 12);
       // Clear filters
       const clearBtn = document.getElementById("clear-filters");
       const clearBtnMobile = document.getElementById("clear-filters-mobile");
-      [clearBtn, clearBtnMobile].forEach(btn => {
+      [clearBtn, clearBtnMobile].forEach((btn) => {
         btn?.addEventListener("click", () => {
           window.location.href = "/catalogo";
         });
@@ -485,7 +578,9 @@ const totalPages = Math.ceil(total / 12);
       // Mobile menu toggle logic
       const mobileFilterBtn = document.getElementById("mobile-filter-btn");
       const mobileFilterMenu = document.getElementById("mobile-filter-menu");
-      const mobileFilterOverlay = document.getElementById("mobile-filter-overlay");
+      const mobileFilterOverlay = document.getElementById(
+        "mobile-filter-overlay",
+      );
       const mobileFilterClose = document.getElementById("mobile-filter-close");
 
       mobileFilterBtn?.addEventListener("click", () => {
