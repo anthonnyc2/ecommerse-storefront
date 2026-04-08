@@ -7,14 +7,18 @@ import { getCatalogProducts } from "../services/api";
 
 // sort=mix tells the backend to fetch ALL products, interleave by category,
 // and then apply the limit — guaranteeing a real mix in a single request.
-const { products: mixed, total } = await getCatalogProducts({ sort: "mix", limit: 8, page: 1 });
+const { products: mixed, total } = await getCatalogProducts({
+  sort: "mix",
+  limit: 8,
+  page: 1,
+});
 
 const hasMoreProducts = total > 8;
 const currentYear = new Date().getFullYear();
 ---
 
 <Layout title={`Catálogo de Moda | Colección ${currentYear}`}>
-  <main>
+  <div>
     <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
       <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
         <section
@@ -35,7 +39,7 @@ const currentYear = new Date().getFullYear();
               Descubre tu estilo único
             </h1>
             <p
-              class="mb-8 leading-relaxed text-gray-500 md:mb-12 lg:w-4/5 xl:text-lg"
+              class="mb-8 leading-relaxed text-gray-700 md:mb-12 lg:w-4/5 xl:text-lg font-medium"
             >
               Explora nuestra selección exclusiva de prendas diseñadas para
               resaltar tu belleza y confianza.
@@ -57,7 +61,7 @@ const currentYear = new Date().getFullYear();
             <img
               src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop"
               loading="lazy"
-              alt="Photo by Fakurian Design"
+              alt="Mujer elegante caminando con bolsas de compras - Colección Nueva"
               class="h-full w-full object-cover object-center"
             />
           </div>
@@ -67,17 +71,13 @@ const currentYear = new Date().getFullYear();
 
     <div class="text-center mt-16 mb-8">
       <h2 class="text-3xl font-bold text-gray-900">Nuestros Productos</h2>
-      <p class="mt-4 text-gray-500">
+      <p class="mt-4 text-gray-600">
         Lo mejor de la temporada seleccionado para ti
       </p>
     </div>
 
     <Gallery>
-      {
-        mixed.map((product) => (
-          <ProductCard product={product} />
-        ))
-      }
+      {mixed.map((product) => <ProductCard product={product} />)}
     </Gallery>
 
     {
@@ -211,5 +211,5 @@ const currentYear = new Date().getFullYear();
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </Layout>
