@@ -48,16 +48,16 @@ const transformImageUrl = (url: string, width = 800): string => {
   }
 
   // Supabase
-  if (
-    url.includes("supabase.co") &&
-    url.includes("/storage/v1/object/public/")
-  ) {
-    const baseUrl = url.replace(
-      "/storage/v1/object/public/",
-      "/storage/v1/render/image/public/",
-    );
-    return `${baseUrl}?width=${width}&quality=80`;
-  }
+  // if (
+  //   url.includes("supabase.co") &&
+  //   url.includes("/storage/v1/object/public/")
+  // ) {
+  //   const baseUrl = url.replace(
+  //     "/storage/v1/object/public/",
+  //     "/storage/v1/render/image/public/",
+  //   );
+  //   return `${baseUrl}?width=${width}&quality=80`;
+  // }
 
   return url;
 };
