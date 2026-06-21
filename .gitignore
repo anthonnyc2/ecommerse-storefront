@@ -63,3 +63,7 @@ data-store.json
 *.code-workspace
 .vscode/
 .vercel/
+
+.agents/skills
+
+settings.local.json

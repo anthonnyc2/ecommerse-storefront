@@ -47,8 +47,15 @@ const totalPages = Math.ceil(total / 12);
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Catálogo</h1>
-        <p class="mt-2 text-gray-600">Explora nuestra colección completa</p>
+        <p
+          class="mb-1 text-sm font-semibold uppercase tracking-widest text-secondary"
+        >
+          Raquel Boutique
+        </p>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+          Catálogo
+        </h1>
+        <p class="mt-1.5 text-gray-500">Explora nuestra colección completa</p>
       </div>
 
       <!-- Mobile Toolbar (visible only on mobile) -->
@@ -57,7 +64,7 @@ const totalPages = Math.ceil(total / 12);
         <button
           id="mobile-filter-btn"
           aria-label="Abrir filtros"
-          class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+          class="flex-1 flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >
           <svg
             class="h-5 w-5"
@@ -79,7 +86,7 @@ const totalPages = Math.ceil(total / 12);
         <select
           id="mobile-sort-select"
           aria-label="Ordenar productos"
-          class="flex-1 rounded-lg border-gray-300 py-3 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          class="flex-1 rounded-full border border-gray-200 bg-white py-2.5 pl-3 pr-10 text-sm text-gray-700 focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary"
         >
           <option value="">Ordenar por</option>
           <option value="price-asc">Precio: Menor a Mayor</option>
@@ -259,7 +266,7 @@ const totalPages = Math.ceil(total / 12);
           <div class="p-4 border-t border-gray-200">
             <button
               id="apply-filters-mobile"
-              class="w-full rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+              class="w-full rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-secondary/80 transition-colors"
             >
               Aplicar Filtros
             </button>
@@ -460,18 +467,44 @@ const totalPages = Math.ceil(total / 12);
           {
             totalPages > 1 && (
               <nav
-                class="mt-12 flex justify-center gap-2"
+                class="mt-12 flex items-center justify-center gap-1.5"
                 aria-label="Paginación"
               >
+                <button
+                  class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
+                    page <= 1
+                      ? "border-gray-200 text-gray-300 cursor-not-allowed"
+                      : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
+                  }`}
+                  data-page={String(page - 1)}
+                  aria-label="Página anterior"
+                  disabled={page <= 1}
+                >
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 19.5L8.25 12l7.5-7.5"
+                    />
+                  </svg>
+                </button>
+
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (p) => (
                     <button
-                      class={`h-10 w-10 rounded-lg border text-sm font-medium transition-colors pagination-btn ${
+                      class={`h-9 w-9 rounded-full border text-sm font-medium transition-colors pagination-btn ${
                         p === page
-                          ? "bg-gray-900 text-white border-gray-900"
-                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                          ? "border-secondary bg-secondary text-gray-900 font-semibold"
+                          : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                       }`}
-                      data-page={p}
+                      data-page={String(p)}
                       aria-label={`Ir a la página ${p}`}
                       aria-current={p === page ? "page" : undefined}
                     >
@@ -479,6 +512,32 @@ const totalPages = Math.ceil(total / 12);
                     </button>
                   ),
                 )}
+
+                <button
+                  class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
+                    page >= totalPages
+                      ? "border-gray-200 text-gray-300 cursor-not-allowed"
+                      : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
+                  }`}
+                  data-page={String(page + 1)}
+                  aria-label="Página siguiente"
+                  disabled={page >= totalPages}
+                >
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </button>
               </nav>
             )
           }

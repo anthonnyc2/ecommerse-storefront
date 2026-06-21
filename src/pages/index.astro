@@ -34,7 +34,7 @@ const currentYear = new Date().getFullYear();
               Nueva Colección
             </p>
             <h1
-              class="mb-8 text-4xl font-bold text-gray-900 sm:text-5xl md:mb-12 md:text-6xl"
+              class="mb-8 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:mb-12 md:text-6xl"
             >
               Descubre tu estilo único
             </h1>
@@ -49,7 +49,7 @@ const currentYear = new Date().getFullYear();
             >
               <a
                 href="/catalogo"
-                class="inline-block rounded-lg bg-gray-900 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-800 focus-visible:ring active:bg-gray-700 md:text-base"
+                class="inline-block rounded-full bg-secondary px-8 py-3 text-center text-sm font-semibold text-gray-900 outline-none ring-secondary/40 transition duration-100 hover:bg-secondary/80 focus-visible:ring-2 active:scale-95 md:text-base"
                 >Ver Catálogo</a
               >
             </div>
@@ -70,8 +70,15 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <div class="text-center mt-16 mb-8">
-      <h2 class="text-3xl font-bold text-gray-900">Nuestros Productos</h2>
-      <p class="mt-4 text-gray-600">
+      <p
+        class="mb-2 text-sm font-semibold uppercase tracking-widest text-secondary"
+      >
+        Temporada actual
+      </p>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900">
+        Nuestros Productos
+      </h2>
+      <p class="mt-3 text-gray-500">
         Lo mejor de la temporada seleccionado para ti
       </p>
     </div>
@@ -85,7 +92,7 @@ const currentYear = new Date().getFullYear();
         <div class="text-center mt-12 mb-16">
           <a
             href="/catalogo"
-            class="inline-block rounded-lg bg-gray-900 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-secondary focus-visible:ring active:bg-gray-700 md:text-base"
+            class="inline-block rounded-full border-2 border-gray-900 px-8 py-3 text-center text-sm font-semibold text-gray-900 outline-none transition duration-100 hover:bg-gray-900 hover:text-white focus-visible:ring-2 focus-visible:ring-gray-900 active:scale-95 md:text-base"
           >
             Ver Catálogo Completo
           </a>
@@ -97,31 +104,39 @@ const currentYear = new Date().getFullYear();
     <div class="bg-gray-50 py-16 sm:py-20 mt-16">
       <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <p
+            class="mb-2 text-sm font-semibold uppercase tracking-widest text-secondary"
+          >
+            Nuestro compromiso
+          </p>
+          <h2
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
             ¿Cómo Trabajamos?
           </h2>
-          <p class="mt-4 text-gray-600">Tu satisfacción es nuestra prioridad</p>
+          <p class="mt-3 text-gray-500">Tu satisfacción es nuestra prioridad</p>
         </div>
 
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <!-- Envíos Express -->
           <div
-            class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            class="flex flex-col items-center text-center p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300"
           >
             <div
-              class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10"
+              class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.75"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-primary"
+                class="text-gray-700"
+                aria-hidden="true"
               >
                 <path d="M16 3h5v5"></path>
                 <path d="M8 3H3v5"></path>
@@ -131,33 +146,34 @@ const currentYear = new Date().getFullYear();
                 <path d="M12 3v9"></path>
               </svg>
             </div>
-            <h3 class="mb-3 text-xl font-semibold text-gray-900">
+            <h3 class="mb-2 text-lg font-semibold tracking-tight text-gray-900">
               Envíos Express
             </h3>
-            <p class="text-gray-600 leading-relaxed">
-              Envíos a todo Bolivia 🇧🇴 Los envíos se hacen el mismo día de la
-              compra por la flota de su preferencia
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Envíos a todo Bolivia. Los pedidos se despachan el mismo día de la
+              compra por la flota de tu preferencia.
             </p>
           </div>
 
           <!-- Delivery 24 Horas -->
           <div
-            class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            class="flex flex-col items-center text-center p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300"
           >
             <div
-              class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10"
+              class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/20"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.75"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-primary"
+                class="text-gray-700"
+                aria-hidden="true"
               >
                 <path
                   d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"
@@ -170,42 +186,45 @@ const currentYear = new Date().getFullYear();
                 <circle cx="7" cy="18" r="2"></circle>
               </svg>
             </div>
-            <h3 class="mb-3 text-xl font-semibold text-gray-900">
-              Delivery las 24 Horas en Santa Cruz
+            <h3 class="mb-2 text-lg font-semibold tracking-tight text-gray-900">
+              Delivery en Santa Cruz
             </h3>
-            <p class="text-gray-600 leading-relaxed">
-              Entregas a Domicilio por Yango las 24 horas
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Entregas a domicilio las 24 horas dentro de la ciudad de Santa
+              Cruz por Yango.
             </p>
           </div>
 
           <!-- Pagos Rápidos y Seguros -->
           <div
-            class="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            class="flex flex-col items-center text-center p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/40 transition-all duration-300"
           >
             <div
-              class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10"
+              class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/30"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="1.75"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-primary"
+                class="text-gray-700"
+                aria-hidden="true"
               >
                 <rect width="20" height="14" x="2" y="5" rx="2"></rect>
                 <line x1="2" x2="22" y1="10" y2="10"></line>
               </svg>
             </div>
-            <h3 class="mb-3 text-xl font-semibold text-gray-900">
-              Pagos Rápidos y Seguros
+            <h3 class="mb-2 text-lg font-semibold tracking-tight text-gray-900">
+              Pagos Seguros
             </h3>
-            <p class="text-gray-600 leading-relaxed">
-              Pago FÁCIL. Paga por QR o en Efectivo sin problemas
+            <p class="text-sm text-gray-500 leading-relaxed">
+              Paga por QR, transferencia bancaria o en efectivo. Rápido y sin
+              complicaciones.
             </p>
           </div>
         </div>

@@ -269,25 +269,34 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
             <!-- Stock indicator -->
             <div id="stock-indicator" class="mt-4 hidden">
-              <p class="text-sm font-medium text-gray-900">
-                Disponibilidad: <span
-                  id="stock-value"
-                  class="text-secondary font-bold"></span>
-              </p>
+              <span
+                id="stock-value"
+                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
+              ></span>
             </div>
 
-            <div class="mt-10 flex flex-col gap-4">
+            <div class="mt-10 flex flex-col gap-3">
+              <!-- Inline validation message -->
+              <p
+                id="validation-message"
+                role="alert"
+                aria-live="polite"
+                class="hidden rounded-lg bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700"
+              >
+              </p>
+
               <button
                 type="button"
                 id="add-to-cart-btn"
-                class="flex w-full items-center justify-center gap-3 rounded-xl border-2 border-gray-900 bg-white px-8 py-4 text-lg font-bold text-gray-900 shadow-sm hover:border-secondary hover:text-secondary transition-all active:scale-95"
+                class="flex w-full items-center justify-center gap-2.5 rounded-full border-2 border-gray-900 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm transition-all hover:border-secondary hover:text-secondary active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
               >
                 <svg
-                  class="h-6 w-6"
+                  class="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -301,14 +310,10 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
               <button
                 type="button"
                 id="buy-now-btn"
-                class="flex w-full items-center justify-center gap-3 rounded-xl bg-gray-900 px-8 py-4 text-lg font-bold text-white shadow-lg hover:bg-secondary transition-all active:scale-95"
+                class="flex w-full items-center justify-center gap-2.5 rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm transition-all hover:bg-secondary/80 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
               >
                 Comprar Ahora
               </button>
-
-              <p class="mt-2 text-center text-xs text-gray-700 font-medium">
-                Selecciona tu talla y color para añadir al pedido.
-              </p>
             </div>
           </div>
         </div>
@@ -383,7 +388,11 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
         if (variant) {
           stockIndicator.classList.remove("hidden");
-          stockValue.textContent = variant.stock > 0 ? "En stock" : "Agotado";
+          const inStock = variant.stock > 0;
+          stockValue.textContent = inStock ? "En stock" : "Agotado";
+          stockValue.className = inStock
+            ? "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-green-50 text-green-700 ring-1 ring-green-200"
+            : "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-red-50 text-red-600 ring-1 ring-red-200";
         } else {
           stockIndicator.classList.add("hidden");
         }
@@ -533,13 +542,22 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       });
 
       // Cart logic
+      const validationMsg = document.getElementById("validation-message");
+
+      function showValidationError(message: string) {
+        if (!validationMsg) return;
+        validationMsg.textContent = message;
+        validationMsg.classList.remove("hidden");
+        setTimeout(() => validationMsg.classList.add("hidden"), 3000);
+      }
+
       function getProductData() {
         if (!selectedSize && sizeBtns.length > 0) {
-          alert("Por favor selecciona una talla");
+          showValidationError("Por favor selecciona una talla");
           return null;
         }
         if (!selectedColor && colorBtns.length > 0) {
-          alert("Por favor selecciona un color");
+          showValidationError("Por favor selecciona un color");
           return null;
         }
 
@@ -563,7 +581,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           size: selectedSize,
           color: selectedColor,
           brand:
-            document.querySelector("p.mt-1.text-sm.text-gray-500.uppercase")
+            document.querySelector("p.mt-1.text-sm.text-gray-700.uppercase")
               ?.textContent || "",
         };
       }
@@ -577,21 +595,21 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
             addItem(productData);
             const btn = document.getElementById("add-to-cart-btn");
             if (btn) {
-              const originalText = btn.innerHTML;
-              btn.innerHTML = "¡Añadido!";
+              const originalHTML = btn.innerHTML;
+              btn.innerHTML = `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> ¡Añadido!`;
               btn.classList.add(
-                "bg-green-50",
                 "border-green-500",
                 "text-green-600",
+                "bg-green-50",
               );
               setTimeout(() => {
-                btn.innerHTML = originalText;
+                btn.innerHTML = originalHTML;
                 btn.classList.remove(
-                  "bg-green-50",
                   "border-green-500",
                   "text-green-600",
+                  "bg-green-50",
                 );
-              }, 1000);
+              }, 1500);
             }
           }
         });

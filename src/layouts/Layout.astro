@@ -125,49 +125,63 @@ const socialImageURL = new URL(image, Astro.url);
                 class="h-10 w-auto"
               />
               <span
-                class="hidden md:block text-xl font-semibold text-gray-900 tracking-tight letter-spacing-[2px]"
+                class="hidden md:block text-xl font-semibold text-gray-900 tracking-tight"
                 >Raquel Boutique</span
               >
             </a>
           </div>
-          <div class="flex space-x-8">
+          <div class="flex space-x-1">
             {
               (() => {
                 const navLinkBase =
-                  "inline-flex items-center px-1 pt-1 text-sm font-medium hover:text-primary transition-colors";
-                const activeColor = "text-gray-900";
-                const inactiveColor = "text-gray-600";
+                  "inline-flex items-center border-b-2 px-3 pb-0.5 pt-1 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2";
+                const activeClasses = "border-secondary text-gray-900";
+                const inactiveClasses =
+                  "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700";
                 return (
                   <>
                     <a
                       href="/"
+                      aria-current={
+                        Astro.url.pathname === "/" ? "page" : undefined
+                      }
                       class:list={[
                         navLinkBase,
                         Astro.url.pathname === "/"
-                          ? activeColor
-                          : inactiveColor,
+                          ? activeClasses
+                          : inactiveClasses,
                       ]}
                     >
                       Inicio
                     </a>
                     <a
                       href="/catalogo"
+                      aria-current={
+                        Astro.url.pathname.startsWith("/catalogo")
+                          ? "page"
+                          : undefined
+                      }
                       class:list={[
                         navLinkBase,
                         Astro.url.pathname.startsWith("/catalogo")
-                          ? activeColor
-                          : inactiveColor,
+                          ? activeClasses
+                          : inactiveClasses,
                       ]}
                     >
-                      Catalogo
+                      Catálogo
                     </a>
                     <a
                       href="/contacto"
+                      aria-current={
+                        Astro.url.pathname.startsWith("/contacto")
+                          ? "page"
+                          : undefined
+                      }
                       class:list={[
                         navLinkBase,
                         Astro.url.pathname.startsWith("/contacto")
-                          ? activeColor
-                          : inactiveColor,
+                          ? activeClasses
+                          : inactiveClasses,
                       ]}
                     >
                       Contacto
