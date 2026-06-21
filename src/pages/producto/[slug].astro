@@ -310,7 +310,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
               <button
                 type="button"
                 id="buy-now-btn"
-                class="flex w-full items-center justify-center gap-2.5 rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm transition-all hover:bg-secondary/80 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+                class="flex w-full items-center justify-center gap-2.5 rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-plum shadow-sm transition-all hover:bg-secondary/80 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
               >
                 Comprar Ahora
               </button>
@@ -321,71 +321,59 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
     </div>
   </div>
 
-  <!-- Pass data to script -->
-  <script is:inline define:vars={{ variants }}>
-    window.productVariants = variants;
+  <!-- Expose cart function globally (module runs once per session, that's fine) -->
+  <script>
+    import { addItem } from "../../services/cartStore";
+    (window as unknown as { _rbAddItem: typeof addItem })._rbAddItem = addItem;
   </script>
 
-  <script>
-    import Clarity from "@microsoft/clarity";
-    import { addItem } from "../../services/cartStore";
-
-    interface ProductVariant {
-      id: string;
-      productId: string;
-      productSlug: string;
-      name: string;
-      price: number;
-      size: string;
-      color: string;
-      stock: number;
-      image?: string;
-    }
-
+  <!-- Product page init — is:inline runs on EVERY page load, fixing Astro module caching -->
+  <script is:inline define:vars={{ variants }}>
     const CLASSES = {
       BORDER_SECONDARY: "border-secondary",
       BG_SECONDARY_10: "bg-secondary/10",
       BG_SECONDARY_5: "bg-secondary/5",
-      TEXT_SECONDARY: "text-secondary",
+      TEXT_SELECTED: "text-plum",
       RING_SECONDARY: "ring-secondary",
       RING_2: "ring-2",
       BORDER_GRAY_300: "border-gray-300",
     };
+    const DATA_COLOR = "data-color";
+    const DATA_SIZE = "data-size";
+    const DATA_FULL = "data-full";
+    const ADD_TO_CART_ID = "add-to-cart-btn";
+    const BUY_NOW_ID = "buy-now-btn";
 
-    const DATA_ATTRS = {
-      COLOR: "data-color",
-      SIZE: "data-size",
-      FULL: "data-full",
-    };
+    function initProductPage() {
+      window.clarity?.("event", "ViewProduct");
 
-    document.addEventListener("DOMContentLoaded", () => {
-      Clarity.event("ViewProduct");
-      const mainImg = document.getElementById(
-        "main-product-image",
-      ) as HTMLImageElement | null;
-      const thumbBtns = document.querySelectorAll<HTMLElement>(".thumb-btn");
-      const sizeBtns = document.querySelectorAll<HTMLElement>(".size-option");
-      const colorBtns = document.querySelectorAll<HTMLElement>(".color-option");
+      const mainImg = document.getElementById("main-product-image");
+      const thumbBtns = document.querySelectorAll(".thumb-btn");
+      const sizeBtns = document.querySelectorAll(".size-option");
+      const colorBtns = document.querySelectorAll(".color-option");
       const stockIndicator = document.getElementById("stock-indicator");
       const stockValue = document.getElementById("stock-value");
-
-      // @ts-expect-error - Product variants are passed via define:vars
-      const variants: ProductVariant[] = window.productVariants || [];
+      const validationMsg = document.getElementById("validation-message");
       let selectedSize = "";
       let selectedColor = "";
 
       function updateStockDisplay() {
-        if (!selectedSize || !selectedColor || !stockIndicator || !stockValue) {
-          stockIndicator?.classList.add("hidden");
+        if (!stockIndicator || !stockValue) return;
+        const needsSize = sizeBtns.length > 0;
+        const needsColor = colorBtns.length > 0;
+        if ((needsSize && !selectedSize) || (needsColor && !selectedColor)) {
+          stockIndicator.classList.add("hidden");
           return;
         }
-
-        const variant = variants.find(
-          (v: ProductVariant) =>
-            v.size?.toLowerCase() === selectedSize.toLowerCase() &&
-            v.color?.toLowerCase() === selectedColor.toLowerCase(),
-        );
-
+        const variant = variants.find((v) => {
+          const sizeMatch =
+            !needsSize ||
+            (v.size || "").toLowerCase() === selectedSize.toLowerCase();
+          const colorMatch =
+            !needsColor ||
+            (v.color || "").toLowerCase() === selectedColor.toLowerCase();
+          return sizeMatch && colorMatch;
+        });
         if (variant) {
           stockIndicator.classList.remove("hidden");
           const inStock = variant.stock > 0;
@@ -400,151 +388,32 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
       function updateSizeAvailability() {
         if (!selectedColor) return;
-
-        const availableSizes = variants
+        const sizesForColor = variants
           .filter(
-            (v: ProductVariant) =>
-              v.color?.toLowerCase() === selectedColor.toLowerCase() &&
-              v.stock > 0,
+            (v) =>
+              (v.color || "").toLowerCase() === selectedColor.toLowerCase(),
           )
-          .map((v: ProductVariant) => v.size?.toLowerCase());
-
+          .map((v) => (v.size || "").toLowerCase());
         sizeBtns.forEach((btn) => {
-          const btnSize = btn.getAttribute(DATA_ATTRS.SIZE)?.toLowerCase();
-          if (btnSize && availableSizes.includes(btnSize)) {
-            btn.classList.remove(
-              "opacity-20",
-              "cursor-not-allowed",
-              "pointer-events-none",
-            );
-            btn.classList.add("opacity-100", "cursor-pointer");
+          const btnSize = (btn.getAttribute(DATA_SIZE) || "").toLowerCase();
+          if (btnSize && sizesForColor.includes(btnSize)) {
+            btn.classList.remove("opacity-40");
           } else {
-            btn.classList.add(
-              "opacity-20",
-              "cursor-not-allowed",
-              "pointer-events-none",
-            );
-            btn.classList.remove("opacity-100", "cursor-pointer");
-            btn.classList.remove(
-              CLASSES.BORDER_SECONDARY,
-              CLASSES.BG_SECONDARY_10,
-              CLASSES.TEXT_SECONDARY,
-            );
-            btn.classList.add(CLASSES.BORDER_GRAY_300);
+            btn.classList.add("opacity-40");
+            if (btnSize && btnSize === selectedSize.toLowerCase()) {
+              selectedSize = "";
+              btn.classList.remove(
+                CLASSES.BORDER_SECONDARY,
+                CLASSES.BG_SECONDARY_10,
+                CLASSES.TEXT_SELECTED,
+              );
+              btn.classList.add(CLASSES.BORDER_GRAY_300);
+            }
           }
         });
       }
 
-      // Image switching
-      thumbBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const newUrl = btn.getAttribute(DATA_ATTRS.FULL);
-          if (mainImg && newUrl) mainImg.src = newUrl;
-
-          thumbBtns.forEach((b) =>
-            b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
-          );
-          btn.classList.add(CLASSES.RING_2, CLASSES.RING_SECONDARY);
-        });
-      });
-
-      // Color selection
-      colorBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          selectedColor = btn.getAttribute(DATA_ATTRS.COLOR) || "";
-
-          // Update button styles
-          colorBtns.forEach((b) => {
-            b.classList.remove(
-              CLASSES.BORDER_SECONDARY,
-              CLASSES.BG_SECONDARY_5,
-              CLASSES.TEXT_SECONDARY,
-              "shadow-sm",
-            );
-            b.classList.add("border-gray-100", "bg-gray-50/50");
-          });
-          btn.classList.remove("border-gray-100", "bg-gray-50/50");
-          btn.classList.add(
-            CLASSES.BORDER_SECONDARY,
-            CLASSES.BG_SECONDARY_5,
-            CLASSES.TEXT_SECONDARY,
-            "shadow-sm",
-          );
-
-          // Filter thumbnails
-          const formattedSelectedColor = selectedColor.toLowerCase();
-          let firstVisibleThumb: HTMLElement | null = null;
-          let currentMainStillVisible = false;
-
-          for (const thumb of Array.from(thumbBtns)) {
-            const thumbColor = (
-              thumb.getAttribute(DATA_ATTRS.COLOR) || ""
-            ).toLowerCase();
-            const isVisible =
-              !thumbColor || thumbColor === formattedSelectedColor;
-
-            if (isVisible) {
-              thumb.style.display = "flex";
-              if (!firstVisibleThumb) firstVisibleThumb = thumb as HTMLElement;
-              if (
-                mainImg &&
-                thumb.getAttribute(DATA_ATTRS.FULL) === mainImg.src
-              ) {
-                currentMainStillVisible = true;
-              }
-            } else {
-              thumb.style.display = "none";
-            }
-          }
-
-          // Update main image if current one is hidden
-          if (!currentMainStillVisible && firstVisibleThumb && mainImg) {
-            const thumbElement = firstVisibleThumb as HTMLElement;
-            const newUrl = thumbElement.getAttribute(DATA_ATTRS.FULL);
-            if (newUrl) {
-              mainImg.src = newUrl;
-              thumbBtns.forEach((b: HTMLElement) =>
-                b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
-              );
-              thumbElement.classList.add(
-                CLASSES.RING_2,
-                CLASSES.RING_SECONDARY,
-              );
-            }
-          }
-
-          updateSizeAvailability();
-          updateStockDisplay();
-        });
-      });
-
-      // Size selection
-      sizeBtns.forEach((btn: HTMLElement) => {
-        btn.addEventListener("click", () => {
-          selectedSize = btn.getAttribute(DATA_ATTRS.SIZE) || "";
-          sizeBtns.forEach((b: HTMLElement) => {
-            b.classList.remove(
-              CLASSES.BORDER_SECONDARY,
-              CLASSES.BG_SECONDARY_10,
-              CLASSES.TEXT_SECONDARY,
-            );
-            b.classList.add(CLASSES.BORDER_GRAY_300);
-          });
-          btn.classList.remove(CLASSES.BORDER_GRAY_300);
-          btn.classList.add(
-            CLASSES.BORDER_SECONDARY,
-            CLASSES.BG_SECONDARY_10,
-            CLASSES.TEXT_SECONDARY,
-          );
-
-          updateStockDisplay();
-        });
-      });
-
-      // Cart logic
-      const validationMsg = document.getElementById("validation-message");
-
-      function showValidationError(message: string) {
+      function showValidationError(message) {
         if (!validationMsg) return;
         validationMsg.textContent = message;
         validationMsg.classList.remove("hidden");
@@ -560,23 +429,25 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           showValidationError("Por favor selecciona un color");
           return null;
         }
-
-        const variant = variants.find(
-          (v: ProductVariant) =>
-            v.size?.toLowerCase() === selectedSize.toLowerCase() &&
-            v.color?.toLowerCase() === selectedColor.toLowerCase(),
-        );
-
+        const variant = variants.find((v) => {
+          const sizeMatch =
+            sizeBtns.length === 0 ||
+            (v.size || "").toLowerCase() === selectedSize.toLowerCase();
+          const colorMatch =
+            colorBtns.length === 0 ||
+            (v.color || "").toLowerCase() === selectedColor.toLowerCase();
+          return sizeMatch && colorMatch;
+        });
         return {
-          id:
-            variant?.id ||
-            `${variants[0].productId}-${selectedColor}-${selectedSize}`,
+          id: variant
+            ? variant.id
+            : `${variants[0].productId}-${selectedColor}-${selectedSize}`,
           slug:
             variants[0].productSlug ||
             window.location.pathname.split("/").pop() ||
             "",
           name: document.querySelector("h1")?.textContent || "Producto",
-          price: variant?.price || variants[0].price,
+          price: variant ? variant.price : variants[0].price,
           image: mainImg?.src || "",
           size: selectedSize,
           color: selectedColor,
@@ -586,50 +457,153 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
         };
       }
 
-      document
-        .getElementById("add-to-cart-btn")
-        ?.addEventListener("click", () => {
-          const productData = getProductData();
-          if (productData) {
-            Clarity.event("AddToCart");
-            addItem(productData);
-            const btn = document.getElementById("add-to-cart-btn");
-            if (btn) {
-              const originalHTML = btn.innerHTML;
-              btn.innerHTML = `<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> ¡Añadido!`;
-              btn.classList.add(
+      // Extracted helpers to avoid deep nesting in event callbacks
+      function resetThumbHighlight(activeThumb) {
+        thumbBtns.forEach((b) =>
+          b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
+        );
+        activeThumb.classList.add(CLASSES.RING_2, CLASSES.RING_SECONDARY);
+      }
+
+      function resetSizeButtons() {
+        sizeBtns.forEach((b) => {
+          b.classList.remove(
+            CLASSES.BORDER_SECONDARY,
+            CLASSES.BG_SECONDARY_10,
+            CLASSES.TEXT_SELECTED,
+          );
+          b.classList.add(CLASSES.BORDER_GRAY_300);
+        });
+      }
+
+      function resetColorButtons(activeBtn) {
+        colorBtns.forEach((b) => {
+          b.classList.remove(
+            CLASSES.BORDER_SECONDARY,
+            CLASSES.BG_SECONDARY_5,
+            CLASSES.TEXT_SELECTED,
+            "shadow-sm",
+          );
+          b.classList.add("border-gray-100", "bg-gray-50/50");
+        });
+        activeBtn.classList.remove("border-gray-100", "bg-gray-50/50");
+        activeBtn.classList.add(
+          CLASSES.BORDER_SECONDARY,
+          CLASSES.BG_SECONDARY_5,
+          CLASSES.TEXT_SELECTED,
+          "shadow-sm",
+        );
+      }
+
+      function updateThumbnailsForColor() {
+        const formattedColor = selectedColor.toLowerCase();
+        let firstVisible = null;
+        let currentMainVisible = false;
+        thumbBtns.forEach((thumb) => {
+          const thumbColor = (
+            thumb.getAttribute(DATA_COLOR) || ""
+          ).toLowerCase();
+          const visible = !thumbColor || thumbColor === formattedColor;
+          thumb.style.display = visible ? "flex" : "none";
+          if (visible && !firstVisible) firstVisible = thumb;
+          if (
+            visible &&
+            mainImg &&
+            thumb.getAttribute(DATA_FULL) === mainImg.src
+          )
+            currentMainVisible = true;
+        });
+        if (!currentMainVisible && firstVisible && mainImg) {
+          const newUrl = firstVisible.getAttribute(DATA_FULL);
+          if (newUrl) {
+            mainImg.src = newUrl;
+            resetThumbHighlight(firstVisible);
+          }
+        }
+      }
+
+      // Image switching
+      thumbBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const newUrl = btn.getAttribute(DATA_FULL);
+          if (mainImg && newUrl) mainImg.src = newUrl;
+          resetThumbHighlight(btn);
+        });
+      });
+
+      // Color selection
+      colorBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selectedColor = btn.getAttribute(DATA_COLOR) || "";
+          resetColorButtons(btn);
+          updateThumbnailsForColor();
+          updateSizeAvailability();
+          updateStockDisplay();
+        });
+      });
+
+      // Size selection
+      sizeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selectedSize = btn.getAttribute(DATA_SIZE) || "";
+          resetSizeButtons();
+          btn.classList.remove(CLASSES.BORDER_GRAY_300);
+          btn.classList.add(
+            CLASSES.BORDER_SECONDARY,
+            CLASSES.BG_SECONDARY_10,
+            CLASSES.TEXT_SELECTED,
+          );
+          updateStockDisplay();
+        });
+      });
+
+      // Add to cart
+      document.getElementById(ADD_TO_CART_ID)?.addEventListener("click", () => {
+        const productData = getProductData();
+        if (productData && window._rbAddItem) {
+          window.clarity?.("event", "AddToCart");
+          window._rbAddItem(productData);
+          const btn = document.getElementById(ADD_TO_CART_ID);
+          if (btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML =
+              '<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> ¡Añadido!';
+            btn.classList.add(
+              "border-green-500",
+              "text-green-600",
+              "bg-green-50",
+            );
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.classList.remove(
                 "border-green-500",
                 "text-green-600",
                 "bg-green-50",
               );
-              setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.classList.remove(
-                  "border-green-500",
-                  "text-green-600",
-                  "bg-green-50",
-                );
-              }, 1500);
-            }
+            }, 1500);
           }
-        });
+        }
+      });
 
-      document.getElementById("buy-now-btn")?.addEventListener("click", () => {
+      // Buy now
+      document.getElementById(BUY_NOW_ID)?.addEventListener("click", () => {
         const productData = getProductData();
-        if (productData) {
-          Clarity.event("AddToCart");
-          addItem(productData);
+        if (productData && window._rbAddItem) {
+          window.clarity?.("event", "AddToCart");
+          window._rbAddItem(productData);
           window.dispatchEvent(new CustomEvent("toggle-cart"));
         }
       });
 
-      // Auto-select unique options
-      if (colorBtns.length === 1) {
-        colorBtns[0].click();
-      }
-      if (sizeBtns.length === 1) {
-        sizeBtns[0].click();
-      }
-    });
+      // Auto-select when only one option exists
+      if (colorBtns.length === 1) colorBtns[0].click();
+      if (sizeBtns.length === 1) sizeBtns[0].click();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initProductPage);
+    } else {
+      initProductPage();
+    }
   </script>
 </Layout>

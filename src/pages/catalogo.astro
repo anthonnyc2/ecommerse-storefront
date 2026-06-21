@@ -14,6 +14,7 @@ const category = Astro.url.searchParams.get("category") || "";
 const color = Astro.url.searchParams.get("color") || "";
 const size = Astro.url.searchParams.get("size") || "";
 const sort = Astro.url.searchParams.get("sort") || "";
+const search = Astro.url.searchParams.get("search") || "";
 const page = parseInt(Astro.url.searchParams.get("page") || "1");
 
 // Fetch data from API — 3 parallel requests instead of 4:
@@ -31,6 +32,7 @@ const [categories, colors, filtersData, { products, total }] =
       color,
       size,
       sort,
+      search,
       page,
       limit: 12,
     }),
@@ -46,7 +48,7 @@ const totalPages = Math.ceil(total / 12);
   <div class="bg-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
-      <div class="mb-8">
+      <div class="mb-6">
         <p
           class="mb-1 text-sm font-semibold uppercase tracking-widest text-secondary"
         >
@@ -57,6 +59,87 @@ const totalPages = Math.ceil(total / 12);
         </h1>
         <p class="mt-1.5 text-gray-500">Explora nuestra colección completa</p>
       </div>
+
+      <!-- Search bar -->
+      <form id="search-form" role="search" class="mb-6 flex items-center gap-2">
+        <div class="relative flex-1">
+          <div
+            class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center"
+          >
+            <svg
+              class="h-4 w-4 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="search"
+            id="search-input"
+            name="search"
+            value={search}
+            placeholder="Buscar por nombre..."
+            aria-label="Buscar productos"
+            autocomplete="off"
+            class="w-full rounded-full border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20"
+          />
+          {
+            search && (
+              <button
+                type="button"
+                id="clear-search"
+                aria-label="Limpiar búsqueda"
+                class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
+              >
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )
+          }
+        </div>
+        <button
+          type="submit"
+          class="shrink-0 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-plum hover:bg-secondary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+        >
+          Buscar
+        </button>
+      </form>
+
+      {
+        search && (
+          <div class="mb-4 flex items-center gap-2 text-sm text-gray-600">
+            <span>
+              Resultados para: <strong class="text-gray-900">"{search}"</strong>
+            </span>
+            <a
+              href="/catalogo"
+              class="text-secondary hover:underline text-xs font-medium"
+            >
+              Limpiar
+            </a>
+          </div>
+        )
+      }
 
       <!-- Mobile Toolbar (visible only on mobile) -->
       <div class="lg:hidden mb-6 flex gap-3">
@@ -244,7 +327,7 @@ const totalPages = Math.ceil(total / 12);
                         checked={size.toLowerCase() === item.toLowerCase()}
                         class="size-filter-mobile sr-only peer"
                       />
-                      <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">
+                      <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
                         {item}
                       </span>
                     </label>
@@ -266,7 +349,7 @@ const totalPages = Math.ceil(total / 12);
           <div class="p-4 border-t border-gray-200">
             <button
               id="apply-filters-mobile"
-              class="w-full rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-secondary/80 transition-colors"
+              class="w-full rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-plum hover:bg-secondary/80 transition-colors"
             >
               Aplicar Filtros
             </button>
@@ -430,7 +513,7 @@ const totalPages = Math.ceil(total / 12);
                           checked={size.toLowerCase() === item.toLowerCase()}
                           class="size-filter sr-only peer"
                         />
-                        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white transition-colors">
+                        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
                           {item}
                         </span>
                       </label>
@@ -474,7 +557,7 @@ const totalPages = Math.ceil(total / 12);
                   class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
                     page <= 1
                       ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                      : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
+                      : "cursor-pointer border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
                   }`}
                   data-page={String(page - 1)}
                   aria-label="Página anterior"
@@ -499,9 +582,9 @@ const totalPages = Math.ceil(total / 12);
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (p) => (
                     <button
-                      class={`h-9 w-9 rounded-full border text-sm font-medium transition-colors pagination-btn ${
+                      class={`h-9 w-9 rounded-full border text-sm font-medium transition-colors pagination-btn cursor-pointer ${
                         p === page
-                          ? "border-secondary bg-secondary text-gray-900 font-semibold"
+                          ? "border-secondary bg-secondary text-plum font-semibold"
                           : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
                       }`}
                       data-page={String(p)}
@@ -517,7 +600,7 @@ const totalPages = Math.ceil(total / 12);
                   class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
                     page >= totalPages
                       ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                      : "border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
+                      : "cursor-pointer border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
                   }`}
                   data-page={String(page + 1)}
                   aria-label="Página siguiente"
@@ -634,13 +717,36 @@ const totalPages = Math.ceil(total / 12);
         });
       });
 
-      // Clear filters
+      // Clear filters (preserves search term)
       const clearBtn = document.getElementById("clear-filters");
       const clearBtnMobile = document.getElementById("clear-filters-mobile");
       [clearBtn, clearBtnMobile].forEach((btn) => {
         btn?.addEventListener("click", () => {
-          window.location.href = "/catalogo";
+          const currentSearch = new URLSearchParams(window.location.search).get(
+            "search",
+          );
+          window.location.href = currentSearch
+            ? `/catalogo?search=${encodeURIComponent(currentSearch)}`
+            : "/catalogo";
         });
+      });
+
+      // Search form
+      const searchForm = document.getElementById(
+        "search-form",
+      ) as HTMLFormElement | null;
+      const clearSearch = document.getElementById("clear-search");
+
+      searchForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const input = document.getElementById(
+          "search-input",
+        ) as HTMLInputElement;
+        updateFilters({ search: input.value.trim() });
+      });
+
+      clearSearch?.addEventListener("click", () => {
+        updateFilters({ search: "" });
       });
 
       // Mobile menu toggle logic

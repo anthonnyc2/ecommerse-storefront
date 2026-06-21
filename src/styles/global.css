@@ -2,7 +2,8 @@
 @plugin "@tailwindcss/forms";
 
 @theme {
-  --color-primary: #E3CCEF;
-  --color-secondary: #FFB8D2;
-  --color-accent: #F7D1A4;
+  --color-primary: #e3ccef;
+  --color-secondary: #ffb8d2;
+  --color-accent: #f7d1a4;
+  --color-plum: #4a1942;
 }

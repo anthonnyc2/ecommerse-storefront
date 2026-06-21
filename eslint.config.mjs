@@ -48,6 +48,6 @@ export default tseslint.config(
 
   {
     // Global ignores
-    ignores: ["dist/", ".astro/", "node_modules/", "src/env.d.ts"],
+    ignores: ["dist/", ".astro/", "node_modules/", "src/env.d.ts", ".vercel/"],
   }
 );

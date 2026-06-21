@@ -4,6 +4,7 @@ import "../styles/global.css";
 import logo from "../assets/r_logo.svg";
 import CartIcon from "../components/CartIcon.astro";
 import CartDrawer from "../components/CartDrawer.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title?: string;
@@ -201,5 +202,6 @@ const socialImageURL = new URL(image, Astro.url);
       <slot />
     </main>
     <CartDrawer />
+    <Footer />
   </body>
 </html>

@@ -31,6 +31,7 @@ export async function getCatalogProducts(params: {
   color?: string;
   size?: string;
   sort?: string;
+  search?: string;
   page?: number;
   limit?: number;
 }): Promise<ApiResponse<PublicProductWithDetails>> {
@@ -40,6 +41,7 @@ export async function getCatalogProducts(params: {
     if (params.color) query.append("colors", params.color);
     if (params.size) query.append("sizes", params.size);
     if (params.sort) query.append("sort", params.sort);
+    if (params.search) query.append("search", params.search);
     if (params.page) query.append("page", params.page.toString());
     if (params.limit) query.append("limit", params.limit.toString());
 
