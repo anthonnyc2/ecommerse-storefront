@@ -6,16 +6,16 @@ import sonarjs from "eslint-plugin-sonarjs";
 export default tseslint.config(
   // Base ESLint recommended rules
   eslint.configs.recommended,
-  
+
   // TypeScript recommended rules
   ...tseslint.configs.recommended,
-  
+
   // Astro recommended rules
   ...eslintPluginAstro.configs.recommended,
-  
+
   // SonarJS recommended rules
   sonarjs.configs.recommended,
-  
+
   {
     // Configure TypeScript parser for Astro components
     files: ["**/*.astro"],
@@ -35,12 +35,12 @@ export default tseslint.config(
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
-      
+
       // SonarJS customizations
       "sonarjs/cognitive-complexity": ["error", 15],
       "sonarjs/no-duplicate-string": "error",
       "sonarjs/no-commented-code": "off",
-      
+
       // Astro rules
       "astro/no-set-html-directive": "error",
     },
@@ -49,5 +49,5 @@ export default tseslint.config(
   {
     // Global ignores
     ignores: ["dist/", ".astro/", "node_modules/", "src/env.d.ts", ".vercel/"],
-  }
+  },
 );

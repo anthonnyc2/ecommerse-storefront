@@ -53,7 +53,10 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
   href={`/producto/${slug}`}
   class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
 >
-  <div class="relative h-[400px] overflow-hidden">
+  <div class="relative h-[400px] overflow-hidden bg-gray-200">
+    <!-- Skeleton shimmer shown while the image loads -->
+    <div class="absolute inset-0 animate-pulse bg-gray-200" aria-hidden="true">
+    </div>
     <!-- Main Image: eager + high priority for LCP card, lazy + async for the rest -->
     <img
       src={optimizedMainImage}
@@ -63,6 +66,7 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
       loading={priority ? "eager" : "lazy"}
       decoding={priority ? "sync" : "async"}
       fetchpriority={priority ? "high" : "low"}
+      onload="this.previousElementSibling.remove()"
       class={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${optimizedHoverImage ? "group-hover:opacity-0" : ""}`}
     />
     <!-- Hover Image (Second image) - always lazy -->
