@@ -328,7 +328,116 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
   </script>
 
   <!-- Product page init — is:inline runs on EVERY page load, fixing Astro module caching -->
-  <script is:inline define:vars={{ variants }}>
+  <!-- Image lightbox. Hidden by default; the client script in
+       initProductPage() opens it when the user taps the main image. -->
+  <div
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="lightbox-title"
+    class="fixed inset-0 z-[110] hidden bg-black/90 opacity-0 transition-opacity duration-300"
+  >
+    <h2 id="lightbox-title" class="sr-only">{name}</h2>
+
+    <button
+      id="lightbox-close"
+      type="button"
+      aria-label="Cerrar"
+      class="absolute top-4 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <button
+      id="lightbox-prev"
+      type="button"
+      aria-label="Imagen anterior"
+      class="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+      </svg>
+    </button>
+
+    <button
+      id="lightbox-next"
+      type="button"
+      aria-label="Siguiente imagen"
+      class="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+      </svg>
+    </button>
+
+    <div
+      id="lightbox-image-area"
+      class="absolute inset-0 flex items-center justify-center p-4 sm:p-12"
+    >
+      <img
+        id="lightbox-image"
+        src=""
+        alt={name}
+        class="max-h-full max-w-full object-contain touch-pinch-zoom"
+      />
+    </div>
+
+    <span
+      id="lightbox-counter"
+      class="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white"
+    >
+      1 / 1
+    </span>
+
+    <div
+      id="lightbox-thumbs"
+      class="absolute bottom-16 left-1/2 z-20 hidden max-w-[80vw] -translate-x-1/2 gap-2 overflow-x-auto p-2 sm:flex"
+      role="tablist"
+    >
+    </div>
+
+    <div
+      id="lightbox-announcer"
+      aria-live="polite"
+      aria-atomic="true"
+      class="sr-only"
+    >
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ variants, images, productName: name }}>
     const CLASSES = {
       BORDER_SECONDARY: "border-secondary",
       BG_SECONDARY_10: "bg-secondary/10",
@@ -520,6 +629,10 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
             resetThumbHighlight(firstVisible);
           }
         }
+        // If the lightbox is open, refresh its image list to match the new color
+        if (typeof refreshLightboxImages === "function") {
+          refreshLightboxImages();
+        }
       }
 
       // Image switching
@@ -529,6 +642,217 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           if (mainImg && newUrl) mainImg.src = newUrl;
           resetThumbHighlight(btn);
         });
+      });
+
+      // ---------- Image Lightbox ----------
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightbox-image");
+      const lightboxClose = document.getElementById("lightbox-close");
+      const lightboxPrev = document.getElementById("lightbox-prev");
+      const lightboxNext = document.getElementById("lightbox-next");
+      const lightboxCounter = document.getElementById("lightbox-counter");
+      const lightboxThumbs = document.getElementById("lightbox-thumbs");
+      const lightboxAnnouncer = document.getElementById("lightbox-announcer");
+      const lightboxImageArea = document.getElementById("lightbox-image-area");
+
+      let lightboxUrls = [];
+      let lightboxIndex = 0;
+      let lastFocused = null;
+
+      function transformForLightbox(url) {
+        if (!url || url.indexOf("cloudinary.com") === -1) return url;
+        return url.replace("/upload/", "/upload/w_1600,f_auto,q_auto/");
+      }
+
+      function getFilteredImages() {
+        const color = selectedColor.toLowerCase();
+        return images
+          .filter(function (img) {
+            const imgColor = (img.color || "").toLowerCase();
+            return !imgColor || imgColor === color;
+          })
+          .map(function (img) {
+            return transformForLightbox(img.url);
+          });
+      }
+
+      function setLightboxVisibility(visible) {
+        if (!lightbox) return;
+        lightbox.classList.toggle("hidden", !visible);
+        requestAnimationFrame(function () {
+          lightbox.classList.toggle("opacity-0", !visible);
+        });
+        document.body.style.overflow = visible ? "hidden" : "";
+      }
+
+      function preloadAdjacent() {
+        const prev = lightboxUrls[lightboxIndex - 1];
+        const next = lightboxUrls[lightboxIndex + 1];
+        if (prev) new Image().src = prev;
+        if (next) new Image().src = next;
+      }
+
+      function showLightboxImage() {
+        if (!lightboxImage || !lightboxCounter || !lightboxAnnouncer) return;
+        const url = lightboxUrls[lightboxIndex];
+        if (url) lightboxImage.src = url;
+        lightboxCounter.textContent =
+          lightboxIndex + 1 + " / " + lightboxUrls.length;
+        lightboxAnnouncer.textContent =
+          "Imagen " + (lightboxIndex + 1) + " de " + lightboxUrls.length;
+        if (lightboxThumbs) {
+          const btns = lightboxThumbs.querySelectorAll("button");
+          btns.forEach(function (btn, i) {
+            const isActive = i === lightboxIndex;
+            btn.classList.toggle("ring-2", isActive);
+            btn.classList.toggle("ring-white", isActive);
+            btn.classList.toggle("opacity-50", !isActive);
+          });
+        }
+        preloadAdjacent();
+      }
+
+      function nextImage() {
+        if (lightboxUrls.length === 0) return;
+        lightboxIndex = (lightboxIndex + 1) % lightboxUrls.length;
+        showLightboxImage();
+      }
+
+      function prevImage() {
+        if (lightboxUrls.length === 0) return;
+        lightboxIndex =
+          (lightboxIndex - 1 + lightboxUrls.length) % lightboxUrls.length;
+        showLightboxImage();
+      }
+
+      function renderLightboxThumbs() {
+        if (!lightboxThumbs) return;
+        lightboxThumbs.innerHTML = "";
+        lightboxUrls.forEach(function (url, i) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.setAttribute("role", "tab");
+          btn.setAttribute("aria-label", "Imagen " + (i + 1));
+          btn.className =
+            "h-12 w-12 shrink-0 overflow-hidden rounded-md border-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
+          const img = document.createElement("img");
+          img.src = url.replace("/w_1600,", "/w_150,");
+          img.alt = "";
+          img.className = "h-full w-full object-cover";
+          btn.appendChild(img);
+          btn.addEventListener("click", function () {
+            lightboxIndex = i;
+            showLightboxImage();
+          });
+          lightboxThumbs.appendChild(btn);
+        });
+        const single = lightboxUrls.length <= 1;
+        if (lightboxPrev) lightboxPrev.classList.toggle("hidden", single);
+        if (lightboxNext) lightboxNext.classList.toggle("hidden", single);
+      }
+
+      function openLightbox() {
+        if (!lightbox) return;
+        lightboxUrls = getFilteredImages();
+        if (lightboxUrls.length === 0) return;
+        lightboxIndex = 0;
+        lastFocused = document.activeElement || mainImg;
+        renderLightboxThumbs();
+        setLightboxVisibility(true);
+        showLightboxImage();
+        setTimeout(function () {
+          if (lightboxClose) lightboxClose.focus();
+        }, 50);
+      }
+
+      function closeLightbox() {
+        if (!lightbox) return;
+        setLightboxVisibility(false);
+        if (lastFocused && typeof lastFocused.focus === "function") {
+          lastFocused.focus();
+        }
+      }
+
+      function refreshLightboxImages() {
+        if (!lightbox || lightbox.classList.contains("hidden")) return;
+        lightboxUrls = getFilteredImages();
+        if (lightboxUrls.length === 0) {
+          closeLightbox();
+          return;
+        }
+        if (lightboxIndex >= lightboxUrls.length) {
+          lightboxIndex = lightboxUrls.length - 1;
+        }
+        renderLightboxThumbs();
+        showLightboxImage();
+      }
+
+      if (mainImg) mainImg.addEventListener("click", openLightbox);
+      if (lightboxClose)
+        lightboxClose.addEventListener("click", closeLightbox);
+      if (lightboxNext) lightboxNext.addEventListener("click", nextImage);
+      if (lightboxPrev) lightboxPrev.addEventListener("click", prevImage);
+      if (lightbox) {
+        lightbox.addEventListener("click", function (e) {
+          const target = e.target;
+          if (target === lightbox || target === lightboxImageArea) {
+            closeLightbox();
+          }
+        });
+        let touchStartX = 0;
+        lightbox.addEventListener(
+          "touchstart",
+          function (e) {
+            touchStartX = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
+        lightbox.addEventListener(
+          "touchend",
+          function (e) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const deltaX = touchEndX - touchStartX;
+            if (Math.abs(deltaX) > 50) {
+              if (deltaX > 0) prevImage();
+              else nextImage();
+            }
+          },
+          { passive: true },
+        );
+      }
+
+      // Keyboard navigation (Escape, ArrowLeft, ArrowRight) inside the lightbox
+      document.addEventListener("keydown", function (e) {
+        if (!lightbox || lightbox.classList.contains("hidden")) return;
+        if (e.key === "Escape") {
+          closeLightbox();
+          e.preventDefault();
+        } else if (e.key === "ArrowRight") {
+          nextImage();
+          e.preventDefault();
+        } else if (e.key === "ArrowLeft") {
+          prevImage();
+          e.preventDefault();
+        }
+      });
+
+      // Focus trap — Tab/Shift+Tab cycles through focusable elements in the dialog
+      document.addEventListener("keydown", function (e) {
+        if (!lightbox || lightbox.classList.contains("hidden")) return;
+        if (e.key !== "Tab") return;
+        const focusable = lightbox.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          last.focus();
+          e.preventDefault();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          first.focus();
+          e.preventDefault();
+        }
       });
 
       // Color selection

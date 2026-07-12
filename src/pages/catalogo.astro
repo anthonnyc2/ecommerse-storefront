@@ -9,6 +9,10 @@ import {
 } from "../services/api";
 import printImg from "../assets/print.png";
 
+// Single source of truth for the catalog page size. The mobile
+// infinite-scroll client reads this from `data-page-size` on the grid.
+const PAGE_SIZE = 12;
+
 // Get query parameters for filtering
 const category = Astro.url.searchParams.get("category") || "";
 const color = Astro.url.searchParams.get("color") || "";
@@ -34,14 +38,14 @@ const [categories, colors, filtersData, { products, total }] =
       sort,
       search,
       page,
-      limit: 12,
+      limit: PAGE_SIZE,
     }),
   ]);
 
 const { sizes } = filtersData;
 
-// Pagination logic
-const totalPages = Math.ceil(total / 12);
+// Pagination logic (desktop). Mobile uses infinite scroll and ignores this.
+const totalPages = Math.ceil(total / PAGE_SIZE);
 ---
 
 <Layout title="Catálogo | Raquel Boutique">
@@ -557,6 +561,8 @@ const totalPages = Math.ceil(total / 12);
           <!-- Products Grid -->
           <div
             id="products-grid"
+            data-page-size={PAGE_SIZE}
+            data-total={total}
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {
@@ -566,22 +572,78 @@ const totalPages = Math.ceil(total / 12);
             }
           </div>
 
-          <!-- Pagination -->
+          <!-- Infinite scroll (mobile only, ≤1023px). The sentinel below the
+               grid is observed by the client script which auto-fetches the
+               next page when the user nears the bottom. -->
+          <div id="infinite-scroll-region" class="mt-8 lg:hidden">
+            <div
+              id="infinite-scroll-sentinel"
+              class="h-1 w-full"
+              aria-hidden="true"
+            >
+            </div>
+
+            <div
+              id="infinite-scroll-loading"
+              class="hidden py-8 text-center"
+              role="status"
+              aria-live="polite"
+            >
+              <div
+                class="motion-safe:animate-spin motion-reduce:animate-none mx-auto h-6 w-6 rounded-full border-2 border-gray-200 border-t-secondary"
+                aria-hidden="true"
+              >
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Cargando más productos...</p>
+            </div>
+
+            <p
+              id="infinite-scroll-end-message"
+              class="hidden py-8 text-center text-sm text-gray-500"
+            >
+              Has visto todos los productos
+            </p>
+
+            <div
+              id="infinite-scroll-error"
+              class="hidden py-6 text-center"
+              role="alert"
+            >
+              <p class="text-sm text-gray-600">
+                No pudimos cargar más productos.
+              </p>
+              <button
+                type="button"
+                id="infinite-scroll-retry"
+                class="mt-2 inline-flex items-center rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                Reintentar
+              </button>
+            </div>
+
+            <div
+              id="infinite-scroll-announcer"
+              class="sr-only"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+            </div>
+          </div>
+
+          <!-- Pagination (desktop ≥1024px). Mobile hides via lg:flex. -->
           {
             totalPages > 1 && (
               <nav
-                class="mt-12 flex items-center justify-center gap-1.5"
+                id="pagination"
+                class="mt-12 hidden items-center justify-center gap-3 lg:flex"
                 aria-label="Paginación"
               >
                 <button
-                  class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
-                    page <= 1
-                      ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                      : "cursor-pointer border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
-                  }`}
-                  data-page={String(page - 1)}
+                  id="pagination-prev"
+                  type="button"
                   aria-label="Página anterior"
                   disabled={page <= 1}
+                  class="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
                 >
                   <svg
                     class="h-4 w-4"
@@ -597,35 +659,26 @@ const totalPages = Math.ceil(total / 12);
                       d="M15.75 19.5L8.25 12l7.5-7.5"
                     />
                   </svg>
+                  <span>Anterior</span>
                 </button>
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (p) => (
-                    <button
-                      class={`h-9 w-9 rounded-full border text-sm font-medium transition-colors pagination-btn cursor-pointer ${
-                        p === page
-                          ? "border-secondary bg-secondary text-plum font-semibold"
-                          : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
-                      }`}
-                      data-page={String(p)}
-                      aria-label={`Ir a la página ${p}`}
-                      aria-current={p === page ? "page" : undefined}
-                    >
-                      {p}
-                    </button>
-                  ),
-                )}
+                <span class="text-sm text-gray-600" aria-live="polite">
+                  Página{" "}
+                  <strong class="font-semibold text-gray-900">{page}</strong>{" "}
+                  de{" "}
+                  <strong class="font-semibold text-gray-900">
+                    {totalPages}
+                  </strong>
+                </span>
 
                 <button
-                  class={`flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors pagination-btn ${
-                    page >= totalPages
-                      ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                      : "cursor-pointer border-gray-300 bg-white text-gray-600 hover:bg-gray-50"
-                  }`}
-                  data-page={String(page + 1)}
+                  id="pagination-next"
+                  type="button"
                   aria-label="Página siguiente"
                   disabled={page >= totalPages}
+                  class="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
                 >
+                  <span>Siguiente</span>
                   <svg
                     class="h-4 w-4"
                     fill="none"
@@ -677,7 +730,33 @@ const totalPages = Math.ceil(total / 12);
     </div>
   </div>
 
+  <!-- Floating "back to top" button. Hidden by default (opacity-0,
+       pointer-events-none); the client script reveals it only when the
+       user has loaded extra pages (page > 1) AND is scrolling upward. -->
+  <button
+    id="back-to-top"
+    type="button"
+    aria-label="Volver al inicio de la página"
+    class="fixed bottom-6 right-6 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white/90 text-gray-600 opacity-0 shadow-sm backdrop-blur pointer-events-none transition-opacity duration-200 hover:bg-white hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+  >
+    <svg
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
+    </svg>
+  </button>
+
   <script>
+    import { actions } from "astro:actions";
+
     document.addEventListener("DOMContentLoaded", () => {
       // Show skeleton grid while navigating to new results
       function showSkeleton() {
@@ -739,11 +818,24 @@ const totalPages = Math.ceil(total / 12);
       });
 
       // Pagination
-      document.querySelectorAll(".pagination-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const page = (btn as HTMLElement).dataset.page;
-          updateFilters({ page: page || "1" });
-        });
+      const prevBtn = document.getElementById("pagination-prev");
+      const nextBtn = document.getElementById("pagination-next");
+      const currentPageFromUrl = Math.max(
+        1,
+        Number.parseInt(
+          new URLSearchParams(window.location.search).get("page") ?? "1",
+          10,
+        ) || 1,
+      );
+      prevBtn?.addEventListener("click", () => {
+        if (!prevBtn.hasAttribute("disabled")) {
+          updateFilters({ page: String(currentPageFromUrl - 1) });
+        }
+      });
+      nextBtn?.addEventListener("click", () => {
+        if (!nextBtn.hasAttribute("disabled")) {
+          updateFilters({ page: String(currentPageFromUrl + 1) });
+        }
       });
 
       // Clear filters (preserves search term)
@@ -801,6 +893,208 @@ const totalPages = Math.ceil(total / 12);
 
       mobileFilterClose?.addEventListener("click", closeMenu);
       mobileFilterOverlay?.addEventListener("click", closeMenu);
+
+      // ---------- Infinite scroll (mobile only, ≤1023px) ----------
+      // Each guard below is independent — a missing optional element
+      // (e.g. the pagination nav when totalPages === 1) does not
+      // disable the rest of the behaviour.
+      const grid = document.getElementById("products-grid") as HTMLElement | null;
+      const sentinel = document.getElementById(
+        "infinite-scroll-sentinel",
+      ) as HTMLElement | null;
+      const loadingEl = document.getElementById(
+        "infinite-scroll-loading",
+      ) as HTMLElement | null;
+      const endEl = document.getElementById(
+        "infinite-scroll-end-message",
+      ) as HTMLElement | null;
+      const errorEl = document.getElementById(
+        "infinite-scroll-error",
+      ) as HTMLElement | null;
+      const retryBtn = document.getElementById(
+        "infinite-scroll-retry",
+      ) as HTMLButtonElement | null;
+      const announcerEl = document.getElementById(
+        "infinite-scroll-announcer",
+      ) as HTMLElement | null;
+      const paginationEl = document.getElementById(
+        "pagination",
+      ) as HTMLElement | null;
+      const resultsCountEl = document.getElementById(
+        "results-count",
+      ) as HTMLElement | null;
+
+      if (grid && sentinel && loadingEl && endEl && errorEl && announcerEl) {
+        const pageSize = Number(grid.dataset.pageSize ?? "12");
+        const totalProducts = Number(grid.dataset.total ?? "0");
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentPage = Math.max(
+          1,
+          Number.parseInt(urlParams.get("page") ?? "1", 10) || 1,
+        );
+        let isLoading = false;
+        let hasMore = currentPage * pageSize < totalProducts;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+            if (entry?.isIntersecting) loadNextPage();
+          },
+          { rootMargin: "400px 0px 400px 0px" },
+        );
+        observer.observe(sentinel);
+
+        function toggle(el: HTMLElement | null, on: boolean) {
+          el?.classList.toggle("hidden", !on);
+        }
+
+        function announce(message: string) {
+          if (announcerEl) announcerEl.textContent = message;
+        }
+
+        function updateResultsCount() {
+          if (!resultsCountEl || !grid) return;
+          const shown = grid.querySelectorAll(":scope > a").length;
+          resultsCountEl.textContent = `Mostrando ${shown} de ${totalProducts} productos`;
+        }
+
+        function pushPageToHistory(page: number) {
+          const url = new URL(window.location.href);
+          url.searchParams.set("page", String(page));
+          window.history.pushState({ page }, "", url.toString());
+        }
+
+        function endOfResults() {
+          hasMore = false;
+          toggle(loadingEl, false);
+          toggle(endEl, true);
+          toggle(errorEl, false);
+          announce("Has visto todos los productos");
+          observer.disconnect();
+          isLoading = false;
+        }
+
+        function showError() {
+          toggle(loadingEl, false);
+          toggle(errorEl, true);
+          announce("No pudimos cargar más productos. Pulsa Reintentar.");
+          isLoading = false;
+        }
+
+        function applyPage(
+          html: string,
+          count: number,
+          total: number,
+          nextPage: number,
+        ) {
+          if (!grid) return;
+          grid.insertAdjacentHTML("beforeend", html);
+          currentPage = nextPage;
+          pushPageToHistory(nextPage);
+          updateResultsCount();
+          announce(`${count} productos más cargados`);
+          toggle(loadingEl, false);
+          hasMore = currentPage * pageSize < total;
+          if (!hasMore) {
+            toggle(endEl, true);
+            announce("Has visto todos los productos");
+            observer.disconnect();
+          }
+          isLoading = false;
+        }
+
+        async function loadNextPage() {
+          if (isLoading || !hasMore) return;
+          const nextPage = currentPage + 1;
+          isLoading = true;
+          toggle(errorEl, false);
+          toggle(loadingEl, true);
+          announce(`Cargando página ${nextPage}`);
+
+          const result = await actions.loadMoreCatalog({
+            page: nextPage,
+            limit: pageSize,
+            category: urlParams.get("category") ?? "",
+            color: urlParams.get("color") ?? "",
+            size: urlParams.get("size") ?? "",
+            sort: urlParams.get("sort") ?? "",
+            search: urlParams.get("search") ?? "",
+          });
+
+          if (result.error || !result.data) {
+            console.error("[infinite-scroll] action failed", result.error);
+            showError();
+            return;
+          }
+          const { html, total, count } = result.data;
+          if (count === 0 || !html) {
+            endOfResults();
+            return;
+          }
+          applyPage(html, count, total, nextPage);
+        }
+
+        retryBtn?.addEventListener("click", () => {
+          toggle(errorEl, false);
+          loadNextPage();
+        });
+
+        // ---------- Back-to-top floating button ----------
+        // Visible only when the user has loaded at least one extra page
+        // AND is scrolling upward AND has scrolled past the first fold.
+        const backToTopBtn = document.getElementById(
+          "back-to-top",
+        ) as HTMLButtonElement | null;
+        if (backToTopBtn) {
+          const SHOW_THRESHOLD = 400;
+          let lastScrollY = window.scrollY;
+          let scrollingUp = false;
+
+          function updateBackToTop() {
+            if (!backToTopBtn) return;
+            const shouldShow =
+              currentPage > 1 && scrollingUp && window.scrollY > SHOW_THRESHOLD;
+            backToTopBtn.classList.toggle("opacity-0", !shouldShow);
+            backToTopBtn.classList.toggle("pointer-events-none", !shouldShow);
+          }
+
+          window.addEventListener(
+            "scroll",
+            () => {
+              const currentY = window.scrollY;
+              scrollingUp = currentY < lastScrollY;
+              lastScrollY = currentY;
+              updateBackToTop();
+            },
+            { passive: true },
+          );
+
+          backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+
+          updateBackToTop();
+        }
+
+        // Pagination visibility + reload on breakpoint cross (best-effort;
+        // works whether or not the nav is in the DOM).
+        const MOBILE_MQ = window.matchMedia("(max-width: 1023px)");
+        if (paginationEl) {
+          paginationEl.classList.toggle("hidden", MOBILE_MQ.matches);
+          paginationEl.setAttribute(
+            "aria-hidden",
+            MOBILE_MQ.matches ? "true" : "false",
+          );
+        }
+        MOBILE_MQ.addEventListener("change", () => {
+          window.location.reload();
+        });
+
+        if (totalProducts === 0) {
+          observer.disconnect();
+        } else if (!hasMore) {
+          toggle(endEl, true);
+        }
+      }
     });
   </script>
-</Layout>
