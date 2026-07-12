@@ -20,14 +20,16 @@ Public-facing storefront for Raquel Boutique. Built with Astro 5, Tailwind CSS v
 ## Key Scripts
 
 ```bash
-npm run dev        # Start dev server
-npm run build      # Production build
-npm run preview    # Preview production build
-npm run typecheck  # astro check (TypeScript)
-npm run lint       # ESLint
-npm run format     # Prettier (write)
-npm run test       # Vitest run
+pnpm run dev        # Start dev server
+pnpm run build      # Production build
+pnpm run preview    # Preview production build
+pnpm run typecheck  # astro check (TypeScript)
+pnpm run lint       # ESLint
+pnpm run format     # Prettier (write)
+pnpm run test       # Vitest run
 ```
+
+> **Note:** Requires Node 24.13.1 (`nvm use 24.13.1`) and pnpm 10.x via corepack.
 
 ---
 

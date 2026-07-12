@@ -3,7 +3,9 @@ echo "🔍 Validando el proyecto antes del push (audit + seguridad + tests)..."
 
 # 1. Auditoría de seguridad de dependencias
 echo "🛡️  Revisando vulnerabilidades de seguridad..."
-npm audit --registry=https://registry.npmjs.org --audit-level=high
+# --registry override: el mirror npmmirror.com configurado globalmente no expone
+# el endpoint de auditoría, así que apuntamos explícitamente a registry.npmjs.org.
+pnpm audit --registry=https://registry.npmjs.org --audit-level=high
 
 if [ $? -ne 0 ]; then
   echo "❌ Error: Se encontraron vulnerabilidades críticas. El push ha sido cancelado."
@@ -14,7 +16,7 @@ fi
 if command -v gitleaks > /dev/null 2>&1; then
   echo "🔑 Buscando posibles secretos expuestos con Gitleaks..."
   gitleaks detect --source .
-  
+
   if [ $? -ne 0 ]; then
     echo "❌ Error: Posibles secretos detectados. Revisa tu código antes de subirlo."
     exit 1
@@ -24,9 +26,9 @@ else
 fi
 
 # 3. Pruebas Unitarias
-# Como es un proyecto nuevo, esto fallará si no hay tests. 
+# Como es un proyecto nuevo, esto fallará si no hay tests.
 # Si quieres saltarlo la primera vez puedes comentar esta línea.
-npm run test
+pnpm run test
 
 if [ $? -ne 0 ]; then
   echo "❌ Error: Las pruebas unitarias fallaron. El push ha sido cancelado."

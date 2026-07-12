@@ -3,11 +3,23 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": "24.13.1"
+    "node": "24.13.1",
+    "pnpm": ">=10"
   },
+  "packageManager": "pnpm@10.34.5",
   "overrides": {
     "yaml": ">=2.2.2",
-    "path-to-regexp": ">=6.3.0"
+    "path-to-regexp": ">=6.3.0",
+    ">ts-api-utils": {
+      "typescript": "5.9.3"
+    }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "@sentry/cli"
+    ]
   },
   "scripts": {
     "dev": "astro dev",
@@ -17,7 +29,7 @@
     "lint": "eslint .",
     "typecheck": "astro check",
     "format": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "vitest run"
   },
   "lint-staged": {
@@ -41,6 +53,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/forms": "^0.5.11",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
