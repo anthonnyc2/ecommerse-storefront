@@ -15,7 +15,7 @@ This repository contains the frontend customer-facing application for Raquel Bou
 - **Blazing Fast Performance**: Built with Astro's Islands architecture, shipping zero JavaScript by default for static content.
 - **Modern UI/UX**: Styled with Tailwind CSS v4 for a beautiful, responsive, and maintainable design system.
 - **Global State Management**: Powered by Nano Stores (`@nanostores/persistent`) for lightweight, cross-component state sharing (like shopping carts).
-- **Production Ready**: Configured for Vercel deployment with integrated error tracking (Sentry) and user behavior analytics (Microsoft Clarity).
+- **Production Ready**: Self-hosted deployment with integrated error tracking (Sentry) and user behavior analytics (Microsoft Clarity).
 - **Robust Testing**: Comprehensive unit testing setup using Vitest and React Testing Library.
 - **Code Quality Guardrails**: Pre-configured with ESLint, Prettier, Husky pre-commit hooks, and lint-staged to ensure code consistency.
 
@@ -24,7 +24,7 @@ This repository contains the frontend customer-facing application for Raquel Bou
 - **Framework**: [Astro v5](https://astro.build/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **State Management**: [Nano Stores](https://github.com/nanostores/nanostores)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Deployment**: Self-hosted (DigitalOcean + [Coolify](https://coolify.io/))
 - **Quality & Formatting**: ESLint, Prettier, Husky
 - **Testing**: Vitest, JSDom, Testing Library
 - **Monitoring**: Sentry, Microsoft Clarity

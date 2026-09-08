@@ -1,6 +1,6 @@
 # CLAUDE.md — raquelboutique
 
-Public-facing storefront for Raquel Boutique. Built with Astro 5, Tailwind CSS v4, and Nano Stores. Deployed on Vercel. Part of the Raquel Boutique ecosystem — see parent `../CLAUDE.md` for ecosystem overview.
+Public-facing storefront for Raquel Boutique. Built with Astro 5, Tailwind CSS v4, and Nano Stores. Self-hosted on DigitalOcean via Coolify. Part of the Raquel Boutique ecosystem — see parent `../CLAUDE.md` for ecosystem overview.
 
 ---
 
@@ -8,10 +8,10 @@ Public-facing storefront for Raquel Boutique. Built with Astro 5, Tailwind CSS v
 
 | Layer          | Technology                                            |
 | -------------- | ----------------------------------------------------- |
-| Framework      | Astro 5 (SSR via Vercel adapter)                      |
+| Framework      | Astro 5 (SSR via `@astrojs/node`, standalone mode)    |
 | Styling        | Tailwind CSS v4 + `@tailwindcss/forms`                |
 | State          | Nano Stores + `@nanostores/persistent` (localStorage) |
-| Deployment     | Vercel                                                |
+| Deployment     | Self-hosted (DigitalOcean + Coolify)                  |
 | Error tracking | Sentry (`@sentry/astro`)                              |
 | Analytics      | Microsoft Clarity + Google Analytics                  |
 | Testing        | Vitest + jsdom + Testing Library                      |
