@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
 import tailwindcss from "@tailwindcss/vite";
-import vercel from "@astrojs/vercel";
+import node from "@astrojs/node";
 
 import sentry from "@sentry/astro";
 
@@ -13,7 +13,7 @@ const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
+  adapter: node({ mode: "standalone" }),
 
   vite: {
     plugins: [tailwindcss()],
