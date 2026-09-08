@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raquel-boutique.com/sitemap-index.xml
