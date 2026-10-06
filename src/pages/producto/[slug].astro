@@ -71,7 +71,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
   description={socialDescription}
   image={socialImage}
 >
-  <div class="bg-white">
+  <div class="bg-white" data-track-engagement={slug}>
     <div class="pt-6 pb-16 sm:pb-24">
       <!-- Breadcrumb -->
       <nav
@@ -437,7 +437,18 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
     </div>
   </div>
 
-  <script is:inline define:vars={{ variants, images, productName: name }}>
+  <script
+    is:inline
+    define:vars={{
+      variants,
+      images,
+      productName: name,
+      productSlug: slug,
+      productCategory: category ?? "",
+      productBrand: brand ?? "",
+      basePrice,
+    }}
+  >
     const CLASSES = {
       BORDER_SECONDARY: "border-secondary",
       BG_SECONDARY_10: "bg-secondary/10",
@@ -453,8 +464,39 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
     const ADD_TO_CART_ID = "add-to-cart-btn";
     const BUY_NOW_ID = "buy-now-btn";
 
+    function baseItem() {
+      return {
+        item_id: productSlug,
+        item_name: productName,
+        item_category: productCategory || undefined,
+        item_brand: productBrand || undefined,
+      };
+    }
+
+    function variantLabel(color, size) {
+      return [color, size].filter(Boolean).join(" / ");
+    }
+
+    function trackAddToCart(productData) {
+      window.rbTrack?.("add_to_cart", {
+        value: productData.price,
+        items: [
+          {
+            ...baseItem(),
+            item_variant: variantLabel(productData.color, productData.size),
+            price: productData.price,
+            quantity: 1,
+          },
+        ],
+      });
+    }
+
     function initProductPage() {
-      window.clarity?.("event", "ViewProduct");
+      window.rbTrack?.("view_item", {
+        value: basePrice,
+        items: [{ ...baseItem(), price: basePrice }],
+      });
+      let lastOutOfStockVariant = "";
 
       const mainImg = document.getElementById("main-product-image");
       const thumbBtns = document.querySelectorAll(".thumb-btn");
@@ -487,6 +529,13 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
           stockIndicator.classList.remove("hidden");
           const inStock = variant.stock > 0;
           stockValue.textContent = inStock ? "En stock" : "Agotado";
+          if (!inStock && lastOutOfStockVariant !== variant.id) {
+            lastOutOfStockVariant = variant.id;
+            window.rbTrack?.("out_of_stock_view", {
+              item_id: productSlug,
+              item_variant: variantLabel(variant.color, variant.size),
+            });
+          }
           stockValue.className = inStock
             ? "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-green-50 text-green-700 ring-1 ring-green-200"
             : "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-red-50 text-red-600 ring-1 ring-red-200";
@@ -788,8 +837,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       }
 
       if (mainImg) mainImg.addEventListener("click", openLightbox);
-      if (lightboxClose)
-        lightboxClose.addEventListener("click", closeLightbox);
+      if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
       if (lightboxNext) lightboxNext.addEventListener("click", nextImage);
       if (lightboxPrev) lightboxPrev.addEventListener("click", prevImage);
       if (lightbox) {
@@ -857,8 +905,15 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
       // Color selection
       colorBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (event) => {
           selectedColor = btn.getAttribute(DATA_COLOR) || "";
+          if (event.isTrusted) {
+            window.rbTrack?.("select_variant", {
+              item_id: productSlug,
+              variant_type: "color",
+              variant_value: selectedColor,
+            });
+          }
           resetColorButtons(btn);
           updateThumbnailsForColor();
           updateSizeAvailability();
@@ -868,8 +923,15 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
 
       // Size selection
       sizeBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (event) => {
           selectedSize = btn.getAttribute(DATA_SIZE) || "";
+          if (event.isTrusted) {
+            window.rbTrack?.("select_variant", {
+              item_id: productSlug,
+              variant_type: "size",
+              variant_value: selectedSize,
+            });
+          }
           resetSizeButtons();
           btn.classList.remove(CLASSES.BORDER_GRAY_300);
           btn.classList.add(
@@ -885,7 +947,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       document.getElementById(ADD_TO_CART_ID)?.addEventListener("click", () => {
         const productData = getProductData();
         if (productData && window._rbAddItem) {
-          window.clarity?.("event", "AddToCart");
+          trackAddToCart(productData);
           window._rbAddItem(productData);
           const btn = document.getElementById(ADD_TO_CART_ID);
           if (btn) {
@@ -913,7 +975,7 @@ const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
       document.getElementById(BUY_NOW_ID)?.addEventListener("click", () => {
         const productData = getProductData();
         if (productData && window._rbAddItem) {
-          window.clarity?.("event", "AddToCart");
+          trackAddToCart(productData);
           window._rbAddItem(productData);
           window.dispatchEvent(new CustomEvent("toggle-cart"));
         }

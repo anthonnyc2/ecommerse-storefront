@@ -151,8 +151,25 @@
 </div>
 
 <script>
-  import Clarity from "@microsoft/clarity";
-  import { cartItems, removeItem, updateQuantity } from "../services/cartStore";
+  import { track, type AnalyticsItem } from "../services/analytics";
+  import {
+    cartItems,
+    removeItem,
+    updateQuantity,
+    type CartItem,
+  } from "../services/cartStore";
+
+  const toAnalyticsItem = (item: CartItem): AnalyticsItem => ({
+    item_id: item.slug,
+    item_name: item.name,
+    item_brand: item.brand || undefined,
+    item_variant: [item.color, item.size].filter(Boolean).join(" / "),
+    price: item.price,
+    quantity: item.quantity,
+  });
+
+  const cartValue = (items: CartItem[]) =>
+    items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const cartDrawer = document.getElementById("cart-drawer");
   const cartOverlay = document.getElementById("cart-overlay");
@@ -222,6 +239,11 @@
 
   window.addEventListener("toggle-cart", () => {
     openCart();
+    const items = cartItems.get();
+    track("view_cart", {
+      value: cartValue(items),
+      items: items.map(toAnalyticsItem),
+    });
   });
 
   closeCart?.addEventListener("click", closeCartDrawer);
@@ -296,8 +318,12 @@
     document.querySelectorAll(".remove-item").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const id = (e.target as HTMLElement).getAttribute("data-id");
-        if (id) {
-          Clarity.event("RemoveFromCart");
+        const removed = items.find((i) => i.id === id);
+        if (id && removed) {
+          track("remove_from_cart", {
+            value: removed.price * removed.quantity,
+            items: [toAnalyticsItem(removed)],
+          });
           removeItem(id);
         }
       });
@@ -324,12 +350,15 @@
     const items = cartItems.get();
     if (items.length === 0) return;
 
-    Clarity.event("CheckoutStarted");
-
-    const total = items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0,
-    );
+    const total = cartValue(items);
+    track("begin_checkout", {
+      value: total,
+      items: items.map(toAnalyticsItem),
+    });
+    track("click_contact", {
+      contact_method: "whatsapp",
+      placement: "cart",
+    });
 
     let message =
       "¡Hola! Me gustaría realizar el siguiente pedido por Raquel Boutique:\n\n";

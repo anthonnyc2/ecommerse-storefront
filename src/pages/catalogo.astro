@@ -563,6 +563,7 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
             id="products-grid"
             data-page-size={PAGE_SIZE}
             data-total={total}
+            data-list-name={search ? "busqueda" : category || "catalogo"}
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {
@@ -594,7 +595,9 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
                 aria-hidden="true"
               >
               </div>
-              <p class="mt-2 text-sm text-gray-500">Cargando más productos...</p>
+              <p class="mt-2 text-sm text-gray-500">
+                Cargando más productos...
+              </p>
             </div>
 
             <p
@@ -664,8 +667,7 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
 
                 <span class="text-sm text-gray-600" aria-live="polite">
                   Página{" "}
-                  <strong class="font-semibold text-gray-900">{page}</strong>{" "}
-                  de{" "}
+                  <strong class="font-semibold text-gray-900">{page}</strong> de{" "}
                   <strong class="font-semibold text-gray-900">
                     {totalPages}
                   </strong>
@@ -756,8 +758,14 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
 
   <script>
     import { actions } from "astro:actions";
+    import {
+      trackCatalogView,
+      trackPageLoaded,
+    } from "../services/catalogAnalytics";
 
     document.addEventListener("DOMContentLoaded", () => {
+      trackCatalogView();
+
       // Show skeleton grid while navigating to new results
       function showSkeleton() {
         document.getElementById("products-grid")?.classList.add("hidden");
@@ -898,7 +906,9 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
       // Each guard below is independent — a missing optional element
       // (e.g. the pagination nav when totalPages === 1) does not
       // disable the rest of the behaviour.
-      const grid = document.getElementById("products-grid") as HTMLElement | null;
+      const grid = document.getElementById(
+        "products-grid",
+      ) as HTMLElement | null;
       const sentinel = document.getElementById(
         "infinite-scroll-sentinel",
       ) as HTMLElement | null;
@@ -949,10 +959,12 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
         }
 
         function announce(message: string) {
+          // eslint-disable-next-line sonarjs/no-gratuitous-expressions -- TS does not narrow captured consts inside function declarations
           if (announcerEl) announcerEl.textContent = message;
         }
 
         function updateResultsCount() {
+          // eslint-disable-next-line sonarjs/no-gratuitous-expressions -- TS does not narrow captured consts inside function declarations
           if (!resultsCountEl || !grid) return;
           const shown = grid.querySelectorAll(":scope > a").length;
           resultsCountEl.textContent = `Mostrando ${shown} de ${totalProducts} productos`;
@@ -987,10 +999,12 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
           total: number,
           nextPage: number,
         ) {
+          // eslint-disable-next-line sonarjs/no-gratuitous-expressions -- TS does not narrow captured consts inside function declarations
           if (!grid) return;
           grid.insertAdjacentHTML("beforeend", html);
           currentPage = nextPage;
           pushPageToHistory(nextPage);
+          trackPageLoaded(nextPage, grid.dataset.listName ?? "catalogo");
           updateResultsCount();
           announce(`${count} productos más cargados`);
           toggle(loadingEl, false);
@@ -1051,6 +1065,7 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
           let scrollingUp = false;
 
           function updateBackToTop() {
+            // eslint-disable-next-line sonarjs/no-gratuitous-expressions -- TS does not narrow captured consts inside function declarations
             if (!backToTopBtn) return;
             const shouldShow =
               currentPage > 1 && scrollingUp && window.scrollY > SHOW_THRESHOLD;
@@ -1098,3 +1113,4 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
       }
     });
   </script>
+</Layout>

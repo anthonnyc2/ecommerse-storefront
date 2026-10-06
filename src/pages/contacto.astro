@@ -27,7 +27,9 @@ import logo from "../assets/rb_logo.svg";
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
           <!-- Instagram Card -->
           <a
-            id="instagram-link"
+            data-track="click_social"
+            data-network="instagram"
+            data-placement="contacto"
             href="https://www.instagram.com/raquelboutique.bo"
             target="_blank"
             rel="noopener noreferrer"
@@ -59,7 +61,9 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- Facebook Card -->
           <a
-            id="facebook-link"
+            data-track="click_social"
+            data-network="facebook"
+            data-placement="contacto"
             href="https://www.facebook.com/raquelboutiquebo"
             target="_blank"
             rel="noopener noreferrer"
@@ -89,7 +93,8 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- WhatsApp Card -->
           <a
-            id="whatsapp-contact-link"
+            data-track="click_contact"
+            data-placement="contacto"
             href="https://api.whatsapp.com/send/?phone=59165864255"
             target="_blank"
             rel="noopener noreferrer"
@@ -118,7 +123,9 @@ import logo from "../assets/rb_logo.svg";
 
           <!-- TikTok Card -->
           <a
-            id="tiktok-link"
+            data-track="click_social"
+            data-network="tiktok"
+            data-placement="contacto"
             href="https://www.tiktok.com/@raquelboutiquebo"
             target="_blank"
             rel="noopener noreferrer"
@@ -199,42 +206,3 @@ import logo from "../assets/rb_logo.svg";
     </div>
   </div>
 </Layout>
-
-<script>
-  declare function gtag(command: string, ...args: unknown[]): void;
-  import Clarity from "@microsoft/clarity";
-  document.addEventListener("DOMContentLoaded", () => {
-    const PAGE_LABEL = "Contact Page";
-    const whatsappLink = document.getElementById("whatsapp-contact-link");
-    const instagramLink = document.getElementById("instagram-link");
-    const facebookLink = document.getElementById("facebook-link");
-    const tiktokLink = document.getElementById("tiktok-link");
-
-    const trackEvent = (eventName: string, label: string) => {
-      if (typeof gtag !== "undefined") {
-        gtag("event", eventName, {
-          event_category: "engagement",
-          event_label: label,
-          value: 1,
-        });
-      }
-      Clarity.event(eventName);
-    };
-
-    whatsappLink?.addEventListener("click", () => {
-      trackEvent("click_whatsapp_contact", PAGE_LABEL);
-    });
-
-    instagramLink?.addEventListener("click", () => {
-      trackEvent("click_instagram", PAGE_LABEL);
-    });
-
-    facebookLink?.addEventListener("click", () => {
-      trackEvent("click_facebook", PAGE_LABEL);
-    });
-
-    tiktokLink?.addEventListener("click", () => {
-      trackEvent("click_tiktok", PAGE_LABEL);
-    });
-  });
-</script>

@@ -4,4 +4,5 @@ declare var dataLayer: any[]; // Permite usar 'dataLayer' sin 'window.'
 
 interface Window {
   dataLayer: any[];
+  rbTrack?: typeof import("./services/analytics").track;
 }

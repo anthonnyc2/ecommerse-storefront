@@ -93,6 +93,15 @@ const socialImageURL = new URL(image, Astro.url);
     </script>
     <script>
       import Clarity from "@microsoft/clarity";
+      import {
+        initClickTracking,
+        initEngagementTracking,
+        track,
+      } from "../services/analytics";
+      // Inline page scripts (define:vars) cannot import modules, so they call window.rbTrack
+      window.rbTrack = track;
+      initClickTracking();
+      initEngagementTracking();
       // Defer Clarity until browser is idle so it doesn't compete with LCP
       const initClarity = () =>
         Clarity.init(import.meta.env.PUBLIC_CLARITY_PROJECT_ID);
