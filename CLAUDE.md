@@ -76,6 +76,8 @@ src/
 - Clarity gets only 4 milestone events plus session tags (`producto`, `lista`, `busqueda`, `busqueda_resultados`, `contacto`), defined in `CLARITY_TAGS` in `analytics.ts`. The raw search term is sent as a tag.
 - `item_id` is always the product **slug**; the variant goes in `item_variant`.
 - Inline `define:vars` scripts cannot import modules: they call `window.rbTrack`.
+- Product pages emit schema.org `Product` JSON-LD through `components/JsonLd.astro`, the only place allowed to use `set:html` (it escapes `<`).
+- Missing products use `Astro.rewrite("/404")` so the response keeps a real 404 status; `src/pages/404.astro` reports `page_not_found` with the requested path.
 - Catalog search/filter/pagination events are sent on page load from the rendered grid (`src/services/catalogAnalytics.ts`), not on click.
 
 ---

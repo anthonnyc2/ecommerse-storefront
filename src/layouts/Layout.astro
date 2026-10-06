@@ -10,12 +10,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  ogType?: "website" | "product";
 }
 
 const {
   title = "Catalogo | Raquel Boutique",
   description = "Moda elegante y contemporánea para la mujer moderna. Explora nuestra colección de blusas, vestidos y más.",
   image = logo.src,
+  ogType = "website",
 } = Astro.props;
 
 const canonicalURL = new URL(
@@ -39,7 +41,9 @@ const socialImageURL = new URL(image, Astro.url);
     <meta name="description" content={description} />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Raquel Boutique" />
+    <meta property="og:locale" content="es_BO" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -51,6 +55,8 @@ const socialImageURL = new URL(image, Astro.url);
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
+
+    <slot name="head" />
 
     <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

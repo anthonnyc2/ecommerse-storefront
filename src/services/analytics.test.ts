@@ -87,6 +87,22 @@ describe("track", () => {
   });
 });
 
+describe("page_not_found", () => {
+  it("reports the missing path and where the visitor came from", () => {
+    track("page_not_found", {
+      page_path: "/producto/viejo",
+      referrer: "https://raquelboutique.vercel.app/",
+    });
+
+    expect(gtagMock).toHaveBeenCalledWith("event", "page_not_found", {
+      transport_type: "beacon",
+      page_path: "/producto/viejo",
+      referrer: "https://raquelboutique.vercel.app/",
+    });
+    expect(Clarity.setTag).not.toHaveBeenCalled();
+  });
+});
+
 describe("Clarity tags", () => {
   it("tags the product on view_item", () => {
     track("view_item", {

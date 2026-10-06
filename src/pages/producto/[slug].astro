@@ -3,11 +3,12 @@ import { getProductBySlug, getColors } from "../../services/api";
 import defaultImg from "../../assets/default-product-image.png";
 import printImg from "../../assets/print.png";
 import Layout from "../../layouts/Layout.astro";
+import JsonLd from "../../components/JsonLd.astro";
 
 const { slug } = Astro.params;
 
 if (!slug) {
-  return Astro.redirect("/404");
+  return Astro.rewrite("/404");
 }
 
 const [product, allColors] = await Promise.all([
@@ -16,7 +17,7 @@ const [product, allColors] = await Promise.all([
 ]);
 
 if (!product) {
-  return Astro.redirect("/404");
+  return Astro.rewrite("/404");
 }
 
 const { name, variants, images, description, category, brand } = product;
@@ -64,13 +65,52 @@ const transformImageUrl = (url: string, width = 800): string => {
 
 const socialImage = transformImageUrl(mainImage, 1200);
 const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
+
+const CURRENCY = "BOB";
+const MAX_STRUCTURED_IMAGES = 5;
+const maxPrice =
+  variants.length > 0 ? Math.max(...variants.map((v) => v.price)) : 0;
+const inStock = variants.some((v) => v.stock > 0);
+const productUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name,
+  description: socialDescription,
+  image: images
+    .slice(0, MAX_STRUCTURED_IMAGES)
+    .map((img) => transformImageUrl(img.url, 1200)),
+  category: category ?? undefined,
+  brand: brand ? { "@type": "Brand", name: brand } : undefined,
+  offers:
+    variants.length > 0
+      ? {
+          "@type": "AggregateOffer",
+          url: productUrl,
+          priceCurrency: CURRENCY,
+          lowPrice: basePrice,
+          highPrice: maxPrice,
+          offerCount: variants.length,
+          availability: inStock
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+        }
+      : undefined,
+};
 ---
 
 <Layout
   title={`${name} | Raquel Boutique`}
   description={socialDescription}
   image={socialImage}
+  ogType="product"
 >
+  <Fragment slot="head">
+    <meta property="product:price:amount" content={String(basePrice)} />
+    <meta property="product:price:currency" content={CURRENCY} />
+    <JsonLd data={productJsonLd} />
+  </Fragment>
   <div class="bg-white" data-track-engagement={slug}>
     <div class="pt-6 pb-16 sm:pb-24">
       <!-- Breadcrumb -->

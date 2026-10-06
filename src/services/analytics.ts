@@ -54,6 +54,7 @@ export interface AnalyticsEvents {
     item_id?: string;
   };
   click_social: { network: string; placement: ContactPlacement };
+  page_not_found: { page_path: string; referrer: string };
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents;

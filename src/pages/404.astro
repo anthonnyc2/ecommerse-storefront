@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Página no encontrada | Raquel Boutique"
+  description="La página que buscas no existe o ya no está disponible."
+>
+  <div class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 py-24 text-center sm:py-32">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-plum">
+        Error 404
+      </p>
+      <h1
+        class="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      >
+        No encontramos esta página
+      </h1>
+      <p class="mb-10 text-gray-600">
+        Puede que el producto ya no esté disponible o que el enlace haya
+        cambiado. Explora nuestra colección y encuentra algo que te guste.
+      </p>
+      <a
+        href="/catalogo"
+        class="inline-block rounded-full bg-plum px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-plum/40 transition duration-100 hover:bg-plum/80 focus-visible:ring-2 active:scale-95 md:text-base"
+        >Ver Catálogo</a
+      >
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { track } from "../services/analytics";
+
+  track("page_not_found", {
+    page_path: window.location.pathname,
+    referrer: document.referrer,
+  });
+</script>
