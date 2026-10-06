@@ -2,9 +2,15 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import Clarity from "@microsoft/clarity";
 import { initClickTracking, track } from "./analytics";
 
-vi.mock("@microsoft/clarity", () => ({ default: { event: vi.fn() } }));
+vi.mock("@microsoft/clarity", () => ({
+  default: { event: vi.fn(), setTag: vi.fn() },
+}));
 
 const gtagMock = vi.fn();
+const WHATSAPP = "whatsapp";
+const FOOTER = "footer";
+const BLOUSE_ID = "blusa-rosa";
+const BLOUSE_NAME = "Blusa Rosa";
 let clickHandler: (event: { target: unknown }) => void;
 
 // jsdom cannot start in this repo (undici version mismatch), so the DOM is faked.
@@ -35,6 +41,7 @@ beforeAll(() => {
 beforeEach(() => {
   gtagMock.mockClear();
   vi.mocked(Clarity.event).mockClear();
+  vi.mocked(Clarity.setTag).mockReset();
   vi.stubGlobal("gtag", gtagMock);
 });
 
@@ -67,7 +74,7 @@ describe("track", () => {
     });
     expect(Clarity.event).not.toHaveBeenCalled();
 
-    track("click_contact", { contact_method: "whatsapp", placement: "footer" });
+    track("click_contact", { contact_method: WHATSAPP, placement: FOOTER });
     expect(Clarity.event).toHaveBeenCalledWith("click_contact");
   });
 
@@ -80,13 +87,66 @@ describe("track", () => {
   });
 });
 
+describe("Clarity tags", () => {
+  it("tags the product on view_item", () => {
+    track("view_item", {
+      items: [{ item_id: BLOUSE_ID, item_name: BLOUSE_NAME }],
+    });
+
+    expect(Clarity.setTag).toHaveBeenCalledWith("producto", BLOUSE_ID);
+  });
+
+  it("sends the search term and whether it found results", () => {
+    track("search_catalog", { search_term: "vestido", results_count: 0 });
+
+    expect(Clarity.setTag).toHaveBeenCalledWith("busqueda", "vestido");
+    expect(Clarity.setTag).toHaveBeenCalledWith(
+      "busqueda_resultados",
+      "sin resultados",
+    );
+
+    track("search_catalog", { search_term: "blusa", results_count: 4 });
+    expect(Clarity.setTag).toHaveBeenCalledWith(
+      "busqueda_resultados",
+      "con resultados",
+    );
+  });
+
+  it("tags where the contact click happened", () => {
+    track("click_contact", { contact_method: WHATSAPP, placement: FOOTER });
+
+    expect(Clarity.setTag).toHaveBeenCalledWith("contacto", FOOTER);
+  });
+
+  it("does not tag events without a tag builder", () => {
+    track("paginate_catalog", { page_number: 2, item_list_name: "catalogo" });
+
+    expect(Clarity.setTag).not.toHaveBeenCalled();
+  });
+
+  it("still sends to GA4 when Clarity throws", () => {
+    vi.mocked(Clarity.setTag).mockImplementation(() => {
+      throw new Error("clarity blocked");
+    });
+
+    expect(() =>
+      track("click_contact", { contact_method: WHATSAPP, placement: "cart" }),
+    ).not.toThrow();
+    expect(gtagMock).toHaveBeenCalledWith(
+      "event",
+      "click_contact",
+      expect.objectContaining({ placement: "cart" }),
+    );
+  });
+});
+
 describe("initClickTracking", () => {
   it("tracks click_contact with its placement", () => {
     fakeClick({ track: "click_contact", placement: "home_cta" });
 
     expect(gtagMock).toHaveBeenCalledWith("event", "click_contact", {
       transport_type: "beacon",
-      contact_method: "whatsapp",
+      contact_method: WHATSAPP,
       placement: "home_cta",
     });
   });
@@ -109,8 +169,8 @@ describe("initClickTracking", () => {
     fakeClick(
       {
         track: "select_item",
-        itemId: "blusa-rosa",
-        itemName: "Blusa Rosa",
+        itemId: BLOUSE_ID,
+        itemName: BLOUSE_NAME,
         itemCategory: "Blusas",
         itemBrand: "",
         price: "89",
@@ -123,8 +183,8 @@ describe("initClickTracking", () => {
       item_list_name: "busqueda",
       items: [
         {
-          item_id: "blusa-rosa",
-          item_name: "Blusa Rosa",
+          item_id: BLOUSE_ID,
+          item_name: BLOUSE_NAME,
           item_category: "Blusas",
           item_brand: undefined,
           price: 89,

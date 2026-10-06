@@ -75,9 +75,30 @@ function sendToGa4(name: string, params: Record<string, unknown>) {
   gtag("event", name, { transport_type: "beacon", ...withCurrency });
 }
 
-function sendToClarity(name: string) {
+type ClarityTagBuilders = {
+  [K in AnalyticsEventName]?: (
+    params: AnalyticsEvents[K],
+  ) => Record<string, string>;
+};
+
+// Tags let Clarity filter recordings, e.g. sessions with a search that found nothing.
+const CLARITY_TAGS: ClarityTagBuilders = {
+  view_item: (params) => ({ producto: params.items[0]?.item_id ?? "" }),
+  view_item_list: (params) => ({ lista: params.item_list_name }),
+  search_catalog: (params) => ({
+    busqueda: params.search_term,
+    busqueda_resultados:
+      params.results_count > 0 ? "con resultados" : "sin resultados",
+  }),
+  click_contact: (params) => ({ contacto: params.placement }),
+};
+
+function sendToClarity(name: string, tags: Record<string, string>) {
   try {
-    Clarity.event(name);
+    if (CLARITY_MILESTONES.has(name as AnalyticsEventName)) Clarity.event(name);
+    for (const [key, value] of Object.entries(tags)) {
+      if (value) Clarity.setTag(key, value);
+    }
   } catch {
     // Clarity not initialised yet or blocked: analytics must never break the page.
   }
@@ -88,7 +109,9 @@ export function track<K extends AnalyticsEventName>(
   params: AnalyticsEvents[K],
 ) {
   sendToGa4(name, params);
-  if (CLARITY_MILESTONES.has(name)) sendToClarity(name);
+  const buildTags = CLARITY_TAGS[name] as
+    ((params: AnalyticsEvents[K]) => Record<string, string>) | undefined;
+  sendToClarity(name, buildTags?.(params) ?? {});
 }
 
 function itemFromDataset(el: HTMLElement, index: number): AnalyticsItem {

@@ -73,6 +73,7 @@ src/
 - GA4 and Clarity load **only in production** (`import.meta.env.PROD`). In dev nothing is sent; `track()` logs events to the console as `[analytics]`.
 - All events go through `track()` in `src/services/analytics.ts` (typed event map). Never call `gtag` or `Clarity.event` directly.
 - Clicks are tracked with attributes, not listeners: `data-track="click_contact | click_social | select_item"` plus `data-placement` / `data-network` / `data-item-*`.
+- Clarity gets only 4 milestone events plus session tags (`producto`, `lista`, `busqueda`, `busqueda_resultados`, `contacto`), defined in `CLARITY_TAGS` in `analytics.ts`. The raw search term is sent as a tag.
 - `item_id` is always the product **slug**; the variant goes in `item_variant`.
 - Inline `define:vars` scripts cannot import modules: they call `window.rbTrack`.
 - Catalog search/filter/pagination events are sent on page load from the rendered grid (`src/services/catalogAnalytics.ts`), not on click.
