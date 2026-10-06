@@ -6,6 +6,8 @@ import CartIcon from "../components/CartIcon.astro";
 import CartDrawer from "../components/CartDrawer.astro";
 import Footer from "../components/Footer.astro";
 
+const DEFAULT_SOCIAL_IMAGE = "/og-default.png";
+
 interface Props {
   title?: string;
   description?: string;
@@ -16,15 +18,15 @@ interface Props {
 const {
   title = "Catalogo | Raquel Boutique",
   description = "Moda elegante y contemporánea para la mujer moderna. Explora nuestra colección de blusas, vestidos y más.",
-  image = logo.src,
+  image = DEFAULT_SOCIAL_IMAGE,
   ogType = "website",
 } = Astro.props;
 
-const canonicalURL = new URL(
-  Astro.url.pathname,
-  Astro.site || "https://raquel-boutique.com",
-);
-const socialImageURL = new URL(image, Astro.url);
+// Astro.url is the internal address behind the proxy (localhost:4321), so every
+// public URL is built from the configured site instead.
+const siteURL = Astro.site || "https://raquel-boutique.com";
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const socialImageURL = new URL(image, siteURL);
 ---
 
 <!doctype html>
@@ -44,14 +46,14 @@ const socialImageURL = new URL(image, Astro.url);
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Raquel Boutique" />
     <meta property="og:locale" content="es_BO" />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImageURL} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />

@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Gallery from "../components/Gallery.astro";
 import ProductCard from "../components/ProductCard.astro";
+import JsonLd from "../components/JsonLd.astro";
 
 import { getCatalogProducts, getCategories } from "../services/api";
 
@@ -15,9 +16,52 @@ const { products: mixed, total } = await getCatalogProducts({
 
 const hasMoreProducts = total > 8;
 const categories = await getCategories();
+
+const siteOrigin = Astro.site ?? new URL("https://raquel-boutique.com");
+const siteUrl = new URL("/", siteOrigin).href;
+
+const storeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ClothingStore",
+  "@id": `${siteUrl}#store`,
+  name: "Raquel Boutique",
+  url: siteUrl,
+  logo: new URL("/og-default.png", siteOrigin).href,
+  image: new URL("/og-default.png", siteOrigin).href,
+  description:
+    "Boutique de moda femenina en Santa Cruz, Bolivia: vestidos, conjuntos y lencería con envíos a todo el país.",
+  telephone: "+59165864255",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Santa Cruz de la Sierra",
+    addressCountry: "BO",
+  },
+  areaServed: "BO",
+  currenciesAccepted: "BOB",
+  sameAs: [
+    "https://www.instagram.com/raquelboutique.bo",
+    "https://www.facebook.com/raquelboutiquebo",
+    "https://www.tiktok.com/@raquelboutiquebo",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Raquel Boutique",
+  url: siteUrl,
+  inLanguage: "es-BO",
+};
 ---
 
-<Layout title="Raquel Boutique | Moda femenina en Santa Cruz, Bolivia">
+<Layout
+  title="Raquel Boutique | Moda femenina en Santa Cruz, Bolivia"
+  description="Vestidos, conjuntos y lencería femenina en Santa Cruz, Bolivia. Modelos exclusivos, pedidos por WhatsApp y envíos a todo el país."
+>
+  <Fragment slot="head">
+    <JsonLd data={storeJsonLd} />
+    <JsonLd data={websiteJsonLd} />
+  </Fragment>
   <div>
     <div
       class="bg-gradient-to-br from-primary/50 to-secondary/30 py-16 sm:py-24"

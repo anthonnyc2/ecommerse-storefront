@@ -80,6 +80,14 @@ src/
 - Missing products use `Astro.rewrite("/404")` so the response keeps a real 404 status; `src/pages/404.astro` reports `page_not_found` with the requested path.
 - Catalog search/filter/pagination events are sent on page load from the rendered grid (`src/services/catalogAnalytics.ts`), not on click.
 
+## SEO
+
+- Public URLs (canonical, `og:url`, `og:image`) are built from `Astro.site`, never `Astro.url`: behind the proxy `Astro.url` is `localhost:4321`.
+- The default social image is `public/og-default.png` (1200×630). SVG does not work as `og:image`.
+- Every page passes its own `description` to `Layout`. Product pages build theirs from the product (fallback in `producto/[slug].astro`, max 160 chars).
+- `@astrojs/sitemap` only sees static pages. Products live in `src/pages/sitemap-productos.xml.ts` (reads the whole API) and are listed in the index through `customSitemaps` in `astro.config.mjs`.
+- JSON-LD: `ClothingStore` + `WebSite` on the home, `Product` + `BreadcrumbList` on products, all via `JsonLd.astro`.
+
 ---
 
 ## Data & Types

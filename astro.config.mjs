@@ -1,4 +1,5 @@
 import process from "node:process";
+import { URL } from "node:url";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
@@ -9,7 +10,6 @@ import sitemap from "@astrojs/sitemap";
 import sentry from "@sentry/astro";
 
 const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
-
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +22,16 @@ export default defineConfig({
   },
 
   integrations: [
-    sitemap(),
+    sitemap({
+      customSitemaps: ["https://raquel-boutique.com/sitemap-productos.xml"],
+      // Canonical URLs have no trailing slash; keep the sitemap consistent.
+      serialize(item) {
+        const url = new URL(item.url);
+        if (url.pathname !== "/")
+          url.pathname = url.pathname.replace(/\/$/, "");
+        return { ...item, url: url.href };
+      },
+    }),
     sentry({
       project: "catalogo-rb",
       org: "democompany-0j",

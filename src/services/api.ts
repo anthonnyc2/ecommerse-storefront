@@ -113,3 +113,29 @@ export async function getProductBySlug(
     return null;
   }
 }
+
+const SITEMAP_PAGE_SIZE = 100;
+const SITEMAP_MAX_PAGES = 50;
+
+export interface ProductSitemapEntry {
+  slug: string;
+  updatedAt?: string;
+}
+
+/** Walks every catalog page (the API caps `limit` at 100) for the sitemap. */
+export async function getAllProductSitemapEntries(): Promise<
+  ProductSitemapEntry[]
+> {
+  const entries: ProductSitemapEntry[] = [];
+  for (let page = 1; page <= SITEMAP_MAX_PAGES; page++) {
+    const { products, total } = await getCatalogProducts({
+      page,
+      limit: SITEMAP_PAGE_SIZE,
+    });
+    entries.push(
+      ...products.map(({ slug, updatedAt }) => ({ slug, updatedAt })),
+    );
+    if (products.length === 0 || entries.length >= total) break;
+  }
+  return entries;
+}

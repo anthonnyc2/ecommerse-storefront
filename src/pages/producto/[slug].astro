@@ -64,7 +64,32 @@ const transformImageUrl = (url: string, width = 800): string => {
 };
 
 const socialImage = transformImageUrl(mainImage, 1200);
-const socialDescription = description || `Compra ${name} en Raquel Boutique.`;
+
+const MIN_USEFUL_DESCRIPTION = 50;
+const MAX_META_DESCRIPTION = 160;
+
+const truncate = (text: string) => {
+  if (text.length <= MAX_META_DESCRIPTION) return text;
+  const cut = text.slice(0, MAX_META_DESCRIPTION - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+};
+
+const categoryLabel = category ? " (" + category.toLowerCase() + ")" : "";
+const generatedDescription = [
+  `${name}${categoryLabel} en Raquel Boutique, Santa Cruz, Bolivia.`,
+  basePrice > 0 ? `Desde Bs ${basePrice}.` : "",
+  uniqueColors.length > 0 ? `Colores: ${uniqueColors.join(", ")}.` : "",
+  "Pide por WhatsApp con envío a todo el país.",
+]
+  .filter(Boolean)
+  .join(" ");
+
+const ownDescription = description?.replace(/\s+/g, " ").trim() ?? "";
+const socialDescription = truncate(
+  ownDescription.length >= MIN_USEFUL_DESCRIPTION
+    ? ownDescription
+    : generatedDescription,
+);
 
 const CURRENCY = "BOB";
 const MAX_STRUCTURED_IMAGES = 5;
@@ -72,6 +97,32 @@ const maxPrice =
   variants.length > 0 ? Math.max(...variants.map((v) => v.price)) : 0;
 const inStock = variants.some((v) => v.stock > 0);
 const productUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+const siteOrigin = Astro.site ?? new URL("https://raquel-boutique.com");
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { name: "Inicio", url: new URL("/", siteOrigin).href },
+    ...(category
+      ? [
+          {
+            name: category,
+            url: new URL(
+              `/catalogo?category=${encodeURIComponent(category)}`,
+              siteOrigin,
+            ).href,
+          },
+        ]
+      : []),
+    { name, url: productUrl },
+  ].map((crumb, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.url,
+  })),
+};
 
 const productJsonLd = {
   "@context": "https://schema.org",
@@ -110,6 +161,7 @@ const productJsonLd = {
     <meta property="product:price:amount" content={String(basePrice)} />
     <meta property="product:price:currency" content={CURRENCY} />
     <JsonLd data={productJsonLd} />
+    <JsonLd data={breadcrumbJsonLd} />
   </Fragment>
   <div class="bg-white" data-track-engagement={slug}>
     <div class="pt-6 pb-16 sm:pb-24">
