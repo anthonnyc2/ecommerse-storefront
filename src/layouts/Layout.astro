@@ -78,18 +78,27 @@ const socialImageURL = new URL(image, Astro.url);
         rel="stylesheet"
       />
     </noscript>
-    <!-- Google tag (gtag.js) -->
-    <script
-      is:inline
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-G7R7X57JM7"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(...args) {
-        dataLayer.push(args);
+    <!-- Google tag (gtag.js): production only, so dev traffic never reaches GA4 -->
+    {
+      import.meta.env.PROD && (
+        <script
+          is:inline
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-G7R7X57JM7"
+        />
+      )
+    }
+    <script is:inline define:vars={{ enabled: import.meta.env.PROD }}>
+      if (enabled) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          // gtag.js only recognises Arguments objects, not arrays
+          // eslint-disable-next-line prefer-rest-params
+          window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", "G-G7R7X57JM7");
       }
-      gtag("js", new Date());
-      gtag("config", "G-G7R7X57JM7");
     </script>
     <script>
       import Clarity from "@microsoft/clarity";
@@ -102,13 +111,16 @@ const socialImageURL = new URL(image, Astro.url);
       window.rbTrack = track;
       initClickTracking();
       initEngagementTracking();
-      // Defer Clarity until browser is idle so it doesn't compete with LCP
+      // Defer Clarity until browser is idle so it doesn't compete with LCP.
+      // Production only, so dev sessions never reach the real recordings.
       const initClarity = () =>
         Clarity.init(import.meta.env.PUBLIC_CLARITY_PROJECT_ID);
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(initClarity, { timeout: 3000 });
-      } else {
-        setTimeout(initClarity, 1000);
+      if (import.meta.env.PROD) {
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(initClarity, { timeout: 3000 });
+        } else {
+          setTimeout(initClarity, 1000);
+        }
       }
     </script>
   </head>

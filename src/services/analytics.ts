@@ -66,7 +66,10 @@ const CLARITY_MILESTONES = new Set<AnalyticsEventName>([
 ]);
 
 function sendToGa4(name: string, params: Record<string, unknown>) {
-  if (typeof gtag !== "function") return;
+  if (typeof gtag !== "function") {
+    if (import.meta.env.DEV) console.debug("[analytics]", name, params);
+    return;
+  }
   const withCurrency =
     "value" in params ? { currency: CURRENCY, ...params } : params;
   gtag("event", name, { transport_type: "beacon", ...withCurrency });

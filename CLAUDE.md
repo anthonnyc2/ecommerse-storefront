@@ -70,6 +70,7 @@ src/
 
 ## Analytics
 
+- GA4 and Clarity load **only in production** (`import.meta.env.PROD`). In dev nothing is sent; `track()` logs events to the console as `[analytics]`.
 - All events go through `track()` in `src/services/analytics.ts` (typed event map). Never call `gtag` or `Clarity.event` directly.
 - Clicks are tracked with attributes, not listeners: `data-track="click_contact | click_social | select_item"` plus `data-placement` / `data-network` / `data-item-*`.
 - `item_id` is always the product **slug**; the variant goes in `item_variant`.
