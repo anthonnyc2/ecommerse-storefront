@@ -3,15 +3,25 @@ overrides:
   path-to-regexp: ">=6.3.0"
   "ts-api-utils>typescript": "5.9.3"
   fast-uri: ">=3.1.6"
-  sharp: ">=0.35.4"
-  brace-expansion@1: "^1.1.18"
-  brace-expansion@5: "^5.0.9"
+  sharp: ">=0.35.5"
+  brace-expansion@1: "^1.1.20"
+  brace-expansion@5: "^5.0.11"
   undici: ">=7.29.0"
   "@eslint/eslintrc>js-yaml": ">=4.3.1"
   nanoid: ">=3.3.18"
   browserslist: ">=4.28.7"
+  source-map-js: ">=1.2.2"
 
 onlyBuiltDependencies:
   - esbuild
   - sharp
   - "@sentry/cli"
+
+# Advisories with no patched release published yet. Revisit when a fix lands.
+# - braces: only reached through eslint-plugin-astro (lint time, never in production)
+# - http-cache-semantics: shared-cache disclosure; comes with astro, and the public
+#   catalog serves no per-user responses
+auditConfig:
+  ignoreGhsas:
+    - GHSA-vfj7-8cjw-p6xm
+    - GHSA-ch52-4w7c-c8xp
