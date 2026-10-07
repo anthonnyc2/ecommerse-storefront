@@ -14,6 +14,8 @@ export interface AnalyticsItem {
   item_category?: string;
   item_brand?: string;
   item_variant?: string;
+  /** Where the shopper met the product, e.g. "catalogo" or "destacados". */
+  item_list_name?: string;
   price?: number;
   quantity?: number;
   index?: number;
@@ -132,6 +134,12 @@ export function itemsFromGrid(grid: HTMLElement): AnalyticsItem[] {
   return Array.from(cards, (card, index) => itemFromDataset(card, index));
 }
 
+export function listNameOf(el: HTMLElement): string {
+  return (
+    el.closest<HTMLElement>("[data-list-name]")?.dataset.listName ?? "catalogo"
+  );
+}
+
 function trackDelegatedClick(el: HTMLElement) {
   const placement = el.dataset.placement as ContactPlacement;
   switch (el.dataset.track) {
@@ -145,14 +153,12 @@ function trackDelegatedClick(el: HTMLElement) {
       track("click_social", { network: el.dataset.network ?? "", placement });
       break;
     case "select_item": {
-      const siblings = Array.from(el.parentElement?.children ?? []);
-      const index = siblings.indexOf(el);
-      const listName =
-        el.closest<HTMLElement>("[data-list-name]")?.dataset.listName ??
-        "catalogo";
+      // The link sits inside the card; the card carries the item data.
+      const card = el.closest<HTMLElement>("[data-item-id]") ?? el;
+      const siblings = Array.from(card.parentElement?.children ?? []);
       track("select_item", {
-        item_list_name: listName,
-        items: [itemFromDataset(el, index)],
+        item_list_name: listNameOf(card),
+        items: [itemFromDataset(card, siblings.indexOf(card))],
       });
       break;
     }

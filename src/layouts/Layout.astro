@@ -4,6 +4,7 @@ import "../styles/global.css";
 import logo from "../assets/r_logo.svg";
 import CartIcon from "../components/CartIcon.astro";
 import CartDrawer from "../components/CartDrawer.astro";
+import QuickAddSheet from "../components/QuickAddSheet.astro";
 import Footer from "../components/Footer.astro";
 
 const DEFAULT_SOCIAL_IMAGE = "/og-default.png";
@@ -115,10 +116,12 @@ const socialImageURL = new URL(image, siteURL);
         initEngagementTracking,
         track,
       } from "../services/analytics";
+      import { initQuickAdd } from "../services/quickAddUi";
       // Inline page scripts (define:vars) cannot import modules, so they call window.rbTrack
       window.rbTrack = track;
       initClickTracking();
       initEngagementTracking();
+      initQuickAdd();
       // Defer Clarity until browser is idle so it doesn't compete with LCP.
       // Production only, so dev sessions never reach the real recordings.
       const initClarity = () =>
@@ -231,6 +234,7 @@ const socialImageURL = new URL(image, siteURL);
       <slot />
     </main>
     <CartDrawer />
+    <QuickAddSheet />
     <Footer />
   </body>
 </html>

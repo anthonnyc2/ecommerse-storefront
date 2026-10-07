@@ -1,0 +1,90 @@
+---
+// Variant picker opened by the "Agregar" button of product cards with options.
+// Mounted once in the layout; src/services/quickAddUi.ts fills and drives it.
+---
+
+<dialog
+  id="quick-add-dialog"
+  aria-labelledby="quick-add-title"
+  class="m-0 mt-auto max-h-[90vh] w-full max-w-none overflow-y-auto rounded-t-2xl border-0 bg-white p-0 text-gray-900 shadow-xl backdrop:bg-black/40 sm:m-auto sm:max-w-md sm:rounded-2xl"
+>
+  <div class="p-5">
+    <div class="flex items-start gap-4">
+      <img
+        id="quick-add-image"
+        src=""
+        alt=""
+        class="h-24 w-20 flex-none rounded-lg bg-gray-100 object-cover"
+      />
+      <div class="min-w-0 flex-1">
+        <h2
+          id="quick-add-title"
+          class="text-base font-semibold tracking-tight text-gray-900"
+        >
+        </h2>
+        <p id="quick-add-price" class="mt-1 text-sm font-medium text-gray-600">
+        </p>
+      </div>
+      <button
+        type="button"
+        id="quick-add-close"
+        aria-label="Cerrar"
+        class="-m-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="quick-add-colors-group" class="mt-5 hidden">
+      <p class="text-sm font-medium text-gray-900">Color</p>
+      <div
+        id="quick-add-colors"
+        class="mt-2 flex flex-wrap gap-2"
+        role="group"
+        aria-label="Color"
+      >
+      </div>
+    </div>
+
+    <div id="quick-add-sizes-group" class="mt-5 hidden">
+      <p class="text-sm font-medium text-gray-900">Talla</p>
+      <div
+        id="quick-add-sizes"
+        class="mt-2 flex flex-wrap gap-2"
+        role="group"
+        aria-label="Talla"
+      >
+      </div>
+    </div>
+
+    <p
+      id="quick-add-hint"
+      class="mt-4 min-h-5 text-sm text-gray-500"
+      aria-live="polite"
+    >
+    </p>
+    <button
+      type="button"
+      id="quick-add-confirm"
+      disabled
+      class="mt-2 w-full rounded-full bg-gray-900 py-3 text-sm font-semibold text-white transition-colors hover:bg-secondary hover:text-plum disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+    >
+      Agregar al carrito
+    </button>
+  </div>
+</dialog>
+
+<p id="quick-add-status" class="sr-only" role="status"></p>

@@ -1,6 +1,7 @@
 ---
 import type { PublicProductWithDetails } from "../types/api";
 import defaultImg from "../assets/default-product-image.png";
+import { serializeVariants } from "../services/quickAdd";
 
 interface Props {
   product: PublicProductWithDetails;
@@ -47,17 +48,28 @@ const transformImageUrl = (url: string | null): string => {
 
 const optimizedMainImage = transformImageUrl(mainImage);
 const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
+
+// Quick add needs the in-stock variants and one photo per color for the cart.
+const quickAddVariants = serializeVariants(variants);
+const canQuickAdd = variants.some((v) => v.stock > 0);
+const colorImages: Record<string, string> = {};
+for (const img of images) {
+  if (img.color && !colorImages[img.color]) {
+    colorImages[img.color] = transformImageUrl(img.url);
+  }
+}
 ---
 
-<a
-  href={`/producto/${slug}`}
-  data-track="select_item"
+<div
   data-item-id={slug}
   data-item-name={name}
   data-item-category={product.category ?? ""}
   data-item-brand={product.brand ?? ""}
   data-price={basePrice}
-  class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+  data-variants={quickAddVariants}
+  data-image={optimizedMainImage}
+  data-color-images={JSON.stringify(colorImages)}
+  class="group relative block overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
 >
   <div class="relative h-[400px] overflow-hidden bg-gray-200">
     <!-- Skeleton shimmer shown while the image loads -->
@@ -101,7 +113,13 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
     <h3
       class="text-base font-semibold tracking-tight text-gray-900 transition-colors group-hover:text-secondary"
     >
-      {name}
+      <!-- Stretched link: the ::after covers the whole card, buttons sit above it -->
+      <a
+        href={`/producto/${slug}`}
+        data-track="select_item"
+        class="outline-none after:absolute after:inset-0 after:content-['']"
+        >{name}</a
+      >
     </h3>
     <p class="mt-1 text-sm font-medium text-gray-500">Desde {basePrice} Bs</p>
 
@@ -141,24 +159,27 @@ const optimizedHoverImage = hoverImage ? transformImageUrl(hoverImage) : null;
       )
     }
 
-    <div
-      class="mt-4 flex w-full items-center justify-center gap-1.5 rounded-full bg-gray-900 py-2.5 text-sm font-medium text-white transition-colors active:scale-95 group-hover:bg-secondary group-hover:text-plum"
-    >
-      Ver Detalles
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+    <div class="relative z-10 mt-4 flex gap-2">
+      <a
+        href={`/producto/${slug}`}
+        data-track="select_item"
+        class:list={[
+          "flex items-center justify-center rounded-full border border-gray-300 bg-white py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-900 active:scale-95",
+          canQuickAdd ? "flex-1" : "w-full",
+        ]}>Ver detalles</a
       >
-        <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
-      </svg>
+      {
+        canQuickAdd && (
+          <button
+            type="button"
+            data-quick-add
+            aria-label={`Agregar ${name} al carrito`}
+            class="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-gray-900 py-2.5 text-sm font-medium text-white transition-colors hover:bg-secondary hover:text-plum active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+          >
+            Agregar
+          </button>
+        )
+      }
     </div>
   </div>
-</a>
+</div>

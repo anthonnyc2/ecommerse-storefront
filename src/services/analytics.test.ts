@@ -14,18 +14,31 @@ const BLOUSE_NAME = "Blusa Rosa";
 let clickHandler: (event: { target: unknown }) => void;
 
 // jsdom cannot start in this repo (undici version mismatch), so the DOM is faked.
+// `card` models the product card that wraps the clicked link.
 function fakeClick(
   dataset: Record<string, string>,
-  options: { listName?: string; position?: number } = {},
+  options: {
+    listName?: string;
+    position?: number;
+    card?: Record<string, string>;
+  } = {},
 ) {
   const siblings = [{}, {}, {}];
+  const list = options.listName
+    ? { dataset: { listName: options.listName } }
+    : null;
+  const card = {
+    dataset: options.card ?? {},
+    parentElement: { children: siblings },
+    closest: () => list,
+  };
   const tracked = {
     dataset,
-    parentElement: { children: siblings },
-    closest: () =>
-      options.listName ? { dataset: { listName: options.listName } } : null,
+    parentElement: card,
+    closest: (selector: string) =>
+      selector === "[data-item-id]" ? card : list,
   };
-  siblings[options.position ?? 0] = tracked;
+  siblings[options.position ?? 0] = card;
   clickHandler({ target: { closest: () => tracked } });
 }
 
@@ -183,15 +196,18 @@ describe("initClickTracking", () => {
 
   it("tracks select_item with the card position and list name", () => {
     fakeClick(
+      { track: "select_item" },
       {
-        track: "select_item",
-        itemId: BLOUSE_ID,
-        itemName: BLOUSE_NAME,
-        itemCategory: "Blusas",
-        itemBrand: "",
-        price: "89",
+        listName: "busqueda",
+        position: 2,
+        card: {
+          itemId: BLOUSE_ID,
+          itemName: BLOUSE_NAME,
+          itemCategory: "Blusas",
+          itemBrand: "",
+          price: "89",
+        },
       },
-      { listName: "busqueda", position: 2 },
     );
 
     expect(gtagMock).toHaveBeenCalledWith("event", "select_item", {

@@ -88,6 +88,13 @@ src/
 - `@astrojs/sitemap` only sees static pages. Products live in `src/pages/sitemap-productos.xml.ts` (reads the whole API) and are listed in the index through `customSitemaps` in `astro.config.mjs`.
 - JSON-LD: `ClothingStore` + `WebSite` on the home, `Product` + `BreadcrumbList` on products, all via `JsonLd.astro`.
 
+## Quick add (product cards)
+
+- Each `ProductCard` has an "Agregar" button. One in-stock variant: it adds directly. Several: it opens the shared `<dialog>` in `components/QuickAddSheet.astro` (mounted once in `Layout`).
+- Variant rules live in `services/quickAdd.ts` (pure, unit-tested); DOM wiring in `services/quickAddUi.ts`. Cards carry `data-variants` as `[id, color, size, price]` tuples (in-stock only) and `data-color-images`, so cards rendered by the infinite-scroll action work with no extra code.
+- The card root is a `<div data-item-id>` with a stretched link on the title (a button cannot live inside a link). Code that counts or reads cards must use `[data-item-id]`, not `a`.
+- Cart item `id` is the variant id, the same as the product page, so both paths merge into one line. `add_to_cart` items carry `item_list_name` (`catalogo`, a category, `busqueda`, `destacados`).
+
 ---
 
 ## Data & Types

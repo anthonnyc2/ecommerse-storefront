@@ -986,7 +986,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
         function updateResultsCount() {
           // eslint-disable-next-line sonarjs/no-gratuitous-expressions -- TS does not narrow captured consts inside function declarations
           if (!resultsCountEl || !grid) return;
-          const shown = grid.querySelectorAll(":scope > a").length;
+          const shown = grid.querySelectorAll(":scope > [data-item-id]").length;
           resultsCountEl.textContent = `Mostrando ${shown} de ${totalProducts} productos`;
         }
 

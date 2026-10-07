@@ -7,3 +7,8 @@
   --color-accent: #f7d1a4;
   --color-plum: #4a1942;
 }
+
+/* Keep the page from scrolling behind an open modal dialog (quick add). */
+body:has(dialog[open]) {
+  overflow: hidden;
+}

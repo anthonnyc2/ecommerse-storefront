@@ -1,8 +1,17 @@
 ---
+interface Props {
+  /** Reported as `item_list_name` when a product is picked from this grid. */
+  listName?: string;
+}
+
+const { listName } = Astro.props;
 ---
 
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+  <div
+    data-list-name={listName}
+    class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+  >
     <slot />
   </div>
 </div>
