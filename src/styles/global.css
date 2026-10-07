@@ -43,14 +43,14 @@ body:has(dialog[open]) {
   @apply px-6 py-3;
 }
 
-/* Pink: main action. */
+/* Pink: main action (buy, add to cart, search, apply). */
 @utility btn-primary {
-  @apply bg-secondary font-semibold text-plum hover:bg-secondary/80;
+  @apply bg-secondary font-semibold text-plum hover:bg-secondary/80 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500;
 }
 
-/* Dark: add to cart. Turns pink on hover. */
-@utility btn-dark {
-  @apply bg-gray-900 font-semibold text-white hover:bg-secondary hover:text-plum disabled:cursor-not-allowed disabled:bg-gray-300;
+/* Green: brief "added" confirmation, swapped in for btn-primary by quickAddUi.ts. */
+@utility btn-success {
+  @apply bg-green-600 font-semibold text-white;
 }
 
 /* White with a border: secondary actions. */

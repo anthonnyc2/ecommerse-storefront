@@ -18,9 +18,9 @@ import {
 /** Wires the "Agregar" button on product cards and the variant picker. */
 
 const FLASH_MS = 1500;
-// Only the background changes: the button already has text-white.
-const ADDED_CLASS = "bg-green-600";
-const IDLE_CLASS = "bg-gray-900";
+// Variant classes swapped on the card button while it flashes "added".
+const ADDED_CLASS = "btn-success";
+const IDLE_CLASS = "btn-primary";
 const OPTION_BASE =
   "rounded-md border px-3 py-1.5 text-sm font-medium capitalize transition-colors disabled:cursor-not-allowed disabled:opacity-40";
 const OPTION_IDLE = "border-gray-300 text-gray-700 hover:border-gray-900";
