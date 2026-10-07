@@ -95,6 +95,11 @@ src/
 - The card root is a `<div data-item-id>` with a stretched link on the title (a button cannot live inside a link). Code that counts or reads cards must use `[data-item-id]`, not `a`.
 - Cart item `id` is the variant id, the same as the product page, so both paths merge into one line. `add_to_cart` items carry `item_list_name` (`catalogo`, a category, `busqueda`, `destacados`).
 
+## Catalog search
+
+- On desktop (>=1024px) the search runs by itself 400 ms after the shopper stops typing (min 2 characters; emptying the field clears it). On phones it still needs Enter or the button: a search reloads the page, which would close the keyboard. Logic and tests live in `services/searchAutoSubmit.ts`.
+- After an automatic search the page puts the cursor back at the end of the field (flag in `sessionStorage`). Keys typed while the page is reloading are lost.
+
 ---
 
 ## Data & Types

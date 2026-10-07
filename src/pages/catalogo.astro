@@ -782,6 +782,10 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
       trackCatalogView,
       trackPageLoaded,
     } from "../services/catalogAnalytics";
+    import {
+      initAutoSearch,
+      restoreFocusIfRequested,
+    } from "../services/searchAutoSubmit";
 
     document.addEventListener("DOMContentLoaded", () => {
       trackCatalogView();
@@ -887,15 +891,30 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
       ) as HTMLFormElement | null;
       const clearSearch = document.getElementById("clear-search");
 
+      const searchInput = document.getElementById(
+        "search-input",
+      ) as HTMLInputElement | null;
+      // Desktop only: on phones the reload would close the keyboard.
+      const isDesktop = () => window.matchMedia("(min-width: 1024px)").matches;
+      const autoSearch = searchInput
+        ? initAutoSearch({
+            input: searchInput,
+            currentTerm: () =>
+              new URLSearchParams(window.location.search).get("search") ?? "",
+            isEnabled: isDesktop,
+            onSearch: (term) => updateFilters({ search: term }),
+          })
+        : null;
+      if (searchInput) restoreFocusIfRequested(searchInput, isDesktop);
+
       searchForm?.addEventListener("submit", (e) => {
         e.preventDefault();
-        const input = document.getElementById(
-          "search-input",
-        ) as HTMLInputElement;
-        updateFilters({ search: input.value.trim() });
+        autoSearch?.cancel();
+        updateFilters({ search: searchInput?.value.trim() ?? "" });
       });
 
       clearSearch?.addEventListener("click", () => {
+        autoSearch?.cancel();
         updateFilters({ search: "" });
       });
 
