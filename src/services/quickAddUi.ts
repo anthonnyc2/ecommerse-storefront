@@ -21,7 +21,7 @@ const FLASH_MS = 1500;
 // Variant classes swapped on the card button while it flashes "added".
 const ADDED_CLASS = "btn-success";
 const IDLE_CLASS = "btn-primary";
-const OPTION_BASE = "choice capitalize";
+const OPTION_BASE = "choice choice-sm capitalize";
 const OPTION_IDLE = "choice-idle";
 const OPTION_SELECTED = "choice-selected";
 

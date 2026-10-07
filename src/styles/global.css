@@ -63,6 +63,11 @@ body:has(dialog[open]) {
   @apply border border-gray-300 bg-white font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white;
 }
 
+/* Round icon-only button (close). Use with `btn`. */
+@utility btn-icon {
+  @apply h-10 w-10 text-gray-500 hover:bg-gray-100 hover:text-gray-700;
+}
+
 /* Deep plum: landing call to action. */
 @utility btn-plum {
   @apply bg-plum font-semibold text-white hover:bg-plum/80;
@@ -109,10 +114,20 @@ body:has(dialog[open]) {
 }
 
 /* Option the shopper picks (filter sizes, quick add color and size).
-   Combine `choice` with `choice-idle` or `choice-selected`. In filters the
-   selected look comes from a checkbox: `choice choice-idle peer-checked:choice-selected`. */
+   Combine `choice`, a size (`choice-sm` or `choice-lg`) and `choice-idle` or
+   `choice-selected`. In filters the selected look comes from a checkbox:
+   `choice choice-sm choice-idle peer-checked:choice-selected`. */
 @utility choice {
-  @apply inline-flex items-center justify-center rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40;
+  @apply inline-flex items-center justify-center rounded-md border text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+@utility choice-sm {
+  @apply px-3 py-1.5;
+}
+
+/* Roomier: product page color and size. */
+@utility choice-lg {
+  @apply px-3 py-3;
 }
 
 @utility choice-idle {
@@ -121,4 +136,9 @@ body:has(dialog[open]) {
 
 @utility choice-selected {
   @apply border-secondary bg-secondary/10 text-plum;
+}
+
+/* Title of a drawer or panel (Filtros, Tu Carrito). */
+@utility panel-title {
+  @apply text-lg font-semibold tracking-tight text-gray-900;
 }
