@@ -1050,6 +1050,25 @@ const productJsonLd = {
       });
     }
 
+    // Center the active thumbnail inside its strip. scrollIntoView would also
+    // scroll the whole page when the strip sits at the screen edge, making the
+    // photo jump.
+    function revealThumb(thumb) {
+      const strip = thumb.parentElement;
+      if (!strip) return;
+      const t = thumb.getBoundingClientRect();
+      const box = strip.getBoundingClientRect();
+      if (strip.scrollWidth > strip.clientWidth + 1) {
+        const left =
+          strip.scrollLeft + (t.left - box.left) - (box.width - t.width) / 2;
+        strip.scrollTo({ left, behavior: "smooth" });
+      } else if (strip.scrollHeight > strip.clientHeight + 1) {
+        const top =
+          strip.scrollTop + (t.top - box.top) - (box.height - t.height) / 2;
+        strip.scrollTo({ top, behavior: "smooth" });
+      }
+    }
+
     // direction: 1 = next photo (slides left), -1 = previous (slides right).
     async function showPhoto(target, direction, dragX = 0) {
       if (!mainImg || photoBusy) return;
@@ -1075,7 +1094,7 @@ const productJsonLd = {
       ]);
       mainImg.src = url;
       resetThumbHighlight(target);
-      target.scrollIntoView({ block: "nearest", inline: "nearest" });
+      revealThumb(target);
       await animatePhoto(
         [
           { transform: shiftX(-out * width * 0.3), opacity: 0 },
