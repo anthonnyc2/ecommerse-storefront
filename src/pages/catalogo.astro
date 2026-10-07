@@ -237,22 +237,27 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
               selectedSize={size}
             />
 
-            <!-- Clear Filters -->
+            <!-- Clear Filters: only while something is applied or picked -->
             <button
               id="clear-filters-mobile"
+              hidden={!(category || color || size)}
               class="btn btn-outline btn-sm w-full"
             >
               Limpiar filtros
             </button>
           </div>
 
-          <!-- Menu Footer -->
-          <div class="p-4 border-t border-gray-200">
+          <!-- Menu Footer: only when the picked filters differ from the applied ones -->
+          <div
+            id="mobile-filter-footer"
+            hidden
+            class="p-4 border-t border-gray-200"
+          >
             <button
               id="apply-filters-mobile"
               class="btn btn-primary btn-lg w-full"
             >
-              Aplicar Filtros
+              Aplicar filtros
             </button>
           </div>
         </div>
@@ -553,6 +558,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
       initAutoSearch,
       restoreFocusIfRequested,
     } from "../services/searchAutoSubmit";
+    import { initFilterDrawer } from "../services/filterDrawer";
 
     document.addEventListener("DOMContentLoaded", () => {
       trackCatalogView();
@@ -579,14 +585,12 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
         window.location.href = url.toString();
       }
 
-      // Filter elements
+      // Desktop sidebar: each choice applies at once. The phone drawer below
+      // collects choices and applies them together.
       const filters = [
         { selector: ".category-filter", param: "category" },
         { selector: ".color-filter", param: "color" },
         { selector: ".size-filter", param: "size" },
-        { selector: ".category-filter-mobile", param: "category" },
-        { selector: ".color-filter-mobile", param: "color" },
-        { selector: ".size-filter-mobile", param: "size" },
       ];
 
       filters.forEach(({ selector, param }) => {
@@ -699,10 +703,19 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
         document.body.style.overflow = "hidden";
       });
 
+      // Phone drawer: choices are held until "Aplicar filtros".
+      const filterDrawer = initFilterDrawer({
+        onApply: (url) => {
+          showSkeleton();
+          window.location.href = url;
+        },
+      });
+
       const closeMenu = () => {
         mobileFilterMenu?.classList.add("-translate-x-full");
         mobileFilterOverlay?.classList.add("hidden");
         document.body.style.overflow = "";
+        filterDrawer.reset();
       };
 
       mobileFilterClose?.addEventListener("click", closeMenu);
