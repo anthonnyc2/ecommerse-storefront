@@ -1143,9 +1143,16 @@ const productJsonLd = {
       const formattedColor = selectedColor.toLowerCase();
       let firstVisible = null;
       let currentMainVisible = false;
+      // If no photo is tagged with this color (inconsistent data), keep all
+      // of them rather than leaving the strip and the viewer empty.
+      const colorHasPhotos = [...thumbBtns].some((thumb) => {
+        const thumbColor = (thumb.getAttribute(DATA_COLOR) || "").toLowerCase();
+        return !thumbColor || thumbColor === formattedColor;
+      });
       thumbBtns.forEach((thumb) => {
         const thumbColor = (thumb.getAttribute(DATA_COLOR) || "").toLowerCase();
-        const visible = !thumbColor || thumbColor === formattedColor;
+        const visible =
+          !colorHasPhotos || !thumbColor || thumbColor === formattedColor;
         thumb.style.display = visible ? "flex" : "none";
         if (visible && !firstVisible) firstVisible = thumb;
         if (visible && mainImg && thumb.getAttribute(DATA_FULL) === mainImg.src)
@@ -1276,14 +1283,13 @@ const productJsonLd = {
     // then the ones of that color (plus the ones without a color).
     function getFilteredImages() {
       const color = selectedColor.toLowerCase();
-      return images
-        .filter(function (img) {
-          const imgColor = (img.color || "").toLowerCase();
-          return !color || !imgColor || imgColor === color;
-        })
-        .map(function (img) {
-          return transformForLightbox(img.url);
-        });
+      const ofColor = images.filter(function (img) {
+        const imgColor = (img.color || "").toLowerCase();
+        return !color || !imgColor || imgColor === color;
+      });
+      return (ofColor.length > 0 ? ofColor : images).map(function (img) {
+        return transformForLightbox(img.url);
+      });
     }
 
     function setLightboxVisibility(visible) {
