@@ -113,6 +113,15 @@ src/
 - `services/heroCollage.ts` holds `HERO_SLOTS`: per slot, product slugs in order of preference. `pickHeroTiles` takes the first in-stock one (`getProductBySlug`). The collage only renders when every slot is filled; otherwise the hero stays centered text.
 - The slugs were chosen because their photos have no supplier watermarks ("Generado por IA", "Cotton", badges). Keep that in mind when changing them. Replace them with the shop's own photos when available.
 
+## UI building blocks
+
+- Buttons: `class="btn btn-<variant> btn-<size>"` plus layout classes (`w-full`, `gap-2`). Variants: `btn-primary` (pink, the main action everywhere, including add to cart), `btn-outline` (white with border), `btn-whatsapp`, `btn-success` (the brief "added" flash). Sizes: `btn-sm`, `btn-md`, `btn-lg`. Do not copy long class strings for new buttons.
+- Defined in `src/styles/global.css`: `focus-ring`, `btn*`, `filter-title`, and the tokens `--color-whatsapp`, `--text-chip` (11px), `--text-badge` (10px). No hex colors or `text-[Npx]` in components.
+- `quickAddUi.ts` swaps `btn-primary` for `btn-success` on the card button; keep both class names in sync with `global.css`.
+- Catalog filters live in `components/FilterGroups.astro` (rendered once for the desktop sidebar and once for the mobile drawer, `variant` picks the `-mobile` class names the page script binds to). The loading skeleton is `ProductCardSkeleton.astro`: change it together with `ProductCard.astro`.
+
+---
+
 ## Data & Types
 
 - All TypeScript interfaces live in `src/types/api.ts` — always type API responses against these.

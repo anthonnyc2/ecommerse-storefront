@@ -1,13 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
+import ProductCardSkeleton from "../components/ProductCardSkeleton.astro";
+import FilterGroups from "../components/FilterGroups.astro";
 import {
   getCatalogProducts,
   getCatalogFilters,
   getCategories,
   getColors,
 } from "../services/api";
-import printImg from "../assets/print.png";
 
 // Single source of truth for the catalog page size. The mobile
 // infinite-scroll client reads this from `data-page-size` on the grid.
@@ -226,123 +227,15 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
           <!-- Menu Content -->
           <div class="flex-1 overflow-y-auto p-4 space-y-6">
-            <!-- Categories Filter -->
-            <div>
-              <h3 class="filter-title">Categorías</h3>
-              <div class="space-y-2">
-                {
-                  categories.map((item) => (
-                    <label class="flex items-center cursor-pointer group">
-                      <input
-                        type="checkbox"
-                        value={item.name}
-                        checked={
-                          category.toLowerCase() === item.name.toLowerCase()
-                        }
-                        class="category-filter-mobile h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                      />
-                      <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
-                        {item.name}
-                      </span>
-                    </label>
-                  ))
-                }
-              </div>
-            </div>
-
-            <!-- Colors Filter -->
-            <div>
-              <h3 class="filter-title">Colores</h3>
-              <div class="grid grid-cols-4 gap-3">
-                {
-                  colors.map((item) => {
-                    const colorValue = item.hexCode || "#CCCCCC";
-                    const isLight = [
-                      "blanco",
-                      "crema",
-                      "amarillo",
-                      "blanco",
-                      "white",
-                    ].includes(item.name.toLowerCase());
-                    const isAnimalPrint = item.name.toLowerCase() === "print";
-                    return (
-                      <label
-                        class="cursor-pointer group relative flex flex-col items-center"
-                        title={item.name}
-                      >
-                        <input
-                          type="checkbox"
-                          value={item.name}
-                          checked={
-                            color.toLowerCase() === item.name.toLowerCase()
-                          }
-                          class="color-filter-mobile sr-only peer"
-                        />
-                        <div
-                          class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
-                            isAnimalPrint
-                              ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
-                              : ""
-                          }`}
-                          style={(() => {
-                            if (isAnimalPrint) return "";
-                            const border = isLight
-                              ? "border: 2px solid #E5E7EB;"
-                              : "";
-                            return `background-color: ${colorValue}; ${border}`;
-                          })()}
-                        >
-                          {isAnimalPrint && (
-                            <div
-                              class="w-full h-full rounded-full"
-                              style={`background-image: url('${printImg.src}'); background-size: cover;`}
-                            />
-                          )}
-                          <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
-                            <svg
-                              class="w-5 h-5 text-white drop-shadow-lg"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                        <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
-                          {item.name}
-                        </span>
-                      </label>
-                    );
-                  })
-                }
-              </div>
-            </div>
-
-            <!-- Sizes Filter -->
-            <div>
-              <h3 class="filter-title">Tallas</h3>
-              <div class="flex flex-wrap gap-2">
-                {
-                  sizes.map((item: string) => (
-                    <label class="cursor-pointer">
-                      <input
-                        type="checkbox"
-                        value={item}
-                        checked={size.toLowerCase() === item.toLowerCase()}
-                        class="size-filter-mobile sr-only peer"
-                      />
-                      <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
-                        {item}
-                      </span>
-                    </label>
-                  ))
-                }
-              </div>
-            </div>
+            <FilterGroups
+              variant="mobile"
+              categories={categories}
+              colors={colors}
+              sizes={sizes}
+              selectedCategory={category}
+              selectedColor={color}
+              selectedSize={size}
+            />
 
             <!-- Clear Filters -->
             <button
@@ -408,123 +301,15 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                 </select>
               </div>
 
-              <!-- Categories Filter -->
-              <div>
-                <h3 class="filter-title">Categorías</h3>
-                <div class="space-y-2">
-                  {
-                    categories.map((item) => (
-                      <label class="flex items-center cursor-pointer group">
-                        <input
-                          type="checkbox"
-                          value={item.name}
-                          checked={
-                            category.toLowerCase() === item.name.toLowerCase()
-                          }
-                          class="category-filter h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                        />
-                        <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
-                          {item.name}
-                        </span>
-                      </label>
-                    ))
-                  }
-                </div>
-              </div>
-
-              <!-- Colors Filter -->
-              <div>
-                <h3 class="filter-title">Colores</h3>
-                <div class="grid grid-cols-4 gap-3">
-                  {
-                    colors.map((item) => {
-                      const colorValue = item.hexCode || "#CCCCCC";
-                      const isLight = [
-                        "blanco",
-                        "crema",
-                        "amarillo",
-                        "blanco",
-                        "white",
-                      ].includes(item.name.toLowerCase());
-                      const isAnimalPrint = item.name.toLowerCase() === "print";
-                      return (
-                        <label
-                          class="cursor-pointer group relative flex flex-col items-center"
-                          title={item.name}
-                        >
-                          <input
-                            type="checkbox"
-                            value={item.name}
-                            checked={
-                              color.toLowerCase() === item.name.toLowerCase()
-                            }
-                            class="color-filter sr-only peer"
-                          />
-                          <div
-                            class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
-                              isAnimalPrint
-                                ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
-                                : ""
-                            }`}
-                            style={(() => {
-                              if (isAnimalPrint) return "";
-                              const border = isLight
-                                ? "border: 2px solid #E5E7EB;"
-                                : "";
-                              return `background-color: ${colorValue}; ${border}`;
-                            })()}
-                          >
-                            {isAnimalPrint && (
-                              <div
-                                class="w-full h-full rounded-full"
-                                style={`background-image: url('${printImg.src}'); background-size: cover;`}
-                              />
-                            )}
-                            <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
-                              <svg
-                                class="w-5 h-5 text-white drop-shadow-lg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                          <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
-                            {item.name}
-                          </span>
-                        </label>
-                      );
-                    })
-                  }
-                </div>
-              </div>
-
-              <!-- Sizes Filter -->
-              <div>
-                <h3 class="filter-title">Tallas</h3>
-                <div class="flex flex-wrap gap-2">
-                  {
-                    sizes.map((item: string) => (
-                      <label class="cursor-pointer">
-                        <input
-                          type="checkbox"
-                          value={item}
-                          checked={size.toLowerCase() === item.toLowerCase()}
-                          class="size-filter sr-only peer"
-                        />
-                        <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
-                          {item}
-                        </span>
-                      </label>
-                    ))
-                  }
-                </div>
-              </div>
+              <FilterGroups
+                variant="desktop"
+                categories={categories}
+                colors={colors}
+                sizes={sizes}
+                selectedCategory={category}
+                selectedColor={color}
+                selectedSize={size}
+              />
             </div>
           </div>
         </aside>
@@ -544,18 +329,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
             class="hidden grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             aria-hidden="true"
           >
-            {
-              Array.from({ length: 12 }).map(() => (
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm">
-                  <div class="h-[400px] animate-pulse bg-gray-200" />
-                  <div class="p-5 space-y-3">
-                    <div class="h-4 animate-pulse rounded bg-gray-200 w-3/4" />
-                    <div class="h-3 animate-pulse rounded bg-gray-200 w-1/3" />
-                    <div class="mt-4 h-10 animate-pulse rounded-full bg-gray-200" />
-                  </div>
-                </div>
-              ))
-            }
+            {Array.from({ length: 12 }).map(() => <ProductCardSkeleton />)}
           </div>
 
           <!-- Products Grid -->

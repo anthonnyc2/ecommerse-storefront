@@ -1,0 +1,139 @@
+---
+// Category, color and size filters of the catalog. Rendered twice by
+// catalogo.astro (desktop sidebar and mobile drawer); `variant` only changes
+// the checkbox class names the page script binds to (`.category-filter` vs
+// `.category-filter-mobile`).
+import type { Category, Color } from "../types/api";
+import printImg from "../assets/print.png";
+
+interface Props {
+  variant: "desktop" | "mobile";
+  categories: Category[];
+  colors: Color[];
+  sizes: string[];
+  selectedCategory: string;
+  selectedColor: string;
+  selectedSize: string;
+}
+
+const {
+  variant,
+  categories,
+  colors,
+  sizes,
+  selectedCategory,
+  selectedColor,
+  selectedSize,
+} = Astro.props;
+
+const suffix = variant === "mobile" ? "-mobile" : "";
+const LIGHT_COLORS = ["blanco", "crema", "amarillo", "white"];
+const isSelected = (selected: string, value: string) =>
+  selected.toLowerCase() === value.toLowerCase();
+
+function swatchStyle(color: Color) {
+  const name = color.name.toLowerCase();
+  if (name === "print") return "";
+  const border = LIGHT_COLORS.includes(name)
+    ? "border: 2px solid #E5E7EB;"
+    : "";
+  return `background-color: ${color.hexCode || "#CCCCCC"}; ${border}`;
+}
+---
+
+<div>
+  <h3 class="filter-title">Categorías</h3>
+  <div class="space-y-2">
+    {
+      categories.map((item) => (
+        <label class="flex items-center cursor-pointer group">
+          <input
+            type="checkbox"
+            value={item.name}
+            checked={isSelected(selectedCategory, item.name)}
+            class={`category-filter${suffix} h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary`}
+          />
+          <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
+            {item.name}
+          </span>
+        </label>
+      ))
+    }
+  </div>
+</div>
+
+<div>
+  <h3 class="filter-title">Colores</h3>
+  <div class="grid grid-cols-4 gap-3">
+    {
+      colors.map((item) => {
+        const isAnimalPrint = item.name.toLowerCase() === "print";
+        return (
+          <label
+            class="cursor-pointer group relative flex flex-col items-center"
+            title={item.name}
+          >
+            <input
+              type="checkbox"
+              value={item.name}
+              checked={isSelected(selectedColor, item.name)}
+              class={`color-filter${suffix} sr-only peer`}
+            />
+            <div
+              class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
+                isAnimalPrint
+                  ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
+                  : ""
+              }`}
+              style={swatchStyle(item)}
+            >
+              {isAnimalPrint && (
+                <div
+                  class="w-full h-full rounded-full"
+                  style={`background-image: url('${printImg.src}'); background-size: cover;`}
+                />
+              )}
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                <svg
+                  class="w-5 h-5 text-white drop-shadow-lg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span class="block text-center text-xs text-gray-600 mt-1 capitalize">
+              {item.name}
+            </span>
+          </label>
+        );
+      })
+    }
+  </div>
+</div>
+
+<div>
+  <h3 class="filter-title">Tallas</h3>
+  <div class="flex flex-wrap gap-2">
+    {
+      sizes.map((item) => (
+        <label class="cursor-pointer">
+          <input
+            type="checkbox"
+            value={item}
+            checked={isSelected(selectedSize, item)}
+            class={`size-filter${suffix} sr-only peer`}
+          />
+          <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
+            {item}
+          </span>
+        </label>
+      ))
+    }
+  </div>
+</div>
