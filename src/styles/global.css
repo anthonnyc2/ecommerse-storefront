@@ -62,7 +62,7 @@ body:has(dialog[open]) {
 
 /* White with a border: secondary actions. */
 @utility btn-outline {
-  @apply border border-gray-300 bg-white font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white;
+  @apply border border-gray-400 bg-white font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white;
 }
 
 /* Round icon-only button (close). Use with `btn`. */
@@ -104,12 +104,12 @@ body:has(dialog[open]) {
 /* Text inputs and selects. Add padding for the icon or arrow on the element
    (`pl-10 pr-4` for the search box, `pl-3 pr-10` for selects). */
 @utility field {
-  @apply w-full rounded-full border border-gray-300 bg-white py-2.5 text-sm text-gray-900 placeholder:text-gray-500 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20;
+  @apply w-full rounded-full border border-gray-400 bg-white py-2.5 text-sm text-gray-900 placeholder:text-gray-500 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20;
 }
 
 /* Checkbox of the filter lists. */
 @utility check {
-  @apply h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary;
+  @apply h-4 w-4 rounded border-gray-400 text-secondary focus:ring-secondary;
 }
 
 /* Static tag on product cards (color, size). `chip-more` is the "+N" after them. */
@@ -139,7 +139,7 @@ body:has(dialog[open]) {
 }
 
 @utility choice-idle {
-  @apply border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+  @apply border-gray-400 bg-white text-gray-700 hover:bg-gray-50;
 }
 
 @utility choice-selected {
