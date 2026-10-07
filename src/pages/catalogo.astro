@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 import ProductCardSkeleton from "../components/ProductCardSkeleton.astro";
 import FilterGroups from "../components/FilterGroups.astro";
+import { parseList } from "../services/filterSelection";
 import {
   getCatalogProducts,
   getCatalogFilters,
@@ -47,6 +48,11 @@ const { sizes } = filtersData;
 
 // Pagination logic (desktop). Mobile uses infinite scroll and ignores this.
 const totalPages = Math.ceil(total / PAGE_SIZE);
+
+// Name of the list for analytics: the search, a single category, or the catalog.
+let listName = "catalogo";
+if (search) listName = "busqueda";
+else if (category && !category.includes(",")) listName = category;
 
 const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255&text=${encodeURIComponent(
   "Hola, estuve viendo el catálogo y no encontré lo que busco. ¿Me pueden ayudar?",
@@ -232,9 +238,9 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
               categories={categories}
               colors={colors}
               sizes={sizes}
-              selectedCategory={category}
-              selectedColor={color}
-              selectedSize={size}
+              selectedCategories={parseList(category)}
+              selectedColors={parseList(color)}
+              selectedSizes={parseList(size)}
             />
 
             <!-- Clear Filters: only while something is applied or picked -->
@@ -311,9 +317,9 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                 categories={categories}
                 colors={colors}
                 sizes={sizes}
-                selectedCategory={category}
-                selectedColor={color}
-                selectedSize={size}
+                selectedCategories={parseList(category)}
+                selectedColors={parseList(color)}
+                selectedSizes={parseList(size)}
               />
             </div>
           </div>
@@ -342,7 +348,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
             id="products-grid"
             data-page-size={PAGE_SIZE}
             data-total={total}
-            data-list-name={search ? "busqueda" : category || "catalogo"}
+            data-list-name={listName}
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {
@@ -559,6 +565,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
       restoreFocusIfRequested,
     } from "../services/searchAutoSubmit";
     import { initFilterDrawer } from "../services/filterDrawer";
+    import { initFilterSidebar } from "../services/filterSidebar";
 
     document.addEventListener("DOMContentLoaded", () => {
       trackCatalogView();
@@ -587,21 +594,8 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
       // Desktop sidebar: each choice applies at once. The phone drawer below
       // collects choices and applies them together.
-      const filters = [
-        { selector: ".category-filter", param: "category" },
-        { selector: ".color-filter", param: "color" },
-        { selector: ".size-filter", param: "size" },
-      ];
-
-      filters.forEach(({ selector, param }) => {
-        document.querySelectorAll(selector).forEach((el) => {
-          el.addEventListener("change", (e) => {
-            const checked = (e.target as HTMLInputElement).checked;
-            updateFilters({
-              [param]: checked ? (e.target as HTMLInputElement).value : "",
-            });
-          });
-        });
+      initFilterSidebar({
+        onChange: (param, values) => updateFilters({ [param]: values }),
       });
 
       // Sort selectors

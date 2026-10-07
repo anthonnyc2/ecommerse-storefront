@@ -11,9 +11,9 @@ interface Props {
   categories: Category[];
   colors: Color[];
   sizes: string[];
-  selectedCategory: string;
-  selectedColor: string;
-  selectedSize: string;
+  selectedCategories: string[];
+  selectedColors: string[];
+  selectedSizes: string[];
 }
 
 const {
@@ -21,15 +21,15 @@ const {
   categories,
   colors,
   sizes,
-  selectedCategory,
-  selectedColor,
-  selectedSize,
+  selectedCategories,
+  selectedColors,
+  selectedSizes,
 } = Astro.props;
 
 const suffix = variant === "mobile" ? "-mobile" : "";
 const LIGHT_COLORS = ["blanco", "crema", "amarillo", "white"];
-const isSelected = (selected: string, value: string) =>
-  selected.toLowerCase() === value.toLowerCase();
+const isSelected = (selected: string[], value: string) =>
+  selected.some((item) => item.toLowerCase() === value.toLowerCase());
 
 function swatchStyle(color: Color) {
   const name = color.name.toLowerCase();
@@ -50,7 +50,7 @@ function swatchStyle(color: Color) {
           <input
             type="checkbox"
             value={item.name}
-            checked={isSelected(selectedCategory, item.name)}
+            checked={isSelected(selectedCategories, item.name)}
             class={`category-filter${suffix} check`}
           />
           <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
@@ -76,7 +76,7 @@ function swatchStyle(color: Color) {
             <input
               type="checkbox"
               value={item.name}
-              checked={isSelected(selectedColor, item.name)}
+              checked={isSelected(selectedColors, item.name)}
               class={`color-filter${suffix} sr-only peer`}
             />
             <div
@@ -126,7 +126,7 @@ function swatchStyle(color: Color) {
           <input
             type="checkbox"
             value={item}
-            checked={isSelected(selectedSize, item)}
+            checked={isSelected(selectedSizes, item)}
             class={`size-filter${suffix} sr-only peer`}
           />
           <span class="choice choice-sm choice-idle peer-checked:choice-selected">

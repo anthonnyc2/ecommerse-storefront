@@ -1,7 +1,7 @@
 // DOM wiring of the catalog's phone filter drawer. Choices are held until the
 // shopper taps "Aplicar filtros"; the rules live in filterSelection.ts.
 import {
-  EMPTY_SELECTION,
+  emptySelection,
   filterCount,
   selectionChanged,
   selectionFromUrl,
@@ -9,7 +9,6 @@ import {
   type FilterSelection,
 } from "./filterSelection";
 
-// One choice per group: picking another one swaps it.
 const GROUPS: { selector: string; key: keyof FilterSelection }[] = [
   { selector: ".category-filter-mobile", key: "category" },
   { selector: ".color-filter-mobile", key: "color" },
@@ -32,9 +31,11 @@ export function initFilterDrawer({
   const clearButton = document.getElementById("clear-filters-mobile");
 
   function picked(): FilterSelection {
-    const selection = { ...EMPTY_SELECTION };
+    const selection = emptySelection();
     for (const { selector, key } of GROUPS) {
-      selection[key] = inputsOf(selector).find((i) => i.checked)?.value ?? "";
+      selection[key] = inputsOf(selector)
+        .filter((i) => i.checked)
+        .map((i) => i.value);
     }
     return selection;
   }
@@ -58,9 +59,9 @@ export function initFilterDrawer({
   function reset() {
     for (const { selector, key } of GROUPS) {
       for (const input of inputsOf(selector)) {
-        input.checked =
-          applied[key] !== "" &&
-          input.value.toLowerCase() === applied[key].toLowerCase();
+        input.checked = applied[key].some(
+          (value) => value.toLowerCase() === input.value.toLowerCase(),
+        );
       }
     }
     sync();
@@ -68,14 +69,7 @@ export function initFilterDrawer({
 
   for (const { selector } of GROUPS) {
     for (const input of inputsOf(selector)) {
-      input.addEventListener("change", () => {
-        if (input.checked) {
-          for (const other of inputsOf(selector)) {
-            if (other !== input) other.checked = false;
-          }
-        }
-        sync();
-      });
+      input.addEventListener("change", sync);
     }
   }
 
