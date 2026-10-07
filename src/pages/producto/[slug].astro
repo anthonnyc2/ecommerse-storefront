@@ -1272,12 +1272,14 @@ const productJsonLd = {
       return url.replace("/upload/", "/upload/w_1600,f_auto,q_auto/");
     }
 
+    // Same photos as the thumbnail strip: all of them until a color is picked,
+    // then the ones of that color (plus the ones without a color).
     function getFilteredImages() {
       const color = selectedColor.toLowerCase();
       return images
         .filter(function (img) {
           const imgColor = (img.color || "").toLowerCase();
-          return !imgColor || imgColor === color;
+          return !color || !imgColor || imgColor === color;
         })
         .map(function (img) {
           return transformForLightbox(img.url);
@@ -1291,6 +1293,10 @@ const productJsonLd = {
         lightbox.classList.toggle("opacity-0", !visible);
       });
       document.body.style.overflow = visible ? "hidden" : "";
+      // The phone buy bar would show through the dark backdrop.
+      document
+        .getElementById("mobile-buy-bar")
+        ?.classList.toggle("invisible", visible);
     }
 
     function preloadAdjacent() {
