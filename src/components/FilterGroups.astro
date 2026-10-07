@@ -51,7 +51,7 @@ function swatchStyle(color: Color) {
             type="checkbox"
             value={item.name}
             checked={isSelected(selectedCategory, item.name)}
-            class={`category-filter${suffix} h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary`}
+            class={`category-filter${suffix} check`}
           />
           <span class="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
             {item.name}
@@ -80,7 +80,7 @@ function swatchStyle(color: Color) {
               class={`color-filter${suffix} sr-only peer`}
             />
             <div
-              class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-primary peer-checked:ring-offset-2 hover:scale-110 ${
+              class={`w-8 h-8 rounded-full transition-all peer-checked:ring-4 peer-checked:ring-secondary peer-checked:ring-offset-2 hover:scale-110 ${
                 isAnimalPrint
                   ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800"
                   : ""
@@ -129,7 +129,7 @@ function swatchStyle(color: Color) {
             checked={isSelected(selectedSize, item)}
             class={`size-filter${suffix} sr-only peer`}
           />
-          <span class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-plum transition-colors">
+          <span class="choice choice-idle peer-checked:choice-selected">
             {item}
           </span>
         </label>

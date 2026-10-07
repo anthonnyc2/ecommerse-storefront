@@ -67,3 +67,38 @@ body:has(dialog[open]) {
 @utility filter-title {
   @apply mb-3 text-sm font-medium text-gray-900;
 }
+
+/* Text inputs and selects. Add padding for the icon or arrow on the element
+   (`pl-10 pr-4` for the search box, `pl-3 pr-10` for selects). */
+@utility field {
+  @apply w-full rounded-full border border-gray-300 bg-white py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20;
+}
+
+/* Checkbox of the filter lists. */
+@utility check {
+  @apply h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary;
+}
+
+/* Static tag on product cards (color, size). `chip-more` is the "+N" after them. */
+@utility chip {
+  @apply flex items-center justify-center rounded-md border border-gray-200 px-1.5 py-0.5 text-chip font-medium text-gray-600;
+}
+
+@utility chip-more {
+  @apply text-chip font-medium text-gray-400;
+}
+
+/* Option the shopper picks (filter sizes, quick add color and size).
+   Combine `choice` with `choice-idle` or `choice-selected`. In filters the
+   selected look comes from a checkbox: `choice choice-idle peer-checked:choice-selected`. */
+@utility choice {
+  @apply inline-flex items-center justify-center rounded-md border px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+@utility choice-idle {
+  @apply border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+}
+
+@utility choice-selected {
+  @apply border-secondary bg-secondary/10 text-plum;
+}

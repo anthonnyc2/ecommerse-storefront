@@ -21,10 +21,9 @@ const FLASH_MS = 1500;
 // Variant classes swapped on the card button while it flashes "added".
 const ADDED_CLASS = "btn-success";
 const IDLE_CLASS = "btn-primary";
-const OPTION_BASE =
-  "rounded-md border px-3 py-1.5 text-sm font-medium capitalize transition-colors disabled:cursor-not-allowed disabled:opacity-40";
-const OPTION_IDLE = "border-gray-300 text-gray-700 hover:border-gray-900";
-const OPTION_SELECTED = "border-secondary bg-secondary/10 text-plum";
+const OPTION_BASE = "choice capitalize";
+const OPTION_IDLE = "choice-idle";
+const OPTION_SELECTED = "choice-selected";
 
 interface SheetState {
   product: QuickAddProduct;
