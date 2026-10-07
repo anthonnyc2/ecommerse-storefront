@@ -147,6 +147,8 @@ function trackDelegatedClick(el: HTMLElement) {
       track("click_contact", {
         contact_method: el.dataset.contactMethod ?? "whatsapp",
         placement,
+        // Set on links that are about one product, e.g. asking about a sold-out one
+        ...(el.dataset.itemId && { item_id: el.dataset.itemId }),
       });
       break;
     case "click_social":

@@ -180,6 +180,21 @@ describe("initClickTracking", () => {
     });
   });
 
+  it("adds the product to click_contact when the link belongs to one", () => {
+    fakeClick({
+      track: "click_contact",
+      placement: "product",
+      itemId: BLOUSE_ID,
+    });
+
+    expect(gtagMock).toHaveBeenCalledWith("event", "click_contact", {
+      transport_type: "beacon",
+      contact_method: WHATSAPP,
+      placement: "product",
+      item_id: BLOUSE_ID,
+    });
+  });
+
   it("tracks click_social with its network", () => {
     fakeClick({
       track: "click_social",

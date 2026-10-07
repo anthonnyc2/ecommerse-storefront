@@ -100,6 +100,11 @@ src/
 - On desktop (>=1024px) the search runs by itself 400 ms after the shopper stops typing (min 2 characters; emptying the field clears it). On phones it still needs Enter or the button: a search reloads the page, which would close the keyboard. Logic and tests live in `services/searchAutoSubmit.ts`.
 - After an automatic search the page puts the cursor back at the end of the field (flag in `sessionStorage`). Keys typed while the page is reloading are lost.
 
+## Sold-out products
+
+- `GET /products/{slug}` also returns active products with no stock (every variant at `stock: 0`); only inactive or unknown slugs are 404. The product page then shows an "Agotado" block with a WhatsApp link and up to 4 similar products instead of the purchase buttons, and the JSON-LD says `OutOfStock`.
+- Sold-out products stay out of the catalog listing and the product sitemap, which only list products with stock. The page needs the API from `admin-rb` to be deployed first; with the old API it still falls back to the 404.
+
 ---
 
 ## Data & Types
