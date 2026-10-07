@@ -72,6 +72,12 @@ body:has(#cart-drawer:not(.hidden)) {
   @apply bg-green-600 font-semibold text-white;
 }
 
+/* Pink tint with a pink border: a button whose choice is active, like the
+   Filtrar button while filters are applied. */
+@utility btn-selected {
+  @apply border border-secondary bg-secondary/10 font-medium text-plum hover:bg-secondary/20;
+}
+
 /* White with a border: secondary actions. */
 @utility btn-outline {
   @apply border border-gray-400 bg-white font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white;

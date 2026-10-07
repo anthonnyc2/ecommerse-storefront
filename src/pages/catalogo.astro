@@ -3,7 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 import ProductCardSkeleton from "../components/ProductCardSkeleton.astro";
 import FilterGroups from "../components/FilterGroups.astro";
-import { parseList } from "../services/filterSelection";
+import {
+  filterCount,
+  parseList,
+  selectionFromUrl,
+} from "../services/filterSelection";
 import {
   getCatalogProducts,
   getCatalogFilters,
@@ -48,6 +52,15 @@ const { sizes } = filtersData;
 
 // Pagination logic (desktop). Mobile uses infinite scroll and ignores this.
 const totalPages = Math.ceil(total / PAGE_SIZE);
+
+// How many filter values are applied (shown on the phone Filtrar button).
+const activeFilters = filterCount(selectionFromUrl(Astro.url.searchParams));
+
+let filterButtonLabel = "Abrir filtros";
+if (activeFilters === 1) filterButtonLabel = "Abrir filtros (1 activo)";
+else if (activeFilters > 1) {
+  filterButtonLabel = `Abrir filtros (${activeFilters} activos)`;
+}
 
 // Name of the list for analytics: the search, a single category, or the catalog.
 let listName = "catalogo";
@@ -161,8 +174,11 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
         <!-- Filter Button -->
         <button
           id="mobile-filter-btn"
-          aria-label="Abrir filtros"
-          class="btn btn-outline btn-md flex-1 gap-2"
+          aria-label={filterButtonLabel}
+          class:list={[
+            "btn btn-md flex-1 gap-2",
+            activeFilters > 0 ? "btn-selected" : "btn-outline",
+          ]}
         >
           <svg
             class="h-5 w-5"
@@ -178,6 +194,16 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
             ></path>
           </svg>
           <span>Filtrar</span>
+          {
+            activeFilters > 0 && (
+              <span
+                aria-hidden="true"
+                class="flex h-5 min-w-5 items-center justify-center rounded-full bg-plum px-1.5 text-xs font-semibold text-white"
+              >
+                {activeFilters}
+              </span>
+            )
+          }
         </button>
 
         <!-- Mobile Sort Select -->
