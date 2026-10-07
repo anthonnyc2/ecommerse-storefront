@@ -128,10 +128,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
             )
           }
         </div>
-        <button
-          type="submit"
-          class="shrink-0 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-plum hover:bg-secondary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-        >
+        <button type="submit" class="btn btn-primary btn-md shrink-0">
           Buscar
         </button>
       </form>
@@ -158,7 +155,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
         <button
           id="mobile-filter-btn"
           aria-label="Abrir filtros"
-          class="flex-1 flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          class="btn btn-outline btn-md flex-1 gap-2"
         >
           <svg
             class="h-5 w-5"
@@ -231,7 +228,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
           <div class="flex-1 overflow-y-auto p-4 space-y-6">
             <!-- Categories Filter -->
             <div>
-              <h3 class="text-sm font-medium text-gray-900 mb-3">Categorías</h3>
+              <h3 class="filter-title">Categorías</h3>
               <div class="space-y-2">
                 {
                   categories.map((item) => (
@@ -255,7 +252,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
             <!-- Colors Filter -->
             <div>
-              <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
+              <h3 class="filter-title">Colores</h3>
               <div class="grid grid-cols-4 gap-3">
                 {
                   colors.map((item) => {
@@ -327,7 +324,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
             <!-- Sizes Filter -->
             <div>
-              <h3 class="text-sm font-medium text-gray-900 mb-3">Tallas</h3>
+              <h3 class="filter-title">Tallas</h3>
               <div class="flex flex-wrap gap-2">
                 {
                   sizes.map((item: string) => (
@@ -350,7 +347,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
             <!-- Clear Filters -->
             <button
               id="clear-filters-mobile"
-              class="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              class="btn btn-outline btn-sm w-full"
             >
               Limpiar filtros
             </button>
@@ -360,7 +357,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
           <div class="p-4 border-t border-gray-200">
             <button
               id="apply-filters-mobile"
-              class="w-full rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-plum hover:bg-secondary/80 transition-colors"
+              class="btn btn-primary btn-lg w-full"
             >
               Aplicar Filtros
             </button>
@@ -377,7 +374,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                 (category || color || size || sort) && (
                   <button
                     id="clear-filters"
-                    class="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                    class="btn btn-outline btn-sm w-full gap-2"
                   >
                     <svg
                       class="w-4 h-4"
@@ -398,9 +395,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
               }
               <!-- Sort -->
               <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">
-                  Ordenar por
-                </h3>
+                <h3 class="filter-title">Ordenar por</h3>
                 <select
                   id="sort-select"
                   aria-label="Ordenar productos"
@@ -415,9 +410,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
               <!-- Categories Filter -->
               <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">
-                  Categorías
-                </h3>
+                <h3 class="filter-title">Categorías</h3>
                 <div class="space-y-2">
                   {
                     categories.map((item) => (
@@ -441,7 +434,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
               <!-- Colors Filter -->
               <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">Colores</h3>
+                <h3 class="filter-title">Colores</h3>
                 <div class="grid grid-cols-4 gap-3">
                   {
                     colors.map((item) => {
@@ -513,7 +506,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
 
               <!-- Sizes Filter -->
               <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">Tallas</h3>
+                <h3 class="filter-title">Tallas</h3>
                 <div class="flex flex-wrap gap-2">
                   {
                     sizes.map((item: string) => (
@@ -621,7 +614,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                 data-placement="catalogo_end"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mt-3 inline-flex items-center rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+                class="btn btn-whatsapp btn-md mt-3"
               >
                 Escríbenos por WhatsApp
               </a>
@@ -638,7 +631,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
               <button
                 type="button"
                 id="infinite-scroll-retry"
-                class="mt-2 inline-flex items-center rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                class="btn btn-outline btn-sm mt-2"
               >
                 Reintentar
               </button>
@@ -666,7 +659,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                   type="button"
                   aria-label="Página anterior"
                   disabled={page <= 1}
-                  class="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+                  class="btn btn-outline btn-sm gap-1.5"
                 >
                   <svg
                     class="h-4 w-4"
@@ -698,7 +691,7 @@ const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255
                   type="button"
                   aria-label="Página siguiente"
                   disabled={page >= totalPages}
-                  class="inline-flex items-center gap-1.5 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+                  class="btn btn-outline btn-sm gap-1.5"
                 >
                   <span>Siguiente</span>
                   <svg

@@ -132,12 +132,12 @@ for (const img of images) {
           visibleColors.length > 0 && (
             <div class="mt-3 flex flex-wrap items-center gap-1.5">
               {visibleColors.map((color) => (
-                <span class="flex items-center justify-center rounded-md border border-gray-200 px-1.5 py-0.5 text-[11px] font-medium capitalize text-gray-600">
+                <span class="flex items-center justify-center rounded-md border border-gray-200 px-1.5 py-0.5 text-chip font-medium capitalize text-gray-600">
                   {color}
                 </span>
               ))}
               {extraColors > 0 && (
-                <span class="text-[11px] font-medium text-gray-400">
+                <span class="text-chip font-medium text-gray-400">
                   +{extraColors}
                 </span>
               )}
@@ -150,12 +150,12 @@ for (const img of images) {
           visibleSizes.length > 0 && (
             <div class="mt-3 flex flex-wrap items-center gap-1.5">
               {visibleSizes.map((size) => (
-                <span class="flex h-7 min-w-[1.75rem] items-center justify-center rounded-md border border-gray-200 px-1.5 text-[11px] font-medium text-gray-600">
+                <span class="flex h-7 min-w-[1.75rem] items-center justify-center rounded-md border border-gray-200 px-1.5 text-chip font-medium text-gray-600">
                   {size}
                 </span>
               ))}
               {extraSizes > 0 && (
-                <span class="text-[11px] font-medium text-gray-400">
+                <span class="text-chip font-medium text-gray-400">
                   +{extraSizes}
                 </span>
               )}
@@ -170,7 +170,7 @@ for (const img of images) {
             data-quick-add
             title="Agregar al carrito"
             aria-label={`Agregar ${name} al carrito`}
-            class="relative z-10 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gray-900 text-white transition-colors hover:bg-secondary hover:text-plum active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+            class="btn btn-dark relative z-10 h-11 w-11 flex-none active:scale-95"
           >
             <svg
               data-icon="idle"
@@ -216,7 +216,7 @@ for (const img of images) {
     <a
       href={`/producto/${slug}`}
       data-track="select_item"
-      class="relative z-10 mt-4 flex h-11 w-full items-center justify-center rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 transition-colors hover:border-gray-900 active:scale-95"
+      class="btn btn-outline relative z-10 mt-4 h-11 w-full active:scale-95"
       >Ver detalles</a
     >
   </div>

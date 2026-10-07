@@ -6,9 +6,64 @@
   --color-secondary: #ffb8d2;
   --color-accent: #f7d1a4;
   --color-plum: #4a1942;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #1ebe5d;
+
+  /* Small type below Tailwind's text-xs: product card chips and the cart badge. */
+  --text-chip: 11px;
+  --text-badge: 10px;
 }
 
 /* Keep the page from scrolling behind an open modal dialog (quick add). */
 body:has(dialog[open]) {
   overflow: hidden;
+}
+
+/* Shared focus ring for anything interactive. */
+@utility focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2;
+}
+
+/* Buttons: combine `btn` + one variant + one size.
+   Example: class="btn btn-primary btn-md". Layout (w-full, flex-1, gap) stays
+   on the element. */
+@utility btn {
+  @apply focus-ring inline-flex items-center justify-center rounded-full text-sm transition-colors;
+}
+
+@utility btn-sm {
+  @apply px-4 py-2;
+}
+
+@utility btn-md {
+  @apply px-5 py-2.5;
+}
+
+@utility btn-lg {
+  @apply px-6 py-3;
+}
+
+/* Pink: main action. */
+@utility btn-primary {
+  @apply bg-secondary font-semibold text-plum hover:bg-secondary/80;
+}
+
+/* Dark: add to cart. Turns pink on hover. */
+@utility btn-dark {
+  @apply bg-gray-900 font-semibold text-white hover:bg-secondary hover:text-plum disabled:cursor-not-allowed disabled:bg-gray-300;
+}
+
+/* White with a border: secondary actions. */
+@utility btn-outline {
+  @apply border border-gray-300 bg-white font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white;
+}
+
+/* WhatsApp green. The ring uses the brand color, not the pink one. */
+@utility btn-whatsapp {
+  @apply bg-whatsapp font-semibold text-white hover:bg-whatsapp-hover focus-visible:ring-whatsapp;
+}
+
+/* Heading of each filter group (Categorías, Colores, Tallas, Ordenar por). */
+@utility filter-title {
+  @apply mb-3 text-sm font-medium text-gray-900;
 }
