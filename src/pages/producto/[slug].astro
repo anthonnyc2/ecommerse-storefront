@@ -298,7 +298,7 @@ const productJsonLd = {
             }
 
             <div
-              class="order-1 flex aspect-[4/5] max-h-[620px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-50 lg:order-2 lg:flex-1"
+              class="relative order-1 flex aspect-[4/5] max-h-[620px] w-full touch-pan-y items-center justify-center overflow-hidden rounded-lg bg-gray-50 lg:order-2 lg:flex-1"
               id="main-image-container"
             >
               <img
@@ -307,6 +307,12 @@ const productJsonLd = {
                 alt={name}
                 class="h-full w-full cursor-zoom-in object-contain transition-transform duration-300 hover:scale-110"
               />
+              <p
+                id="photo-counter"
+                aria-hidden="true"
+                class="absolute bottom-3 right-3 hidden rounded-full bg-black/70 px-2.5 py-1 text-xs font-medium text-white lg:hidden"
+              >
+              </p>
             </div>
           </div>
 
@@ -977,6 +983,38 @@ const productJsonLd = {
         b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
       );
       activeThumb.classList.add(CLASSES.RING_2, CLASSES.RING_SECONDARY);
+      updatePhotoCounter();
+    }
+
+    // Photos of the picked color, in the same order as the thumbnails.
+    function visibleThumbs() {
+      return [...thumbBtns].filter((t) => t.style.display !== "none");
+    }
+
+    function currentPhotoIndex() {
+      const index = visibleThumbs().findIndex(
+        (t) => t.getAttribute(DATA_FULL) === mainImg?.src,
+      );
+      return index === -1 ? 0 : index;
+    }
+
+    function updatePhotoCounter() {
+      const counter = document.getElementById("photo-counter");
+      if (!counter) return;
+      const total = visibleThumbs().length;
+      counter.textContent = currentPhotoIndex() + 1 + "/" + total;
+      counter.classList.toggle("hidden", total < 2);
+    }
+
+    // Swipe the main photo: +1 goes to the next photo, -1 to the previous one.
+    function showPhotoAt(step) {
+      const thumbs = visibleThumbs();
+      if (thumbs.length < 2 || !mainImg) return;
+      const next =
+        thumbs[(currentPhotoIndex() + step + thumbs.length) % thumbs.length];
+      mainImg.src = next.getAttribute(DATA_FULL);
+      resetThumbHighlight(next);
+      next.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
 
     function resetSizeButtons() {
@@ -1007,6 +1045,7 @@ const productJsonLd = {
           resetThumbHighlight(firstVisible);
         }
       }
+      updatePhotoCounter();
       // If the lightbox is open, refresh its image list to match the new color
       if (typeof refreshLightboxImages === "function") {
         refreshLightboxImages();
@@ -1021,6 +1060,33 @@ const productJsonLd = {
         resetThumbHighlight(btn);
       });
     });
+
+    // Swipe on the main photo (phones). Vertical drags still scroll the page.
+    const photoArea = document.getElementById("main-image-container");
+    const SWIPE_MIN_PX = 40;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    photoArea?.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+      },
+      { passive: true },
+    );
+    photoArea?.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const isHorizontal = Math.abs(dx) > Math.abs(dy) * 1.5;
+        if (isHorizontal && Math.abs(dx) >= SWIPE_MIN_PX) {
+          showPhotoAt(dx < 0 ? 1 : -1);
+        }
+      },
+      { passive: true },
+    );
+    updatePhotoCounter();
 
     // ---------- Image Lightbox ----------
     const lightbox = document.getElementById("lightbox");
@@ -1133,7 +1199,7 @@ const productJsonLd = {
       if (!lightbox) return;
       lightboxUrls = getFilteredImages();
       if (lightboxUrls.length === 0) return;
-      lightboxIndex = 0;
+      lightboxIndex = Math.min(currentPhotoIndex(), lightboxUrls.length - 1);
       lastFocused = document.activeElement || mainImg;
       renderLightboxThumbs();
       setLightboxVisibility(true);
