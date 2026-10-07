@@ -70,6 +70,15 @@ body:has(dialog[open]) {
   @apply h-10 w-10 text-gray-500 hover:bg-gray-100 hover:text-gray-700;
 }
 
+/* Small round icon-only buttons in the cart: quantity (-/+) and remove. */
+@utility btn-icon-sm {
+  @apply h-8 w-8 text-gray-500 hover:bg-gray-100 hover:text-gray-900;
+}
+
+@utility btn-icon-danger {
+  @apply h-8 w-8 text-gray-500 hover:bg-red-50 hover:text-red-600;
+}
+
 /* Deep plum: landing call to action. */
 @utility btn-plum {
   @apply bg-plum font-semibold text-white hover:bg-plum/80;

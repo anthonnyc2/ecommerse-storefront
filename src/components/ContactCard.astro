@@ -1,0 +1,46 @@
+---
+// One contact channel on /contacto. Pass `href` for a link card (focusable,
+// lifts its shadow on hover) or omit it for a plain info card. Tracking
+// attributes (`data-track`, `data-network`, ...) go in `attrs`. The default
+// slot is the icon SVG (h-8 w-8).
+interface Props {
+  title: string;
+  line: string;
+  description: string;
+  /** Background color classes of the round icon, e.g. "bg-sky-600". */
+  iconClass: string;
+  href?: string;
+  attrs?: Record<string, string>;
+}
+
+const { title, line, description, iconClass, href, attrs = {} } = Astro.props;
+const external = href?.startsWith("http");
+const Tag = href ? "a" : "div";
+const linkProps = href
+  ? {
+      href,
+      ...(external && { target: "_blank", rel: "noopener noreferrer" }),
+      ...attrs,
+    }
+  : {};
+---
+
+<Tag
+  {...linkProps}
+  class:list={[
+    "flex flex-col items-center rounded-2xl bg-gray-50 p-8 text-center shadow-sm",
+    href && "focus-ring transition-shadow hover:shadow-lg",
+  ]}
+>
+  <div
+    class:list={[
+      "mb-4 flex h-16 w-16 items-center justify-center rounded-full text-white",
+      iconClass,
+    ]}
+  >
+    <slot />
+  </div>
+  <h3 class="mb-2 text-xl font-semibold text-gray-900">{title}</h3>
+  <p class="text-base font-medium text-gray-600">{line}</p>
+  <p class="mt-2 text-sm font-medium text-gray-600">{description}</p>
+</Tag>
