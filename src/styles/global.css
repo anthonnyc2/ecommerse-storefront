@@ -21,6 +21,16 @@ body:has(dialog[open]) {
   overflow: hidden;
 }
 
+/* Tailwind v4 leaves buttons with the arrow cursor; show the hand on every
+   enabled button. Disabled ones already get `not-allowed` from their classes. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+}
+
 /* Shared focus ring for anything interactive. */
 @utility focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2;
