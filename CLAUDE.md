@@ -107,6 +107,13 @@ src/
 
 ---
 
+## Product page
+
+- Layout: thumbnails beside the photo on desktop (under it, scrolling sideways, on phones); the info column is sticky on desktop. Order: name, price, stock, color, size, buttons, shipping/payment notes, description (hidden when empty). The supplier brand is never shown.
+- "Lo quiero" (`#buy-now-btn`, big, pink) opens WhatsApp with the product, color, size, price and link, and skips the cart. The small round bag button (`#add-to-cart-btn`) adds to the cart. On phones a fixed bar (`#mobile-buy-bar`) repeats price and "Lo quiero" while the main buttons and the footer are off screen.
+- Price and stock labels come from `services/productPage.ts` (pure, tested). The page computes them on the server and passes them to the `is:inline` script, which cannot import. "Desde X Bs" shows when variants have different prices and the price follows the picked variant; low stock reads "Última unidad" or "Quedan N" (3 or fewer).
+- A color or size with a single option is plain text (`data-fixed`), not a button.
+
 ## Home hero collage
 
 - `HeroCollage.astro` shows three photos (one per category) beside the hero text on desktop and below the button on mobile. Each photo links to `/catalogo?category=<name>`, never to a product (most products have 1 unit and would sell out).

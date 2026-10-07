@@ -89,12 +89,6 @@ body:has(dialog[open]) {
   @apply border-2 border-gray-900 bg-white font-semibold text-gray-900 hover:bg-gray-900 hover:text-white;
 }
 
-/* Green outline: brief "added" confirmation, swapped in for btn-outline-dark
-   by the product page script. */
-@utility btn-outline-success {
-  @apply border-2 border-green-500 bg-green-50 font-semibold text-green-700;
-}
-
 /* Translucent round button over photos (lightbox). */
 @utility btn-glass {
   @apply bg-white/10 text-white backdrop-blur hover:bg-white/20 focus-visible:ring-white focus-visible:ring-offset-0;
@@ -131,7 +125,7 @@ body:has(dialog[open]) {
 }
 
 /* Option the shopper picks (filter sizes, quick add color and size).
-   Combine `choice`, a size (`choice-sm` or `choice-lg`) and `choice-idle` or
+   Combine `choice`, a size (`choice-sm`) and `choice-idle` or
    `choice-selected`. In filters the selected look comes from a checkbox:
    `choice choice-sm choice-idle peer-checked:choice-selected`. */
 @utility choice {
@@ -140,11 +134,6 @@ body:has(dialog[open]) {
 
 @utility choice-sm {
   @apply px-3 py-1.5;
-}
-
-/* Roomier: product page color and size. */
-@utility choice-lg {
-  @apply px-3 py-3;
 }
 
 @utility choice-idle {

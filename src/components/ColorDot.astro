@@ -1,0 +1,20 @@
+---
+// Round color sample next to a color name. "print" shows the animal print photo.
+import printImg from "../assets/print.png";
+
+interface Props {
+  name: string;
+  hex?: string | null;
+}
+
+const { name, hex } = Astro.props;
+const isAnimalPrint = name.toLowerCase() === "print";
+const style = isAnimalPrint
+  ? `background-image: url('${printImg.src}'); background-size: cover;`
+  : `background-color: ${hex || "#CCCCCC"};`;
+---
+
+<span
+  class="h-4 w-4 shrink-0 rounded-full border border-black/10"
+  style={style}
+  aria-hidden="true"></span>

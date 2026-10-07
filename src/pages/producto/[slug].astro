@@ -5,11 +5,19 @@ import {
   getCatalogProducts,
 } from "../../services/api";
 import defaultImg from "../../assets/default-product-image.png";
-import printImg from "../../assets/print.png";
 import Layout from "../../layouts/Layout.astro";
 import JsonLd from "../../components/JsonLd.astro";
 import Gallery from "../../components/Gallery.astro";
 import ProductCard from "../../components/ProductCard.astro";
+import ColorDot from "../../components/ColorDot.astro";
+import WhatsappIcon from "../../components/WhatsappIcon.astro";
+import {
+  priceLabel,
+  stockStatus,
+  totalStockStatus,
+  whatsappUrl,
+  type StockTone,
+} from "../../services/productPage";
 
 const { slug } = Astro.params;
 
@@ -119,9 +127,26 @@ const similarProducts =
       ).products
         .filter((product) => product.slug !== slug)
         .slice(0, SIMILAR_LIMIT);
-const soldOutWhatsappUrl = `https://api.whatsapp.com/send/?phone=59165864255&text=${encodeURIComponent(
+const soldOutWhatsappUrl = whatsappUrl(
   `Hola, vi que ${name} está agotado. ¿Volverá a haber stock o tienen algo parecido?`,
-)}`;
+);
+const questionWhatsappUrl = whatsappUrl(
+  `Hola, estoy viendo ${name} y tengo una duda. ¿Me ayudan?`,
+);
+
+// Price, stock and description as the shopper sees them. The script gets the
+// same labels so it can update them when a color or size is picked.
+const initialPrice = priceLabel(variants.map((v) => v.price));
+const overallStock = totalStockStatus(variants);
+const variantStock = Object.fromEntries(
+  variants.map((v) => [v.id, stockStatus(v.stock)]),
+);
+const STOCK_TONE_CLASS: Record<StockTone, string> = {
+  ok: "bg-green-50 text-green-700 ring-1 ring-green-200",
+  low: "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
+  out: "bg-red-50 text-red-600 ring-1 ring-red-200",
+};
+const visibleDescription = description?.trim() ?? "";
 
 const siteOrigin = Astro.site ?? new URL("https://raquel-boutique.com");
 const breadcrumbJsonLd = {
@@ -239,175 +264,224 @@ const productJsonLd = {
       </nav>
 
       <div class="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
-          <!-- Image gallery -->
-          <div class="flex flex-col-reverse">
-            <!-- Image selector -->
+        <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12">
+          <!-- Image gallery: thumbnails sit beside the photo on desktop and
+               scroll sideways under it on phones. -->
+          <div class="flex flex-col gap-3 lg:flex-row lg:gap-4">
             {
               images.length > 1 && (
-                <div class="mx-auto mt-6 w-full max-w-2xl lg:max-w-none">
-                  <div
-                    class="grid grid-cols-4 gap-3 sm:gap-6"
-                    id="thumbnails-grid"
-                    role="tablist"
-                  >
-                    {images.map((img, index) => (
-                      <button
-                        class={`thumb-btn relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase hover:bg-gray-50 focus-ring
-                      ${index === 0 ? "ring-2 ring-secondary" : ""}`}
-                        data-full={transformImageUrl(img.url, 800)}
-                        data-color={img.color || ""}
-                        aria-label={`Ver imagen ${index + 1} de ${name}`}
-                      >
-                        <span class="absolute inset-0 overflow-hidden rounded-md">
-                          <img
-                            src={transformImageUrl(img.url, 150)}
-                            alt=""
-                            aria-hidden="true"
-                            class="h-full w-full object-cover object-center"
-                          />
-                        </span>
-                      </button>
-                    ))}
-                  </div>
+                <div
+                  id="thumbnails-grid"
+                  role="tablist"
+                  class="order-2 flex gap-3 overflow-x-auto p-1 lg:order-1 lg:max-h-[620px] lg:w-24 lg:shrink-0 lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden"
+                >
+                  {images.map((img, index) => (
+                    <button
+                      type="button"
+                      class={`thumb-btn focus-ring relative flex h-20 w-20 shrink-0 cursor-pointer items-center justify-center rounded-md bg-white ${index === 0 ? "ring-2 ring-secondary" : ""}`}
+                      data-full={transformImageUrl(img.url, 800)}
+                      data-color={img.color || ""}
+                      aria-label={`Ver imagen ${index + 1} de ${name}`}
+                    >
+                      <span class="absolute inset-0 overflow-hidden rounded-md">
+                        <img
+                          src={transformImageUrl(img.url, 150)}
+                          alt=""
+                          aria-hidden="true"
+                          class="h-full w-full object-cover object-center"
+                        />
+                      </span>
+                    </button>
+                  ))}
                 </div>
               )
             }
 
             <div
-              class="w-full max-h-[600px] flex items-center justify-center overflow-hidden rounded-lg bg-gray-50"
+              class="order-1 flex aspect-[4/5] max-h-[620px] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-50 lg:order-2 lg:flex-1"
               id="main-image-container"
             >
               <img
                 id="main-product-image"
                 src={transformImageUrl(mainImage, 800)}
                 alt={name}
-                class="h-full w-full object-contain transition-transform duration-300 hover:scale-110 cursor-zoom-in"
+                class="h-full w-full cursor-zoom-in object-contain transition-transform duration-300 hover:scale-110"
               />
             </div>
           </div>
 
-          <!-- Product info -->
-          <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <div class="flex justify-between items-start">
-              <div>
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-                  {name}
-                </h1>
-                <p
-                  class="mt-1 text-sm text-gray-700 font-medium uppercase tracking-wide"
-                >
-                  {brand}
-                </p>
-              </div>
-              <p class="text-3xl font-semibold text-gray-900">{basePrice} Bs</p>
-            </div>
-
-            <div class="mt-6">
-              <h3 class="sr-only">Descripción</h3>
-              <div class="space-y-6 text-base text-gray-700">
-                <p>{description || "Sin descripción disponible."}</p>
-              </div>
-            </div>
+          <!-- Product info: sticky on desktop so the buy button stays in view
+               next to the gallery. -->
+          <div class="mt-8 lg:sticky lg:top-24 lg:mt-0">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+              {name}
+            </h1>
+            <p
+              class="mt-2 text-3xl font-semibold text-gray-900"
+              data-price-text
+            >
+              {initialPrice}
+            </p>
+            <p id="stock-indicator" class="mt-3">
+              <span
+                id="stock-value"
+                class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${STOCK_TONE_CLASS[overallStock.tone]}`}
+              >
+                {overallStock.text}
+              </span>
+            </p>
 
             {
               inStock ? (
                 <>
-                  {uniqueColors.length > 0 && (
-                    <div class="mt-8">
-                      <h3 class="text-sm font-medium text-gray-900">Color</h3>
-                      <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        {uniqueColors.map((colorAttr) => {
-                          const color = colorAttr as string;
-                          const colorValue = getColorHex(color);
-                          const isLight = [
-                            "blanco",
-                            "crema",
-                            "amarillo",
-                            "white",
-                            "blanco",
-                          ].includes(color.toLowerCase());
-                          const isAnimalPrint = color.toLowerCase() === "print";
+                  <div id="product-options" class="mt-8 space-y-6">
+                    {uniqueColors.length === 1 && (
+                      <p class="flex items-center gap-2 text-sm text-gray-900">
+                        <span class="font-medium">Color:</span>
+                        <span
+                          class="color-option inline-flex items-center gap-2 capitalize"
+                          data-color={uniqueColors[0]}
+                          data-fixed
+                        >
+                          <ColorDot
+                            name={uniqueColors[0] as string}
+                            hex={getColorHex(uniqueColors[0] as string)}
+                          />
+                          {(uniqueColors[0] as string).toLowerCase()}
+                        </span>
+                      </p>
+                    )}
+                    {uniqueColors.length > 1 && (
+                      <div>
+                        <h2 class="text-sm font-medium text-gray-900">Color</h2>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                          {uniqueColors.map((colorAttr) => {
+                            const color = colorAttr as string;
+                            return (
+                              <button
+                                type="button"
+                                class="color-option choice choice-sm choice-idle focus-ring gap-2 capitalize"
+                                data-color={color}
+                                aria-pressed="false"
+                                aria-label={`Seleccionar color ${color}`}
+                              >
+                                <ColorDot
+                                  name={color}
+                                  hex={getColorHex(color)}
+                                />
+                                <span aria-hidden="true">
+                                  {color.toLowerCase()}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
 
-                          let colorStyle = "";
-                          if (!isAnimalPrint) {
-                            colorStyle = `background-color: ${colorValue};`;
-                            if (isLight) {
-                              colorStyle += " border: 1px solid #E5E7EB;";
-                            }
-                          }
-
-                          return (
+                    {uniqueSizes.length === 1 && (
+                      <p class="flex items-center gap-2 text-sm text-gray-900">
+                        <span class="font-medium">Talla:</span>
+                        <span
+                          class="size-option uppercase"
+                          data-size={uniqueSizes[0]}
+                          data-fixed
+                        >
+                          {uniqueSizes[0]}
+                        </span>
+                      </p>
+                    )}
+                    {uniqueSizes.length > 1 && (
+                      <div>
+                        <h2 class="text-sm font-medium text-gray-900">Talla</h2>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                          {uniqueSizes.map((size) => (
                             <button
                               type="button"
-                              class="color-option choice choice-lg choice-idle focus-ring justify-start gap-3"
-                              data-color={color}
-                              aria-label={`Seleccionar color ${color}`}
+                              class="size-option choice choice-sm choice-idle focus-ring min-w-12 uppercase"
+                              data-size={size}
+                              aria-pressed="false"
+                              aria-label={`Seleccionar talla ${size}`}
                             >
-                              <div
-                                class={`h-4 w-4 rounded-full border border-black/10 shrink-0 ${isAnimalPrint ? "bg-gradient-to-br from-amber-700 via-amber-600 to-amber-800" : ""}`}
-                                style={colorStyle}
-                              >
-                                {isAnimalPrint && (
-                                  <div
-                                    class="w-full h-full rounded-full"
-                                    style={`background-image: url('${printImg.src}'); background-size: cover;`}
-                                  />
-                                )}
-                              </div>
-                              <span
-                                class="truncate capitalize"
-                                aria-hidden="true"
-                              >
-                                {color}
-                              </span>
+                              {size}
                             </button>
-                          );
-                        })}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-
-                  {uniqueSizes.length > 0 && (
-                    <div class="mt-8">
-                      <h3 class="text-sm font-medium text-gray-900">Talla</h3>
-                      <div class="mt-3 grid grid-cols-4 gap-3">
-                        {uniqueSizes.map((size) => (
-                          <button
-                            type="button"
-                            class="size-option choice choice-lg choice-idle focus-ring uppercase"
-                            data-size={size}
-                            aria-label={`Seleccionar talla ${size}`}
-                          >
-                            {size}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div id="stock-indicator" class="mt-4 hidden">
-                    <span
-                      id="stock-value"
-                      class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
-                    />
+                    )}
                   </div>
 
-                  <div class="mt-10 flex flex-col gap-3">
+                  <div id="purchase-actions" class="mt-8">
                     <p
                       id="validation-message"
                       role="alert"
                       aria-live="polite"
-                      class="hidden rounded-lg bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700"
+                      class="mb-3 hidden rounded-lg bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700"
                     />
+                    <div class="flex items-center gap-3">
+                      <button
+                        type="button"
+                        id="buy-now-btn"
+                        class="btn btn-primary btn-xl flex-1 gap-2.5 text-base shadow-sm"
+                      >
+                        <WhatsappIcon />
+                        Lo quiero
+                      </button>
+                      <button
+                        type="button"
+                        id="add-to-cart-btn"
+                        title="Agregar al carrito"
+                        aria-label={`Agregar ${name} al carrito`}
+                        class="btn btn-outline h-13 w-13 flex-none"
+                      >
+                        <svg
+                          data-icon="idle"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <g
+                            transform="translate(1 3.5) scale(0.85)"
+                            stroke-width="1.75"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
+                            />
+                          </g>
+                          <path
+                            stroke-linecap="round"
+                            stroke-width="2"
+                            d="M19 2v6M16 5h6"
+                          />
+                        </svg>
+                        <svg
+                          data-icon="done"
+                          class="hidden h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.5"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4.5 12.75l6 6 9-13.5"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <p id="add-to-cart-status" class="sr-only" role="status" />
+                  </div>
 
-                    <button
-                      type="button"
-                      id="add-to-cart-btn"
-                      class="btn btn-outline-dark btn-xl w-full gap-2.5 text-base shadow-sm"
-                    >
+                  <ul class="mt-8 space-y-3 border-t border-gray-200 pt-6 text-sm text-gray-600">
+                    <li class="flex gap-3">
                       <svg
-                        class="h-5 w-5"
+                        class="mt-0.5 h-5 w-5 flex-none text-gray-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
@@ -417,30 +491,76 @@ const productJsonLd = {
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                          d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
                         />
                       </svg>
-                      Añadir al Carrito
-                    </button>
-
-                    <button
-                      type="button"
-                      id="buy-now-btn"
-                      class="btn btn-primary btn-xl w-full gap-2.5 text-base shadow-sm"
-                    >
-                      Comprar Ahora
-                    </button>
-                  </div>
+                      <span>
+                        <strong class="font-medium text-gray-900">
+                          Envíos a todo Bolivia.
+                        </strong>{" "}
+                        Delivery por Yango en Santa Cruz y flota a provincias y
+                        otros departamentos.
+                      </span>
+                    </li>
+                    <li class="flex gap-3">
+                      <svg
+                        class="mt-0.5 h-5 w-5 flex-none text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+                        />
+                      </svg>
+                      <span>
+                        <strong class="font-medium text-gray-900">Pago.</strong>{" "}
+                        QR o transferencia, y efectivo si estás en la ciudad de
+                        Santa Cruz.
+                      </span>
+                    </li>
+                    <li class="flex gap-3">
+                      <svg
+                        class="mt-0.5 h-5 w-5 flex-none text-gray-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                        />
+                      </svg>
+                      <span>
+                        ¿Dudas de talla o color?{" "}
+                        <a
+                          href={questionWhatsappUrl}
+                          data-track="click_contact"
+                          data-placement="product"
+                          data-item-id={slug}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-medium text-berry underline underline-offset-2 hover:text-plum"
+                        >
+                          Escríbenos por WhatsApp
+                        </a>
+                      </span>
+                    </li>
+                  </ul>
                 </>
               ) : (
                 <div
                   data-sold-out
                   class="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-6"
                 >
-                  <p class="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600 ring-1 ring-red-200">
-                    Agotado
-                  </p>
-                  <p class="mt-3 text-base text-gray-700">
+                  <p class="text-base text-gray-700">
                     Este modelo se agotó por ahora. Escríbenos y te avisamos si
                     vuelve a haber stock, o te mostramos algo parecido.
                   </p>
@@ -458,190 +578,732 @@ const productJsonLd = {
                 </div>
               )
             }
+
+            {
+              visibleDescription && (
+                <div class="mt-8 border-t border-gray-200 pt-6">
+                  <h2 class="text-sm font-medium text-gray-900">Descripción</h2>
+                  <p class="mt-2 whitespace-pre-line text-base text-gray-700">
+                    {visibleDescription}
+                  </p>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
     </div>
   </div>
+</Layout>
 
-  {
-    similarProducts.length > 0 && (
-      <section aria-labelledby="similar-title" class="bg-white pb-8">
-        <h2
-          id="similar-title"
-          class="mx-auto max-w-7xl px-4 text-2xl font-bold tracking-tight text-gray-900 sm:px-6 lg:px-8"
+{
+  inStock && (
+    <div
+      id="mobile-buy-bar"
+      aria-hidden="true"
+      inert
+      class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-gray-200 bg-white/95 px-4 py-3 backdrop-blur transition-transform duration-200 lg:hidden"
+    >
+      <div class="mx-auto flex max-w-2xl items-center gap-4">
+        <p class="text-xl font-semibold text-gray-900" data-price-text>
+          {initialPrice}
+        </p>
+        <button
+          type="button"
+          id="mobile-buy-btn"
+          class="btn btn-primary btn-lg flex-1 gap-2.5 text-base shadow-sm"
         >
-          Productos similares
-        </h2>
-        <Gallery listName="similares">
-          {similarProducts.map((similar) => (
-            <ProductCard product={similar} />
-          ))}
-        </Gallery>
-      </section>
-    )
-  }
+          <WhatsappIcon />
+          Lo quiero
+        </button>
+      </div>
+    </div>
+  )
+}
 
-  <!-- Expose cart function globally (module runs once per session, that's fine) -->
-  <script>
-    import { addItem } from "../../services/cartStore";
-    (window as unknown as { _rbAddItem: typeof addItem })._rbAddItem = addItem;
-  </script>
+{
+  similarProducts.length > 0 && (
+    <section aria-labelledby="similar-title" class="bg-white pb-8">
+      <h2
+        id="similar-title"
+        class="mx-auto max-w-7xl px-4 text-2xl font-bold tracking-tight text-gray-900 sm:px-6 lg:px-8"
+      >
+        Productos similares
+      </h2>
+      <Gallery listName="similares">
+        {similarProducts.map((similar) => (
+          <ProductCard product={similar} />
+        ))}
+      </Gallery>
+    </section>
+  )
+}
 
-  <!-- Product page init — is:inline runs on EVERY page load, fixing Astro module caching -->
-  <!-- Image lightbox. Hidden by default; the client script in
+<!-- Expose cart function globally (module runs once per session, that's fine) -->
+<script>
+  import { addItem } from "../../services/cartStore";
+  import { buildOrderMessage, whatsappUrl } from "../../services/productPage";
+
+  const bridge = window as unknown as {
+    _rbAddItem: typeof addItem;
+    _rbOpenWhatsapp: (item: {
+      name: string;
+      color?: string;
+      size?: string;
+      price: number;
+    }) => void;
+  };
+  bridge._rbAddItem = addItem;
+  bridge._rbOpenWhatsapp = (item) => {
+    const url = new URL(window.location.pathname, window.location.origin).href;
+    const message = buildOrderMessage({ ...item, url });
+    window.open(whatsappUrl(message), "_blank", "noopener");
+  };
+</script>
+
+<!-- Product page init — is:inline runs on EVERY page load, fixing Astro module caching -->
+<!-- Image lightbox. Hidden by default; the client script in
        initProductPage() opens it when the user taps the main image. -->
-  <div
-    id="lightbox"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="lightbox-title"
-    class="fixed inset-0 z-110 hidden bg-black/90 opacity-0 transition-opacity duration-300"
+<div
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="lightbox-title"
+  class="fixed inset-0 z-110 hidden bg-black/90 opacity-0 transition-opacity duration-300"
+>
+  <h2 id="lightbox-title" class="sr-only">{name}</h2>
+
+  <button
+    id="lightbox-close"
+    type="button"
+    aria-label="Cerrar"
+    class="absolute top-4 right-4 z-20 btn btn-glass h-11 w-11"
   >
-    <h2 id="lightbox-title" class="sr-only">{name}</h2>
-
-    <button
-      id="lightbox-close"
-      type="button"
-      aria-label="Cerrar"
-      class="absolute top-4 right-4 z-20 btn btn-glass h-11 w-11"
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      aria-hidden="true"
     >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
 
-    <button
-      id="lightbox-prev"
-      type="button"
-      aria-label="Imagen anterior"
-      class="absolute left-4 top-1/2 z-20 btn btn-glass h-11 w-11 -translate-y-1/2"
+  <button
+    id="lightbox-prev"
+    type="button"
+    aria-label="Imagen anterior"
+    class="absolute left-4 top-1/2 z-20 btn btn-glass h-11 w-11 -translate-y-1/2"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      aria-hidden="true"
     >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 19.5L8.25 12l7.5-7.5"></path>
-      </svg>
-    </button>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+    </svg>
+  </button>
 
-    <button
-      id="lightbox-next"
-      type="button"
-      aria-label="Siguiente imagen"
-      class="absolute right-4 top-1/2 z-20 btn btn-glass h-11 w-11 -translate-y-1/2"
+  <button
+    id="lightbox-next"
+    type="button"
+    aria-label="Siguiente imagen"
+    class="absolute right-4 top-1/2 z-20 btn btn-glass h-11 w-11 -translate-y-1/2"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      aria-hidden="true"
     >
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
-      </svg>
-    </button>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+    </svg>
+  </button>
 
-    <div
-      id="lightbox-image-area"
-      class="absolute inset-0 flex items-center justify-center p-4 sm:p-12"
-    >
-      <img
-        id="lightbox-image"
-        src=""
-        alt={name}
-        class="max-h-full max-w-full object-contain touch-pinch-zoom"
-      />
-    </div>
-
-    <span
-      id="lightbox-counter"
-      class="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white"
-    >
-      1 / 1
-    </span>
-
-    <div
-      id="lightbox-thumbs"
-      class="absolute bottom-16 left-1/2 z-20 hidden max-w-[80vw] -translate-x-1/2 gap-2 overflow-x-auto p-2 sm:flex"
-      role="tablist"
-    >
-    </div>
-
-    <div
-      id="lightbox-announcer"
-      aria-live="polite"
-      aria-atomic="true"
-      class="sr-only"
-    >
-    </div>
+  <div
+    id="lightbox-image-area"
+    class="absolute inset-0 flex items-center justify-center p-4 sm:p-12"
+  >
+    <img
+      id="lightbox-image"
+      src=""
+      alt={name}
+      class="max-h-full max-w-full object-contain touch-pinch-zoom"
+    />
   </div>
 
-  <script
-    is:inline
-    define:vars={{
-      variants,
-      images,
-      productName: name,
-      productSlug: slug,
-      productCategory: category ?? "",
-      productBrand: brand ?? "",
-      basePrice,
-      soldOut: !inStock,
-    }}
+  <span
+    id="lightbox-counter"
+    class="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white"
   >
-    const CLASSES = {
-      RING_SECONDARY: "ring-secondary",
-      RING_2: "ring-2",
+    1 / 1
+  </span>
+
+  <div
+    id="lightbox-thumbs"
+    class="absolute bottom-16 left-1/2 z-20 hidden max-w-[80vw] -translate-x-1/2 gap-2 overflow-x-auto p-2 sm:flex"
+    role="tablist"
+  >
+  </div>
+
+  <div
+    id="lightbox-announcer"
+    aria-live="polite"
+    aria-atomic="true"
+    class="sr-only"
+  >
+  </div>
+</div>
+
+<script
+  is:inline
+  define:vars={{
+    variants,
+    images,
+    productName: name,
+    productSlug: slug,
+    productCategory: category ?? "",
+    productBrand: brand ?? "",
+    basePrice,
+    soldOut: !inStock,
+    initialPriceText: initialPrice,
+    overallStock,
+    variantStock,
+    toneClass: STOCK_TONE_CLASS,
+  }}
+>
+  const CLASSES = {
+    RING_SECONDARY: "ring-secondary",
+    RING_2: "ring-2",
+  };
+
+  // Selected look of a color or size option (see `choice` in global.css).
+  function markChoice(btn, selected) {
+    if (btn.hasAttribute("data-fixed")) return;
+    btn.classList.toggle("choice-selected", selected);
+    btn.classList.toggle("choice-idle", !selected);
+    btn.setAttribute("aria-pressed", String(selected));
+  }
+  const DATA_COLOR = "data-color";
+  const DATA_SIZE = "data-size";
+  const DATA_FULL = "data-full";
+  const ADD_TO_CART_ID = "add-to-cart-btn";
+  const BUY_NOW_ID = "buy-now-btn";
+
+  function baseItem() {
+    return {
+      item_id: productSlug,
+      item_name: productName,
+      item_category: productCategory || undefined,
+      item_brand: productBrand || undefined,
     };
+  }
 
-    // Selected look of a color or size option (see `choice` in global.css).
-    function markChoice(btn, selected) {
-      btn.classList.toggle("choice-selected", selected);
-      btn.classList.toggle("choice-idle", !selected);
-    }
-    const DATA_COLOR = "data-color";
-    const DATA_SIZE = "data-size";
-    const DATA_FULL = "data-full";
-    const ADD_TO_CART_ID = "add-to-cart-btn";
-    const BUY_NOW_ID = "buy-now-btn";
+  function variantLabel(color, size) {
+    return [color, size].filter(Boolean).join(" / ");
+  }
 
-    function baseItem() {
-      return {
+  function trackAddToCart(productData) {
+    window.rbTrack?.("add_to_cart", {
+      value: productData.price,
+      items: [
+        {
+          ...baseItem(),
+          item_variant: variantLabel(productData.color, productData.size),
+          price: productData.price,
+          quantity: 1,
+        },
+      ],
+    });
+  }
+
+  function initProductPage() {
+    window.rbTrack?.("view_item", {
+      value: basePrice,
+      items: [{ ...baseItem(), price: basePrice }],
+    });
+    let lastOutOfStockVariant = "";
+    if (soldOut) {
+      window.rbTrack?.("out_of_stock_view", {
         item_id: productSlug,
-        item_name: productName,
-        item_category: productCategory || undefined,
-        item_brand: productBrand || undefined,
+        item_variant: "todas",
+      });
+    }
+
+    const mainImg = document.getElementById("main-product-image");
+    const thumbBtns = document.querySelectorAll(".thumb-btn");
+    const sizeBtns = document.querySelectorAll(".size-option");
+    const colorBtns = document.querySelectorAll(".color-option");
+    const stockValue = document.getElementById("stock-value");
+    const validationMsg = document.getElementById("validation-message");
+    let selectedSize = "";
+    let selectedColor = "";
+
+    function selectedVariant() {
+      const needsSize = sizeBtns.length > 0;
+      const needsColor = colorBtns.length > 0;
+      if ((needsSize && !selectedSize) || (needsColor && !selectedColor)) {
+        return null;
+      }
+      return (
+        variants.find((v) => {
+          const sizeMatch =
+            !needsSize ||
+            (v.size || "").toLowerCase() === selectedSize.toLowerCase();
+          const colorMatch =
+            !needsColor ||
+            (v.color || "").toLowerCase() === selectedColor.toLowerCase();
+          return sizeMatch && colorMatch;
+        }) || null
+      );
+    }
+
+    function setStock(status) {
+      if (!stockValue) return;
+      stockValue.textContent = status.text;
+      stockValue.className =
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold " +
+        toneClass[status.tone];
+    }
+
+    function setPrice(text) {
+      document.querySelectorAll("[data-price-text]").forEach((el) => {
+        el.textContent = text;
+      });
+    }
+
+    // Price and stock follow the picked variant; before that they show the
+    // product as a whole ("Desde X Bs", total stock).
+    function updateVariantInfo() {
+      const variant = selectedVariant();
+      if (!variant) {
+        setStock(overallStock);
+        setPrice(initialPriceText);
+        return;
+      }
+      setStock(variantStock[variant.id]);
+      setPrice(variant.price + " Bs");
+      if (variant.stock <= 0 && lastOutOfStockVariant !== variant.id) {
+        lastOutOfStockVariant = variant.id;
+        window.rbTrack?.("out_of_stock_view", {
+          item_id: productSlug,
+          item_variant: variantLabel(variant.color, variant.size),
+        });
+      }
+    }
+
+    function updateSizeAvailability() {
+      if (!selectedColor) return;
+      const sizesForColor = variants
+        .filter(
+          (v) => (v.color || "").toLowerCase() === selectedColor.toLowerCase(),
+        )
+        .map((v) => (v.size || "").toLowerCase());
+      sizeBtns.forEach((btn) => {
+        const btnSize = (btn.getAttribute(DATA_SIZE) || "").toLowerCase();
+        if (btnSize && sizesForColor.includes(btnSize)) {
+          btn.classList.remove("opacity-40");
+        } else {
+          btn.classList.add("opacity-40");
+          if (btnSize && btnSize === selectedSize.toLowerCase()) {
+            selectedSize = "";
+            markChoice(btn, false);
+          }
+        }
+      });
+    }
+
+    function showValidationError(message) {
+      if (!validationMsg) return;
+      validationMsg.textContent = message;
+      validationMsg.classList.remove("hidden");
+      setTimeout(() => validationMsg.classList.add("hidden"), 3000);
+    }
+
+    function getProductData() {
+      if (!selectedSize && sizeBtns.length > 0) {
+        showValidationError("Por favor selecciona una talla");
+        return null;
+      }
+      if (!selectedColor && colorBtns.length > 0) {
+        showValidationError("Por favor selecciona un color");
+        return null;
+      }
+      const variant = variants.find((v) => {
+        const sizeMatch =
+          sizeBtns.length === 0 ||
+          (v.size || "").toLowerCase() === selectedSize.toLowerCase();
+        const colorMatch =
+          colorBtns.length === 0 ||
+          (v.color || "").toLowerCase() === selectedColor.toLowerCase();
+        return sizeMatch && colorMatch;
+      });
+      return {
+        id: variant
+          ? variant.id
+          : `${variants[0].productId}-${selectedColor}-${selectedSize}`,
+        slug:
+          variants[0].productSlug ||
+          window.location.pathname.split("/").pop() ||
+          "",
+        name: document.querySelector("h1")?.textContent || "Producto",
+        price: variant ? variant.price : variants[0].price,
+        image: mainImg?.src || "",
+        size: selectedSize,
+        color: selectedColor,
+        brand: "",
       };
     }
 
-    function variantLabel(color, size) {
-      return [color, size].filter(Boolean).join(" / ");
+    // Extracted helpers to avoid deep nesting in event callbacks
+    function resetThumbHighlight(activeThumb) {
+      thumbBtns.forEach((b) =>
+        b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
+      );
+      activeThumb.classList.add(CLASSES.RING_2, CLASSES.RING_SECONDARY);
     }
 
-    function trackAddToCart(productData) {
-      window.rbTrack?.("add_to_cart", {
+    function resetSizeButtons() {
+      sizeBtns.forEach((b) => markChoice(b, false));
+    }
+
+    function resetColorButtons(activeBtn) {
+      colorBtns.forEach((b) => markChoice(b, false));
+      markChoice(activeBtn, true);
+    }
+
+    function updateThumbnailsForColor() {
+      const formattedColor = selectedColor.toLowerCase();
+      let firstVisible = null;
+      let currentMainVisible = false;
+      thumbBtns.forEach((thumb) => {
+        const thumbColor = (thumb.getAttribute(DATA_COLOR) || "").toLowerCase();
+        const visible = !thumbColor || thumbColor === formattedColor;
+        thumb.style.display = visible ? "flex" : "none";
+        if (visible && !firstVisible) firstVisible = thumb;
+        if (visible && mainImg && thumb.getAttribute(DATA_FULL) === mainImg.src)
+          currentMainVisible = true;
+      });
+      if (!currentMainVisible && firstVisible && mainImg) {
+        const newUrl = firstVisible.getAttribute(DATA_FULL);
+        if (newUrl) {
+          mainImg.src = newUrl;
+          resetThumbHighlight(firstVisible);
+        }
+      }
+      // If the lightbox is open, refresh its image list to match the new color
+      if (typeof refreshLightboxImages === "function") {
+        refreshLightboxImages();
+      }
+    }
+
+    // Image switching
+    thumbBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const newUrl = btn.getAttribute(DATA_FULL);
+        if (mainImg && newUrl) mainImg.src = newUrl;
+        resetThumbHighlight(btn);
+      });
+    });
+
+    // ---------- Image Lightbox ----------
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxPrev = document.getElementById("lightbox-prev");
+    const lightboxNext = document.getElementById("lightbox-next");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+    const lightboxThumbs = document.getElementById("lightbox-thumbs");
+    const lightboxAnnouncer = document.getElementById("lightbox-announcer");
+    const lightboxImageArea = document.getElementById("lightbox-image-area");
+
+    let lightboxUrls = [];
+    let lightboxIndex = 0;
+    let lastFocused = null;
+
+    function transformForLightbox(url) {
+      if (!url || url.indexOf("cloudinary.com") === -1) return url;
+      return url.replace("/upload/", "/upload/w_1600,f_auto,q_auto/");
+    }
+
+    function getFilteredImages() {
+      const color = selectedColor.toLowerCase();
+      return images
+        .filter(function (img) {
+          const imgColor = (img.color || "").toLowerCase();
+          return !imgColor || imgColor === color;
+        })
+        .map(function (img) {
+          return transformForLightbox(img.url);
+        });
+    }
+
+    function setLightboxVisibility(visible) {
+      if (!lightbox) return;
+      lightbox.classList.toggle("hidden", !visible);
+      requestAnimationFrame(function () {
+        lightbox.classList.toggle("opacity-0", !visible);
+      });
+      document.body.style.overflow = visible ? "hidden" : "";
+    }
+
+    function preloadAdjacent() {
+      const prev = lightboxUrls[lightboxIndex - 1];
+      const next = lightboxUrls[lightboxIndex + 1];
+      if (prev) new Image().src = prev;
+      if (next) new Image().src = next;
+    }
+
+    function showLightboxImage() {
+      if (!lightboxImage || !lightboxCounter || !lightboxAnnouncer) return;
+      const url = lightboxUrls[lightboxIndex];
+      if (url) lightboxImage.src = url;
+      lightboxCounter.textContent =
+        lightboxIndex + 1 + " / " + lightboxUrls.length;
+      lightboxAnnouncer.textContent =
+        "Imagen " + (lightboxIndex + 1) + " de " + lightboxUrls.length;
+      if (lightboxThumbs) {
+        const btns = lightboxThumbs.querySelectorAll("button");
+        btns.forEach(function (btn, i) {
+          const isActive = i === lightboxIndex;
+          btn.classList.toggle("ring-2", isActive);
+          btn.classList.toggle("ring-white", isActive);
+          btn.classList.toggle("opacity-50", !isActive);
+        });
+      }
+      preloadAdjacent();
+    }
+
+    function nextImage() {
+      if (lightboxUrls.length === 0) return;
+      lightboxIndex = (lightboxIndex + 1) % lightboxUrls.length;
+      showLightboxImage();
+    }
+
+    function prevImage() {
+      if (lightboxUrls.length === 0) return;
+      lightboxIndex =
+        (lightboxIndex - 1 + lightboxUrls.length) % lightboxUrls.length;
+      showLightboxImage();
+    }
+
+    function renderLightboxThumbs() {
+      if (!lightboxThumbs) return;
+      lightboxThumbs.innerHTML = "";
+      lightboxUrls.forEach(function (url, i) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.setAttribute("role", "tab");
+        btn.setAttribute("aria-label", "Imagen " + (i + 1));
+        btn.className =
+          "h-12 w-12 shrink-0 overflow-hidden rounded-md border-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
+        const img = document.createElement("img");
+        img.src = url.replace("/w_1600,", "/w_150,");
+        img.alt = "";
+        img.className = "h-full w-full object-cover";
+        btn.appendChild(img);
+        btn.addEventListener("click", function () {
+          lightboxIndex = i;
+          showLightboxImage();
+        });
+        lightboxThumbs.appendChild(btn);
+      });
+      const single = lightboxUrls.length <= 1;
+      if (lightboxPrev) lightboxPrev.classList.toggle("hidden", single);
+      if (lightboxNext) lightboxNext.classList.toggle("hidden", single);
+    }
+
+    function openLightbox() {
+      if (!lightbox) return;
+      lightboxUrls = getFilteredImages();
+      if (lightboxUrls.length === 0) return;
+      lightboxIndex = 0;
+      lastFocused = document.activeElement || mainImg;
+      renderLightboxThumbs();
+      setLightboxVisibility(true);
+      showLightboxImage();
+      setTimeout(function () {
+        if (lightboxClose) lightboxClose.focus();
+      }, 50);
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      setLightboxVisibility(false);
+      if (lastFocused && typeof lastFocused.focus === "function") {
+        lastFocused.focus();
+      }
+    }
+
+    function refreshLightboxImages() {
+      if (!lightbox || lightbox.classList.contains("hidden")) return;
+      lightboxUrls = getFilteredImages();
+      if (lightboxUrls.length === 0) {
+        closeLightbox();
+        return;
+      }
+      if (lightboxIndex >= lightboxUrls.length) {
+        lightboxIndex = lightboxUrls.length - 1;
+      }
+      renderLightboxThumbs();
+      showLightboxImage();
+    }
+
+    if (mainImg) mainImg.addEventListener("click", openLightbox);
+    if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+    if (lightboxNext) lightboxNext.addEventListener("click", nextImage);
+    if (lightboxPrev) lightboxPrev.addEventListener("click", prevImage);
+    if (lightbox) {
+      lightbox.addEventListener("click", function (e) {
+        const target = e.target;
+        if (target === lightbox || target === lightboxImageArea) {
+          closeLightbox();
+        }
+      });
+      let touchStartX = 0;
+      lightbox.addEventListener(
+        "touchstart",
+        function (e) {
+          touchStartX = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      lightbox.addEventListener(
+        "touchend",
+        function (e) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const deltaX = touchEndX - touchStartX;
+          if (Math.abs(deltaX) > 50) {
+            if (deltaX > 0) prevImage();
+            else nextImage();
+          }
+        },
+        { passive: true },
+      );
+    }
+
+    // Keyboard navigation (Escape, ArrowLeft, ArrowRight) inside the lightbox
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox || lightbox.classList.contains("hidden")) return;
+      if (e.key === "Escape") {
+        closeLightbox();
+        e.preventDefault();
+      } else if (e.key === "ArrowRight") {
+        nextImage();
+        e.preventDefault();
+      } else if (e.key === "ArrowLeft") {
+        prevImage();
+        e.preventDefault();
+      }
+    });
+
+    // Focus trap — Tab/Shift+Tab cycles through focusable elements in the dialog
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox || lightbox.classList.contains("hidden")) return;
+      if (e.key !== "Tab") return;
+      const focusable = lightbox.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    });
+
+    // Color selection
+    colorBtns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        selectedColor = btn.getAttribute(DATA_COLOR) || "";
+        if (event.isTrusted) {
+          window.rbTrack?.("select_variant", {
+            item_id: productSlug,
+            variant_type: "color",
+            variant_value: selectedColor,
+          });
+        }
+        resetColorButtons(btn);
+        updateThumbnailsForColor();
+        updateSizeAvailability();
+        updateVariantInfo();
+      });
+    });
+
+    // Size selection
+    sizeBtns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        selectedSize = btn.getAttribute(DATA_SIZE) || "";
+        if (event.isTrusted) {
+          window.rbTrack?.("select_variant", {
+            item_id: productSlug,
+            variant_type: "size",
+            variant_value: selectedSize,
+          });
+        }
+        resetSizeButtons();
+        markChoice(btn, true);
+        updateVariantInfo();
+      });
+    });
+
+    // Add to cart: the small round button next to "Lo quiero".
+    const addBtn = document.getElementById(ADD_TO_CART_ID);
+    const addStatus = document.getElementById("add-to-cart-status");
+    function showAddedFlash() {
+      if (!addBtn) return;
+      const showIcon = (which) =>
+        addBtn.querySelectorAll("[data-icon]").forEach((icon) => {
+          icon.classList.toggle("hidden", icon.dataset.icon !== which);
+        });
+      showIcon("done");
+      addBtn.classList.replace("btn-outline", "btn-success");
+      if (addStatus) addStatus.textContent = "Añadido al carrito";
+      setTimeout(() => {
+        showIcon("idle");
+        addBtn.classList.replace("btn-success", "btn-outline");
+        if (addStatus) addStatus.textContent = "";
+      }, 1500);
+    }
+    addBtn?.addEventListener("click", () => {
+      const productData = getProductData();
+      if (productData && window._rbAddItem) {
+        trackAddToCart(productData);
+        window._rbAddItem(productData);
+        showAddedFlash();
+      }
+    });
+
+    // "Lo quiero": open WhatsApp with this product, without going through the cart.
+    function buyOnWhatsapp() {
+      const productData = getProductData();
+      if (!productData) {
+        document
+          .getElementById("product-options")
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      window.rbTrack?.("begin_checkout", {
         value: productData.price,
         items: [
           {
@@ -652,474 +1314,53 @@ const productJsonLd = {
           },
         ],
       });
+      window.rbTrack?.("click_contact", {
+        contact_method: "whatsapp",
+        placement: "product",
+      });
+      window._rbOpenWhatsapp?.(productData);
+    }
+    document
+      .getElementById(BUY_NOW_ID)
+      ?.addEventListener("click", buyOnWhatsapp);
+    document
+      .getElementById("mobile-buy-btn")
+      ?.addEventListener("click", buyOnWhatsapp);
+
+    // Phone buy bar: shown while the main buttons and the footer are off screen.
+    const buyBar = document.getElementById("mobile-buy-bar");
+    const purchaseActions = document.getElementById("purchase-actions");
+    if (buyBar && purchaseActions && "IntersectionObserver" in window) {
+      let actionsVisible = false;
+      let footerVisible = false;
+      const updateBuyBar = () => {
+        const show = !actionsVisible && !footerVisible;
+        buyBar.classList.toggle("translate-y-full", !show);
+        buyBar.toggleAttribute("inert", !show);
+        buyBar.setAttribute("aria-hidden", String(!show));
+      };
+      new IntersectionObserver((entries) => {
+        actionsVisible = entries[0].isIntersecting;
+        updateBuyBar();
+      }).observe(purchaseActions);
+      const footer = document.querySelector("footer");
+      if (footer) {
+        new IntersectionObserver((entries) => {
+          footerVisible = entries[0].isIntersecting;
+          updateBuyBar();
+        }).observe(footer);
+      }
+      updateBuyBar();
     }
 
-    function initProductPage() {
-      window.rbTrack?.("view_item", {
-        value: basePrice,
-        items: [{ ...baseItem(), price: basePrice }],
-      });
-      let lastOutOfStockVariant = "";
-      if (soldOut) {
-        window.rbTrack?.("out_of_stock_view", {
-          item_id: productSlug,
-          item_variant: "todas",
-        });
-      }
+    // Auto-select when only one option exists
+    if (colorBtns.length === 1) colorBtns[0].click();
+    if (sizeBtns.length === 1) sizeBtns[0].click();
+  }
 
-      const mainImg = document.getElementById("main-product-image");
-      const thumbBtns = document.querySelectorAll(".thumb-btn");
-      const sizeBtns = document.querySelectorAll(".size-option");
-      const colorBtns = document.querySelectorAll(".color-option");
-      const stockIndicator = document.getElementById("stock-indicator");
-      const stockValue = document.getElementById("stock-value");
-      const validationMsg = document.getElementById("validation-message");
-      let selectedSize = "";
-      let selectedColor = "";
-
-      function updateStockDisplay() {
-        if (!stockIndicator || !stockValue) return;
-        const needsSize = sizeBtns.length > 0;
-        const needsColor = colorBtns.length > 0;
-        if ((needsSize && !selectedSize) || (needsColor && !selectedColor)) {
-          stockIndicator.classList.add("hidden");
-          return;
-        }
-        const variant = variants.find((v) => {
-          const sizeMatch =
-            !needsSize ||
-            (v.size || "").toLowerCase() === selectedSize.toLowerCase();
-          const colorMatch =
-            !needsColor ||
-            (v.color || "").toLowerCase() === selectedColor.toLowerCase();
-          return sizeMatch && colorMatch;
-        });
-        if (variant) {
-          stockIndicator.classList.remove("hidden");
-          const inStock = variant.stock > 0;
-          stockValue.textContent = inStock ? "En stock" : "Agotado";
-          if (!inStock && lastOutOfStockVariant !== variant.id) {
-            lastOutOfStockVariant = variant.id;
-            window.rbTrack?.("out_of_stock_view", {
-              item_id: productSlug,
-              item_variant: variantLabel(variant.color, variant.size),
-            });
-          }
-          stockValue.className = inStock
-            ? "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-green-50 text-green-700 ring-1 ring-green-200"
-            : "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-red-50 text-red-600 ring-1 ring-red-200";
-        } else {
-          stockIndicator.classList.add("hidden");
-        }
-      }
-
-      function updateSizeAvailability() {
-        if (!selectedColor) return;
-        const sizesForColor = variants
-          .filter(
-            (v) =>
-              (v.color || "").toLowerCase() === selectedColor.toLowerCase(),
-          )
-          .map((v) => (v.size || "").toLowerCase());
-        sizeBtns.forEach((btn) => {
-          const btnSize = (btn.getAttribute(DATA_SIZE) || "").toLowerCase();
-          if (btnSize && sizesForColor.includes(btnSize)) {
-            btn.classList.remove("opacity-40");
-          } else {
-            btn.classList.add("opacity-40");
-            if (btnSize && btnSize === selectedSize.toLowerCase()) {
-              selectedSize = "";
-              markChoice(btn, false);
-            }
-          }
-        });
-      }
-
-      function showValidationError(message) {
-        if (!validationMsg) return;
-        validationMsg.textContent = message;
-        validationMsg.classList.remove("hidden");
-        setTimeout(() => validationMsg.classList.add("hidden"), 3000);
-      }
-
-      function getProductData() {
-        if (!selectedSize && sizeBtns.length > 0) {
-          showValidationError("Por favor selecciona una talla");
-          return null;
-        }
-        if (!selectedColor && colorBtns.length > 0) {
-          showValidationError("Por favor selecciona un color");
-          return null;
-        }
-        const variant = variants.find((v) => {
-          const sizeMatch =
-            sizeBtns.length === 0 ||
-            (v.size || "").toLowerCase() === selectedSize.toLowerCase();
-          const colorMatch =
-            colorBtns.length === 0 ||
-            (v.color || "").toLowerCase() === selectedColor.toLowerCase();
-          return sizeMatch && colorMatch;
-        });
-        return {
-          id: variant
-            ? variant.id
-            : `${variants[0].productId}-${selectedColor}-${selectedSize}`,
-          slug:
-            variants[0].productSlug ||
-            window.location.pathname.split("/").pop() ||
-            "",
-          name: document.querySelector("h1")?.textContent || "Producto",
-          price: variant ? variant.price : variants[0].price,
-          image: mainImg?.src || "",
-          size: selectedSize,
-          color: selectedColor,
-          brand:
-            document.querySelector("p.mt-1.text-sm.text-gray-700.uppercase")
-              ?.textContent || "",
-        };
-      }
-
-      // Extracted helpers to avoid deep nesting in event callbacks
-      function resetThumbHighlight(activeThumb) {
-        thumbBtns.forEach((b) =>
-          b.classList.remove(CLASSES.RING_2, CLASSES.RING_SECONDARY),
-        );
-        activeThumb.classList.add(CLASSES.RING_2, CLASSES.RING_SECONDARY);
-      }
-
-      function resetSizeButtons() {
-        sizeBtns.forEach((b) => markChoice(b, false));
-      }
-
-      function resetColorButtons(activeBtn) {
-        colorBtns.forEach((b) => markChoice(b, false));
-        markChoice(activeBtn, true);
-      }
-
-      function updateThumbnailsForColor() {
-        const formattedColor = selectedColor.toLowerCase();
-        let firstVisible = null;
-        let currentMainVisible = false;
-        thumbBtns.forEach((thumb) => {
-          const thumbColor = (
-            thumb.getAttribute(DATA_COLOR) || ""
-          ).toLowerCase();
-          const visible = !thumbColor || thumbColor === formattedColor;
-          thumb.style.display = visible ? "flex" : "none";
-          if (visible && !firstVisible) firstVisible = thumb;
-          if (
-            visible &&
-            mainImg &&
-            thumb.getAttribute(DATA_FULL) === mainImg.src
-          )
-            currentMainVisible = true;
-        });
-        if (!currentMainVisible && firstVisible && mainImg) {
-          const newUrl = firstVisible.getAttribute(DATA_FULL);
-          if (newUrl) {
-            mainImg.src = newUrl;
-            resetThumbHighlight(firstVisible);
-          }
-        }
-        // If the lightbox is open, refresh its image list to match the new color
-        if (typeof refreshLightboxImages === "function") {
-          refreshLightboxImages();
-        }
-      }
-
-      // Image switching
-      thumbBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const newUrl = btn.getAttribute(DATA_FULL);
-          if (mainImg && newUrl) mainImg.src = newUrl;
-          resetThumbHighlight(btn);
-        });
-      });
-
-      // ---------- Image Lightbox ----------
-      const lightbox = document.getElementById("lightbox");
-      const lightboxImage = document.getElementById("lightbox-image");
-      const lightboxClose = document.getElementById("lightbox-close");
-      const lightboxPrev = document.getElementById("lightbox-prev");
-      const lightboxNext = document.getElementById("lightbox-next");
-      const lightboxCounter = document.getElementById("lightbox-counter");
-      const lightboxThumbs = document.getElementById("lightbox-thumbs");
-      const lightboxAnnouncer = document.getElementById("lightbox-announcer");
-      const lightboxImageArea = document.getElementById("lightbox-image-area");
-
-      let lightboxUrls = [];
-      let lightboxIndex = 0;
-      let lastFocused = null;
-
-      function transformForLightbox(url) {
-        if (!url || url.indexOf("cloudinary.com") === -1) return url;
-        return url.replace("/upload/", "/upload/w_1600,f_auto,q_auto/");
-      }
-
-      function getFilteredImages() {
-        const color = selectedColor.toLowerCase();
-        return images
-          .filter(function (img) {
-            const imgColor = (img.color || "").toLowerCase();
-            return !imgColor || imgColor === color;
-          })
-          .map(function (img) {
-            return transformForLightbox(img.url);
-          });
-      }
-
-      function setLightboxVisibility(visible) {
-        if (!lightbox) return;
-        lightbox.classList.toggle("hidden", !visible);
-        requestAnimationFrame(function () {
-          lightbox.classList.toggle("opacity-0", !visible);
-        });
-        document.body.style.overflow = visible ? "hidden" : "";
-      }
-
-      function preloadAdjacent() {
-        const prev = lightboxUrls[lightboxIndex - 1];
-        const next = lightboxUrls[lightboxIndex + 1];
-        if (prev) new Image().src = prev;
-        if (next) new Image().src = next;
-      }
-
-      function showLightboxImage() {
-        if (!lightboxImage || !lightboxCounter || !lightboxAnnouncer) return;
-        const url = lightboxUrls[lightboxIndex];
-        if (url) lightboxImage.src = url;
-        lightboxCounter.textContent =
-          lightboxIndex + 1 + " / " + lightboxUrls.length;
-        lightboxAnnouncer.textContent =
-          "Imagen " + (lightboxIndex + 1) + " de " + lightboxUrls.length;
-        if (lightboxThumbs) {
-          const btns = lightboxThumbs.querySelectorAll("button");
-          btns.forEach(function (btn, i) {
-            const isActive = i === lightboxIndex;
-            btn.classList.toggle("ring-2", isActive);
-            btn.classList.toggle("ring-white", isActive);
-            btn.classList.toggle("opacity-50", !isActive);
-          });
-        }
-        preloadAdjacent();
-      }
-
-      function nextImage() {
-        if (lightboxUrls.length === 0) return;
-        lightboxIndex = (lightboxIndex + 1) % lightboxUrls.length;
-        showLightboxImage();
-      }
-
-      function prevImage() {
-        if (lightboxUrls.length === 0) return;
-        lightboxIndex =
-          (lightboxIndex - 1 + lightboxUrls.length) % lightboxUrls.length;
-        showLightboxImage();
-      }
-
-      function renderLightboxThumbs() {
-        if (!lightboxThumbs) return;
-        lightboxThumbs.innerHTML = "";
-        lightboxUrls.forEach(function (url, i) {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.setAttribute("role", "tab");
-          btn.setAttribute("aria-label", "Imagen " + (i + 1));
-          btn.className =
-            "h-12 w-12 shrink-0 overflow-hidden rounded-md border-2 border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
-          const img = document.createElement("img");
-          img.src = url.replace("/w_1600,", "/w_150,");
-          img.alt = "";
-          img.className = "h-full w-full object-cover";
-          btn.appendChild(img);
-          btn.addEventListener("click", function () {
-            lightboxIndex = i;
-            showLightboxImage();
-          });
-          lightboxThumbs.appendChild(btn);
-        });
-        const single = lightboxUrls.length <= 1;
-        if (lightboxPrev) lightboxPrev.classList.toggle("hidden", single);
-        if (lightboxNext) lightboxNext.classList.toggle("hidden", single);
-      }
-
-      function openLightbox() {
-        if (!lightbox) return;
-        lightboxUrls = getFilteredImages();
-        if (lightboxUrls.length === 0) return;
-        lightboxIndex = 0;
-        lastFocused = document.activeElement || mainImg;
-        renderLightboxThumbs();
-        setLightboxVisibility(true);
-        showLightboxImage();
-        setTimeout(function () {
-          if (lightboxClose) lightboxClose.focus();
-        }, 50);
-      }
-
-      function closeLightbox() {
-        if (!lightbox) return;
-        setLightboxVisibility(false);
-        if (lastFocused && typeof lastFocused.focus === "function") {
-          lastFocused.focus();
-        }
-      }
-
-      function refreshLightboxImages() {
-        if (!lightbox || lightbox.classList.contains("hidden")) return;
-        lightboxUrls = getFilteredImages();
-        if (lightboxUrls.length === 0) {
-          closeLightbox();
-          return;
-        }
-        if (lightboxIndex >= lightboxUrls.length) {
-          lightboxIndex = lightboxUrls.length - 1;
-        }
-        renderLightboxThumbs();
-        showLightboxImage();
-      }
-
-      if (mainImg) mainImg.addEventListener("click", openLightbox);
-      if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
-      if (lightboxNext) lightboxNext.addEventListener("click", nextImage);
-      if (lightboxPrev) lightboxPrev.addEventListener("click", prevImage);
-      if (lightbox) {
-        lightbox.addEventListener("click", function (e) {
-          const target = e.target;
-          if (target === lightbox || target === lightboxImageArea) {
-            closeLightbox();
-          }
-        });
-        let touchStartX = 0;
-        lightbox.addEventListener(
-          "touchstart",
-          function (e) {
-            touchStartX = e.touches[0].clientX;
-          },
-          { passive: true },
-        );
-        lightbox.addEventListener(
-          "touchend",
-          function (e) {
-            const touchEndX = e.changedTouches[0].clientX;
-            const deltaX = touchEndX - touchStartX;
-            if (Math.abs(deltaX) > 50) {
-              if (deltaX > 0) prevImage();
-              else nextImage();
-            }
-          },
-          { passive: true },
-        );
-      }
-
-      // Keyboard navigation (Escape, ArrowLeft, ArrowRight) inside the lightbox
-      document.addEventListener("keydown", function (e) {
-        if (!lightbox || lightbox.classList.contains("hidden")) return;
-        if (e.key === "Escape") {
-          closeLightbox();
-          e.preventDefault();
-        } else if (e.key === "ArrowRight") {
-          nextImage();
-          e.preventDefault();
-        } else if (e.key === "ArrowLeft") {
-          prevImage();
-          e.preventDefault();
-        }
-      });
-
-      // Focus trap — Tab/Shift+Tab cycles through focusable elements in the dialog
-      document.addEventListener("keydown", function (e) {
-        if (!lightbox || lightbox.classList.contains("hidden")) return;
-        if (e.key !== "Tab") return;
-        const focusable = lightbox.querySelectorAll(
-          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        );
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          last.focus();
-          e.preventDefault();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          first.focus();
-          e.preventDefault();
-        }
-      });
-
-      // Color selection
-      colorBtns.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          selectedColor = btn.getAttribute(DATA_COLOR) || "";
-          if (event.isTrusted) {
-            window.rbTrack?.("select_variant", {
-              item_id: productSlug,
-              variant_type: "color",
-              variant_value: selectedColor,
-            });
-          }
-          resetColorButtons(btn);
-          updateThumbnailsForColor();
-          updateSizeAvailability();
-          updateStockDisplay();
-        });
-      });
-
-      // Size selection
-      sizeBtns.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          selectedSize = btn.getAttribute(DATA_SIZE) || "";
-          if (event.isTrusted) {
-            window.rbTrack?.("select_variant", {
-              item_id: productSlug,
-              variant_type: "size",
-              variant_value: selectedSize,
-            });
-          }
-          resetSizeButtons();
-          markChoice(btn, true);
-          updateStockDisplay();
-        });
-      });
-
-      // Add to cart
-      document.getElementById(ADD_TO_CART_ID)?.addEventListener("click", () => {
-        const productData = getProductData();
-        if (productData && window._rbAddItem) {
-          trackAddToCart(productData);
-          window._rbAddItem(productData);
-          const btn = document.getElementById(ADD_TO_CART_ID);
-          if (btn) {
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML =
-              '<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> ¡Añadido!';
-            btn.classList.replace("btn-outline-dark", "btn-outline-success");
-            setTimeout(() => {
-              btn.innerHTML = originalHTML;
-              btn.classList.replace("btn-outline-success", "btn-outline-dark");
-            }, 1500);
-          }
-        }
-      });
-
-      // Buy now
-      document.getElementById(BUY_NOW_ID)?.addEventListener("click", () => {
-        const productData = getProductData();
-        if (productData && window._rbAddItem) {
-          trackAddToCart(productData);
-          window._rbAddItem(productData);
-          window.dispatchEvent(new CustomEvent("toggle-cart"));
-        }
-      });
-
-      // Auto-select when only one option exists
-      if (colorBtns.length === 1) colorBtns[0].click();
-      if (sizeBtns.length === 1) sizeBtns[0].click();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initProductPage);
-    } else {
-      initProductPage();
-    }
-  </script>
-</Layout>
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProductPage);
+  } else {
+    initProductPage();
+  }
+</script>
