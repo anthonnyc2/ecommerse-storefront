@@ -164,7 +164,7 @@ for (const img of images) {
         href={`/producto/${slug}`}
         data-track="select_item"
         class:list={[
-          "flex items-center justify-center rounded-full border border-gray-300 bg-white py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-900 active:scale-95",
+          "flex h-11 items-center justify-center rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 transition-colors hover:border-gray-900 active:scale-95",
           canQuickAdd ? "flex-1" : "w-full",
         ]}>Ver detalles</a
       >
@@ -173,10 +173,40 @@ for (const img of images) {
           <button
             type="button"
             data-quick-add
+            title="Agregar al carrito"
             aria-label={`Agregar ${name} al carrito`}
-            class="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-gray-900 py-2.5 text-sm font-medium text-white transition-colors hover:bg-secondary hover:text-plum active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+            class="flex h-11 w-14 flex-none items-center justify-center rounded-full bg-gray-900 text-white transition-colors hover:bg-secondary hover:text-plum active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
           >
-            Agregar
+            <svg
+              data-icon="idle"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM12 12.75v4.5M9.75 15h4.5"
+              />
+            </svg>
+            <svg
+              data-icon="done"
+              class="hidden h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.5 12.75l6 6 9-13.5"
+              />
+            </svg>
           </button>
         )
       }

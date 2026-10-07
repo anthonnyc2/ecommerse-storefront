@@ -101,12 +101,17 @@ function announce(message: string) {
   if (status) status.textContent = message;
 }
 
+function showIcon(button: HTMLElement, which: "idle" | "done") {
+  button.querySelectorAll<HTMLElement>("[data-icon]").forEach((icon) => {
+    icon.classList.toggle("hidden", icon.dataset.icon !== which);
+  });
+}
+
 function flashAdded(button: HTMLElement) {
-  const label = button.textContent;
-  button.textContent = "¡Añadido!";
+  showIcon(button, "done");
   button.classList.replace(IDLE_CLASS, ADDED_CLASS);
   setTimeout(() => {
-    button.textContent = label;
+    showIcon(button, "idle");
     button.classList.replace(ADDED_CLASS, IDLE_CLASS);
   }, FLASH_MS);
 }
