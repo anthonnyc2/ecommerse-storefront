@@ -114,9 +114,7 @@ const websiteJsonLd = {
               para que te veas y sientas distinta. Pide por WhatsApp y recibe en
               todo el país.
             </p>
-            <a
-              href="/catalogo"
-              class="inline-block rounded-full bg-plum px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-plum/40 transition duration-100 hover:bg-plum/80 focus-visible:ring-2 active:scale-95 md:text-base"
+            <a href="/catalogo" class="btn btn-plum btn-xl md:text-base"
               >Ver Catálogo</a
             >
           </div>
@@ -130,16 +128,13 @@ const websiteJsonLd = {
       categories.length > 0 && (
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8 mt-12">
           <div class="flex flex-wrap items-center justify-center gap-2.5">
-            <a
-              href="/catalogo"
-              class="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-secondary hover:bg-secondary/10 hover:text-plum focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-            >
+            <a href="/catalogo" class="btn btn-outline btn-md">
               Ver todo
             </a>
             {categories.map((cat) => (
               <a
                 href={`/catalogo?category=${encodeURIComponent(cat.name)}`}
-                class="rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-secondary hover:bg-secondary/10 hover:text-plum focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary capitalize"
+                class="btn btn-outline btn-md capitalize"
               >
                 {cat.name}
               </a>
@@ -170,10 +165,7 @@ const websiteJsonLd = {
     {
       hasMoreProducts && (
         <div class="text-center mt-12 mb-16">
-          <a
-            href="/catalogo"
-            class="inline-block rounded-full border-2 border-gray-900 px-8 py-3 text-center text-sm font-semibold text-gray-900 outline-none transition duration-100 hover:bg-gray-900 hover:text-white focus-visible:ring-2 focus-visible:ring-gray-900 active:scale-95 md:text-base"
-          >
+          <a href="/catalogo" class="btn btn-outline-dark btn-xl md:text-base">
             Ver Catálogo Completo
           </a>
         </div>
@@ -270,7 +262,7 @@ const websiteJsonLd = {
           data-placement="home_cta"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-whatsapp gap-2.5 px-8 py-3.5 shadow-sm active:scale-95 md:text-base"
+          class="btn btn-whatsapp btn-xl gap-2.5 shadow-sm md:text-base"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

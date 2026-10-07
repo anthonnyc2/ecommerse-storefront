@@ -115,7 +115,7 @@ src/
 
 ## UI building blocks
 
-- Buttons: `class="btn btn-<variant> btn-<size>"` plus layout classes (`w-full`, `gap-2`). Variants: `btn-primary` (pink, the main action everywhere, including add to cart), `btn-outline` (white with border), `btn-whatsapp`, `btn-success` (the brief "added" flash). Sizes: `btn-sm`, `btn-md`, `btn-lg`. Do not copy long class strings for new buttons.
+- Buttons: `class="btn btn-<variant> btn-<size>"` plus layout classes (`w-full`, `gap-2`). Variants: `btn-primary` (pink, the main action everywhere, including add to cart), `btn-outline` (white with border), `btn-whatsapp`, `btn-plum` and `btn-outline-dark` (landing/product page), `btn-glass` (round buttons over photos), `btn-success` (the brief "added" flash). Sizes: `btn-sm`, `btn-md`, `btn-lg`, `btn-xl` (hero and checkout). `btn` already adds the press effect (`active:scale-95`) and the focus ring. Do not copy long class strings for new buttons.
 - Defined in `src/styles/global.css`: `focus-ring`, `btn*`, `filter-title`, and the tokens `--color-whatsapp`, `--text-chip` (11px), `--text-badge` (10px). No hex colors or `text-[Npx]` in components.
 - Form controls: `field` (search input and selects, rounded-full; add `pl-*`/`pr-*` on the element), `check` (filter checkboxes). Options the shopper picks: `choice` + `choice-idle` or `choice-selected` (filters use `peer-checked:choice-selected`). Static card tags: `chip` and `chip-more`. Selection is pink (`secondary`) everywhere; `primary` (lavender) is only for hovers.
 - `quickAddUi.ts` swaps `btn-primary` for `btn-success` on the card button; keep both class names in sync with `global.css`.
