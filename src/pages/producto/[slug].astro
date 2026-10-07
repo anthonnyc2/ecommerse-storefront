@@ -1006,15 +1006,95 @@ const productJsonLd = {
       counter.classList.toggle("hidden", total < 2);
     }
 
-    // Swipe the main photo: +1 goes to the next photo, -1 to the previous one.
-    function showPhotoAt(step) {
+    // ---------- Photo change animation ----------
+    // The photo slides out in the direction of the gesture, the next one slides
+    // in from the other side. With reduced motion it just swaps.
+    const EXIT_MS = 140;
+    const ENTER_MS = 220;
+    const SNAP_MS = 200;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let photoBusy = false;
+    const shiftX = (px) => "translateX(" + px + "px)";
+
+    function animatePhoto(keyframes, duration, easing) {
+      if (!mainImg || reducedMotion.matches) return Promise.resolve();
+      const animation = mainImg.animate(keyframes, {
+        duration,
+        easing,
+        fill: "both",
+      });
+      // Never wait longer than the animation should take (a background tab
+      // pauses animations), so the photo can always change.
+      const timeout = new Promise((resolve) =>
+        setTimeout(resolve, duration + 80),
+      );
+      return Promise.race([animation.finished.catch(() => {}), timeout]);
+    }
+
+    function clearPhotoStyles() {
+      if (!mainImg) return;
+      mainImg.getAnimations().forEach((a) => a.cancel());
+      mainImg.style.transition = "";
+      mainImg.style.transform = "";
+      mainImg.style.opacity = "";
+    }
+
+    // Wait for the next photo so it does not pop in half loaded.
+    function preloadPhoto(url) {
+      return new Promise((resolve) => {
+        const probe = new Image();
+        probe.onload = resolve;
+        probe.onerror = resolve;
+        probe.src = url;
+        setTimeout(resolve, 800);
+      });
+    }
+
+    // direction: 1 = next photo (slides left), -1 = previous (slides right).
+    async function showPhoto(target, direction, dragX = 0) {
+      if (!mainImg || photoBusy) return;
+      photoBusy = true;
+      const url = target.getAttribute(DATA_FULL);
+      const width = mainImg.offsetWidth;
+      const out = direction > 0 ? -1 : 1;
+      const loading = preloadPhoto(url);
+      mainImg.style.transition = "none";
+      await Promise.all([
+        animatePhoto(
+          [
+            { transform: shiftX(dragX), opacity: 1 },
+            {
+              transform: shiftX(out * width * 0.6),
+              opacity: 0,
+            },
+          ],
+          EXIT_MS,
+          "ease-in",
+        ),
+        loading,
+      ]);
+      mainImg.src = url;
+      resetThumbHighlight(target);
+      target.scrollIntoView({ block: "nearest", inline: "nearest" });
+      await animatePhoto(
+        [
+          { transform: shiftX(-out * width * 0.3), opacity: 0 },
+          { transform: shiftX(0), opacity: 1 },
+        ],
+        ENTER_MS,
+        "ease-out",
+      );
+      clearPhotoStyles();
+      photoBusy = false;
+    }
+
+    // Step through the photos of the picked color: +1 next, -1 previous.
+    function showPhotoAt(step, dragX = 0) {
       const thumbs = visibleThumbs();
-      if (thumbs.length < 2 || !mainImg) return;
-      const next =
-        thumbs[(currentPhotoIndex() + step + thumbs.length) % thumbs.length];
-      mainImg.src = next.getAttribute(DATA_FULL);
-      resetThumbHighlight(next);
-      next.scrollIntoView({ block: "nearest", inline: "nearest" });
+      if (thumbs.length < 2) return;
+      const index =
+        (currentPhotoIndex() + step + thumbs.length) % thumbs.length;
+      showPhoto(thumbs[index], step, dragX);
     }
 
     function resetSizeButtons() {
@@ -1055,37 +1135,87 @@ const productJsonLd = {
     // Image switching
     thumbBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const newUrl = btn.getAttribute(DATA_FULL);
-        if (mainImg && newUrl) mainImg.src = newUrl;
-        resetThumbHighlight(btn);
+        const thumbs = visibleThumbs();
+        const target = thumbs.indexOf(btn);
+        if (target === -1 || target === currentPhotoIndex()) return;
+        showPhoto(btn, target > currentPhotoIndex() ? 1 : -1);
       });
     });
 
-    // Swipe on the main photo (phones). Vertical drags still scroll the page.
+    // Swipe on the main photo (phones): the photo follows the finger, and on
+    // release it either changes photo or snaps back. Vertical drags still
+    // scroll the page.
     const photoArea = document.getElementById("main-image-container");
     const SWIPE_MIN_PX = 40;
+    const AXIS_LOCK_PX = 8;
+    const DRAG_RESISTANCE = 0.8;
     let touchStartX = 0;
     let touchStartY = 0;
+    let swipeAxis = null;
+
+    function resetSwipe() {
+      swipeAxis = null;
+    }
+
     photoArea?.addEventListener(
       "touchstart",
       (e) => {
         touchStartX = e.changedTouches[0].clientX;
         touchStartY = e.changedTouches[0].clientY;
+        resetSwipe();
+      },
+      { passive: true },
+    );
+    photoArea?.addEventListener(
+      "touchmove",
+      (e) => {
+        if (photoBusy || !mainImg || visibleThumbs().length < 2) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (
+          swipeAxis === null &&
+          (Math.abs(dx) > AXIS_LOCK_PX || Math.abs(dy) > AXIS_LOCK_PX)
+        ) {
+          swipeAxis = Math.abs(dx) > Math.abs(dy) * 1.5 ? "x" : "y";
+        }
+        if (swipeAxis !== "x") return;
+        const fade = Math.min(Math.abs(dx) / (mainImg.offsetWidth * 1.2), 0.4);
+        mainImg.style.transition = "none";
+        mainImg.style.transform = shiftX(dx * DRAG_RESISTANCE);
+        mainImg.style.opacity = String(1 - fade);
       },
       { passive: true },
     );
     photoArea?.addEventListener(
       "touchend",
-      (e) => {
+      async (e) => {
+        if (swipeAxis !== "x" || photoBusy || !mainImg) return;
         const dx = e.changedTouches[0].clientX - touchStartX;
-        const dy = e.changedTouches[0].clientY - touchStartY;
-        const isHorizontal = Math.abs(dx) > Math.abs(dy) * 1.5;
-        if (isHorizontal && Math.abs(dx) >= SWIPE_MIN_PX) {
-          showPhotoAt(dx < 0 ? 1 : -1);
+        resetSwipe();
+        if (Math.abs(dx) >= SWIPE_MIN_PX) {
+          showPhotoAt(dx < 0 ? 1 : -1, dx * DRAG_RESISTANCE);
+          return;
         }
+        // Not far enough: spring back.
+        await animatePhoto(
+          [
+            {
+              transform: shiftX(dx * DRAG_RESISTANCE),
+              opacity: mainImg.style.opacity || "1",
+            },
+            { transform: shiftX(0), opacity: 1 },
+          ],
+          SNAP_MS,
+          "ease-out",
+        );
+        clearPhotoStyles();
       },
       { passive: true },
     );
+    photoArea?.addEventListener("touchcancel", () => {
+      resetSwipe();
+      clearPhotoStyles();
+    });
     updatePhotoCounter();
 
     // ---------- Image Lightbox ----------
