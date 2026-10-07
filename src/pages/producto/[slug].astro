@@ -1031,10 +1031,25 @@ const productJsonLd = {
       return Promise.race([animation.finished.catch(() => {}), timeout]);
     }
 
+    // Back to the resting state. The CSS transition stays off for two frames:
+    // if it came back at once, Safari could animate the photo from a leftover
+    // value (a visible bounce).
     function clearPhotoStyles() {
       if (!mainImg) return;
       mainImg.getAnimations().forEach((a) => a.cancel());
-      mainImg.style.transition = "";
+      mainImg.style.transform = "";
+      mainImg.style.opacity = "";
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          mainImg.style.transition = "";
+        }),
+      );
+    }
+
+    // The running animation now owns transform and opacity, so drop what the
+    // drag left inline. A stale inline value would reappear when it is cancelled.
+    function releaseDragStyles() {
+      if (!mainImg) return;
       mainImg.style.transform = "";
       mainImg.style.opacity = "";
     }
@@ -1070,7 +1085,7 @@ const productJsonLd = {
     }
 
     // direction: 1 = next photo (slides left), -1 = previous (slides right).
-    async function showPhoto(target, direction, dragX = 0) {
+    async function showPhoto(target, direction, dragX = 0, dragOpacity = 1) {
       if (!mainImg || photoBusy) return;
       photoBusy = true;
       const url = target.getAttribute(DATA_FULL);
@@ -1078,20 +1093,19 @@ const productJsonLd = {
       const out = direction > 0 ? -1 : 1;
       const loading = preloadPhoto(url);
       mainImg.style.transition = "none";
-      await Promise.all([
-        animatePhoto(
-          [
-            { transform: shiftX(dragX), opacity: 1 },
-            {
-              transform: shiftX(out * width * 0.6),
-              opacity: 0,
-            },
-          ],
-          EXIT_MS,
-          "ease-in",
-        ),
-        loading,
-      ]);
+      const exit = animatePhoto(
+        [
+          { transform: shiftX(dragX), opacity: dragOpacity },
+          {
+            transform: shiftX(out * width * 0.6),
+            opacity: 0,
+          },
+        ],
+        EXIT_MS,
+        "ease-in",
+      );
+      releaseDragStyles();
+      await Promise.all([exit, loading]);
       mainImg.src = url;
       resetThumbHighlight(target);
       revealThumb(target);
@@ -1108,12 +1122,12 @@ const productJsonLd = {
     }
 
     // Step through the photos of the picked color: +1 next, -1 previous.
-    function showPhotoAt(step, dragX = 0) {
+    function showPhotoAt(step, dragX = 0, dragOpacity = 1) {
       const thumbs = visibleThumbs();
       if (thumbs.length < 2) return;
       const index =
         (currentPhotoIndex() + step + thumbs.length) % thumbs.length;
-      showPhoto(thumbs[index], step, dragX);
+      showPhoto(thumbs[index], step, dragX, dragOpacity);
     }
 
     function resetSizeButtons() {
@@ -1211,22 +1225,23 @@ const productJsonLd = {
         if (swipeAxis !== "x" || photoBusy || !mainImg) return;
         const dx = e.changedTouches[0].clientX - touchStartX;
         resetSwipe();
+        const dragX = dx * DRAG_RESISTANCE;
+        const dragOpacity = mainImg.style.opacity || "1";
         if (Math.abs(dx) >= SWIPE_MIN_PX) {
-          showPhotoAt(dx < 0 ? 1 : -1, dx * DRAG_RESISTANCE);
+          showPhotoAt(dx < 0 ? 1 : -1, dragX, dragOpacity);
           return;
         }
         // Not far enough: spring back.
-        await animatePhoto(
+        const snap = animatePhoto(
           [
-            {
-              transform: shiftX(dx * DRAG_RESISTANCE),
-              opacity: mainImg.style.opacity || "1",
-            },
+            { transform: shiftX(dragX), opacity: dragOpacity },
             { transform: shiftX(0), opacity: 1 },
           ],
           SNAP_MS,
           "ease-out",
         );
+        releaseDragStyles();
+        await snap;
         clearPhotoStyles();
       },
       { passive: true },
