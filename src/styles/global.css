@@ -28,7 +28,7 @@ body:has(dialog[open]) {
    Example: class="btn btn-primary btn-md". Layout (w-full, flex-1, gap) stays
    on the element. */
 @utility btn {
-  @apply focus-ring inline-flex items-center justify-center rounded-full text-sm transition-colors enabled:active:scale-95;
+  @apply focus-ring inline-flex items-center justify-center rounded-full text-sm transition-colors not-disabled:active:scale-95;
 }
 
 @utility btn-sm {
@@ -76,6 +76,12 @@ body:has(dialog[open]) {
 /* Thick dark outline that fills on hover: second landing action, "add to cart" on the product page. */
 @utility btn-outline-dark {
   @apply border-2 border-gray-900 bg-white font-semibold text-gray-900 hover:bg-gray-900 hover:text-white;
+}
+
+/* Green outline: brief "added" confirmation, swapped in for btn-outline-dark
+   by the product page script. */
+@utility btn-outline-success {
+  @apply border-2 border-green-500 bg-green-50 font-semibold text-green-700;
 }
 
 /* Translucent round button over photos (lightbox). */

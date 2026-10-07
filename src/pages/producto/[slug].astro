@@ -1092,18 +1092,10 @@ const productJsonLd = {
             const originalHTML = btn.innerHTML;
             btn.innerHTML =
               '<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> ¡Añadido!';
-            btn.classList.add(
-              "border-green-500",
-              "text-green-600",
-              "bg-green-50",
-            );
+            btn.classList.replace("btn-outline-dark", "btn-outline-success");
             setTimeout(() => {
               btn.innerHTML = originalHTML;
-              btn.classList.remove(
-                "border-green-500",
-                "text-green-600",
-                "bg-green-50",
-              );
+              btn.classList.replace("btn-outline-success", "btn-outline-dark");
             }, 1500);
           }
         }
