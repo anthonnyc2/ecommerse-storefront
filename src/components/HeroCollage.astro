@@ -1,0 +1,43 @@
+---
+import type { HeroTile } from "../services/heroCollage";
+
+interface Props {
+  tiles: HeroTile[];
+}
+
+const { tiles } = Astro.props;
+// The middle photo is the tallest; the sides sit lower so the row has rhythm.
+const middle = Math.floor(tiles.length / 2);
+---
+
+<div
+  class="mx-auto grid w-full max-w-xl grid-cols-3 items-center gap-2 sm:gap-4"
+>
+  {
+    tiles.map((tile, index) => (
+      <a
+        href={`/catalogo?category=${encodeURIComponent(tile.category)}`}
+        class:list={[
+          "group relative block overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-black/5",
+          index === middle
+            ? "aspect-[3/4]"
+            : "aspect-[3/4] translate-y-4 sm:translate-y-6",
+        ]}
+      >
+        <img
+          src={tile.image}
+          alt={`${tile.name}, de la categoría ${tile.category}`}
+          width="400"
+          height="533"
+          loading="eager"
+          decoding="async"
+          fetchpriority={index === middle ? "high" : "auto"}
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-2 pb-2 pt-8 text-center text-xs font-semibold capitalize text-white sm:text-sm">
+          {tile.category}
+        </span>
+      </a>
+    ))
+  }
+</div>

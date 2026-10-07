@@ -107,6 +107,12 @@ src/
 
 ---
 
+## Home hero collage
+
+- `HeroCollage.astro` shows three photos (one per category) beside the hero text on desktop and below the button on mobile. Each photo links to `/catalogo?category=<name>`, never to a product (most products have 1 unit and would sell out).
+- `services/heroCollage.ts` holds `HERO_SLOTS`: per slot, product slugs in order of preference. `pickHeroTiles` takes the first in-stock one (`getProductBySlug`). The collage only renders when every slot is filled; otherwise the hero stays centered text.
+- The slugs were chosen because their photos have no supplier watermarks ("Generado por IA", "Cotton", badges). Keep that in mind when changing them. Replace them with the shop's own photos when available.
+
 ## Data & Types
 
 - All TypeScript interfaces live in `src/types/api.ts` — always type API responses against these.

@@ -3,8 +3,18 @@ import Layout from "../layouts/Layout.astro";
 import Gallery from "../components/Gallery.astro";
 import ProductCard from "../components/ProductCard.astro";
 import JsonLd from "../components/JsonLd.astro";
+import HeroCollage from "../components/HeroCollage.astro";
 
-import { getCatalogProducts, getCategories } from "../services/api";
+import {
+  getCatalogProducts,
+  getCategories,
+  getProductBySlug,
+} from "../services/api";
+import {
+  HERO_SLOTS,
+  HERO_TILE_COUNT,
+  pickHeroTiles,
+} from "../services/heroCollage";
 
 // sort=mix tells the backend to fetch ALL products, interleave by category,
 // and then apply the limit — guaranteeing a real mix in a single request.
@@ -16,6 +26,11 @@ const { products: mixed, total } = await getCatalogProducts({
 
 const hasMoreProducts = total > 8;
 const categories = await getCategories();
+
+// The collage only shows when all its slots are filled, so the layout never
+// looks half empty.
+const heroTiles = await pickHeroTiles(HERO_SLOTS, getProductBySlug);
+const showCollage = heroTiles.length === HERO_TILE_COUNT;
 
 const siteOrigin = Astro.site ?? new URL("https://raquel-boutique.com");
 const siteUrl = new URL("/", siteOrigin).href;
@@ -68,9 +83,20 @@ const websiteJsonLd = {
       class="bg-gradient-to-br from-primary/50 to-secondary/30 py-16 sm:py-24"
     >
       <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-        <section class="flex flex-col items-center text-center">
+        <section
+          class:list={[
+            "flex flex-col items-center text-center",
+            showCollage &&
+              "gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:text-left",
+          ]}
+        >
           <!-- Hero Content -->
-          <div class="flex flex-col items-center max-w-2xl mx-auto">
+          <div
+            class:list={[
+              "flex max-w-2xl flex-col items-center",
+              showCollage ? "lg:items-start" : "mx-auto",
+            ]}
+          >
             <p
               class="mb-4 font-semibold text-plum md:mb-6 md:text-lg xl:text-xl"
             >
@@ -94,6 +120,7 @@ const websiteJsonLd = {
               >Ver Catálogo</a
             >
           </div>
+          {showCollage && <HeroCollage tiles={heroTiles} />}
         </section>
       </div>
     </div>
