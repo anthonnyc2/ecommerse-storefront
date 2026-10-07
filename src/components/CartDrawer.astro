@@ -11,7 +11,7 @@
 >
   <div
     id="cart-overlay"
-    class="fixed inset-0 bg-gray-500/75 transition-opacity opacity-0 pointer-events-none"
+    class="fixed inset-0 touch-none bg-gray-500/75 transition-opacity opacity-0 pointer-events-none"
   >
   </div>
 
@@ -25,9 +25,11 @@
           class="pointer-events-auto w-screen max-w-md translate-x-full transform transition ease-in-out duration-500 sm:duration-700"
         >
           <div
-            class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl"
+            class="flex h-full flex-col overflow-y-scroll overscroll-contain bg-white shadow-xl"
           >
-            <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+            <div
+              class="flex-1 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6"
+            >
               <div class="flex items-center justify-between">
                 <h2 class="panel-title" id="slide-over-title">Tu Carrito</h2>
                 <button id="close-cart" type="button" class="btn btn-icon">

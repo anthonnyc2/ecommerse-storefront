@@ -16,8 +16,10 @@
   --text-badge: 10px;
 }
 
-/* Keep the page from scrolling behind an open modal dialog (quick add). */
-body:has(dialog[open]) {
+/* Keep the page from scrolling behind an open modal: the quick add dialog and
+   the cart drawer (which is open while #cart-drawer is not `hidden`). */
+body:has(dialog[open]),
+body:has(#cart-drawer:not(.hidden)) {
   overflow: hidden;
 }
 
