@@ -20,7 +20,7 @@ export interface AnalyticsItem {
 }
 
 export type ContactPlacement =
-  "footer" | "home_cta" | "cart" | "contacto" | "product";
+  "footer" | "home_cta" | "cart" | "contacto" | "product" | "catalogo_end";
 
 export interface AnalyticsEvents {
   view_item_list: { item_list_name: string; items: AnalyticsItem[] };

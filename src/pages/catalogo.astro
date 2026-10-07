@@ -46,6 +46,10 @@ const { sizes } = filtersData;
 
 // Pagination logic (desktop). Mobile uses infinite scroll and ignores this.
 const totalPages = Math.ceil(total / PAGE_SIZE);
+
+const NOT_FOUND_WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=59165864255&text=${encodeURIComponent(
+  "Hola, estuve viendo el catálogo y no encontré lo que busco. ¿Me pueden ayudar?",
+)}`;
 ---
 
 <Layout
@@ -603,12 +607,25 @@ const totalPages = Math.ceil(total / PAGE_SIZE);
               </p>
             </div>
 
-            <p
+            <div
               id="infinite-scroll-end-message"
-              class="hidden py-8 text-center text-sm text-gray-500"
+              class="hidden py-8 text-center"
             >
-              Has visto todos los productos
-            </p>
+              <p class="text-sm text-gray-500">Has visto todos los productos</p>
+              <p class="mt-4 text-sm font-medium text-gray-700">
+                ¿No encontraste lo que buscabas?
+              </p>
+              <a
+                href={NOT_FOUND_WHATSAPP_URL}
+                data-track="click_contact"
+                data-placement="catalogo_end"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-flex items-center rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+              >
+                Escríbenos por WhatsApp
+              </a>
+            </div>
 
             <div
               id="infinite-scroll-error"
