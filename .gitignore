@@ -53,7 +53,7 @@ Thumbs.db
 data-store.json
 
 # npm lockfile — repo tracks pnpm-lock.yaml (pnpm); package-lock.json must not
-# be committed (Vercel picks the lockfile to decide the package manager, and
+# be committed (the build picks the package manager from the lockfile, and
 # reintroducing an npm lockfile would silently switch the build back to npm).
 package-lock.json
 
