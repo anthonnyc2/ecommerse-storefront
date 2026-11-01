@@ -2,6 +2,7 @@
 import type { PublicProductWithDetails } from "../types/api";
 import defaultImg from "../assets/default-product-image.png";
 import { serializeVariants } from "../services/quickAdd";
+import { pickCardImages } from "../services/cardImages";
 
 interface Props {
   product: PublicProductWithDetails;
@@ -13,7 +14,7 @@ const { product, priority = false } = Astro.props;
 const { slug, name, variants, images } = product;
 
 // Extract images
-const imageUrls = images.map((img) => img.url);
+const imageUrls = pickCardImages(images, variants);
 const [mainImage, hoverImage] =
   imageUrls.length > 0 ? imageUrls : [defaultImg.src, null];
 
