@@ -22,7 +22,8 @@ const variant = (
   color: string | null,
   size: string | null,
   price = 100,
-): QuickAddVariant => ({ id, color, size, price });
+  compareAtPrice: number | null = null,
+): QuickAddVariant => ({ id, color, size, price, compareAtPrice });
 
 // Rojo: S, M. Azul: M, L (price differs).
 const MIXED = [
@@ -35,11 +36,31 @@ const MIXED = [
 describe("serializeVariants / parseVariants", () => {
   it("round-trips only the variants that are in stock", () => {
     const json = serializeVariants([
-      { id: "a", color: RED, size: "S", price: 90, stock: 3 },
-      { id: "b", color: RED, size: "M", price: 90, stock: 0 },
+      {
+        id: "a",
+        color: RED,
+        size: "S",
+        price: 90,
+        compareAtPrice: 120,
+        stock: 3,
+      },
+      {
+        id: "b",
+        color: RED,
+        size: "M",
+        price: 90,
+        compareAtPrice: null,
+        stock: 0,
+      },
     ]);
 
-    expect(parseVariants(json)).toEqual([variant("a", RED, "S", 90)]);
+    expect(parseVariants(json)).toEqual([variant("a", RED, "S", 90, 120)]);
+  });
+
+  it("reads cards rendered before the old price was sent", () => {
+    expect(parseVariants('[["a","ROJO","S",90]]')).toEqual([
+      variant("a", RED, "S", 90),
+    ]);
   });
 
   it("returns an empty list for missing or broken data", () => {
@@ -144,20 +165,58 @@ describe("resolveSelection", () => {
 
 describe("displayPrice", () => {
   it("shows the lowest price as 'from' until a variant is chosen", () => {
-    expect(displayPrice(MIXED, null)).toEqual({ price: 100, isFrom: true });
+    expect(displayPrice(MIXED, null)).toEqual({
+      price: 100,
+      isFrom: true,
+      compareAt: null,
+      discount: 0,
+    });
   });
 
   it("shows the exact price of the chosen variant", () => {
     expect(displayPrice(MIXED, MIXED[2])).toEqual({
       price: 120,
       isFrom: false,
+      compareAt: null,
+      discount: 0,
     });
   });
 
   it("does not say 'from' when every variant costs the same", () => {
     const same = [variant("a", RED, "S", 80), variant("b", RED, "M", 80)];
 
-    expect(displayPrice(same, null)).toEqual({ price: 80, isFrom: false });
+    expect(displayPrice(same, null)).toEqual({
+      price: 80,
+      isFrom: false,
+      compareAt: null,
+      discount: 0,
+    });
+  });
+
+  it("shows the old price and discount of the product on sale", () => {
+    const onSale = [
+      variant("a", RED, "S", 120, 180),
+      variant("b", RED, "M", 200),
+    ];
+
+    expect(displayPrice(onSale, null)).toEqual({
+      price: 120,
+      isFrom: true,
+      compareAt: 180,
+      discount: 33,
+    });
+    expect(displayPrice(onSale, onSale[0])).toEqual({
+      price: 120,
+      isFrom: false,
+      compareAt: 180,
+      discount: 33,
+    });
+    expect(displayPrice(onSale, onSale[1])).toEqual({
+      price: 200,
+      isFrom: false,
+      compareAt: null,
+      discount: 0,
+    });
   });
 });
 

@@ -91,7 +91,7 @@ src/
 ## Quick add (product cards)
 
 - Each `ProductCard` has an "Agregar" button. One in-stock variant: it adds directly. Several: it opens the shared `<dialog>` in `components/QuickAddSheet.astro` (mounted once in `Layout`).
-- Variant rules live in `services/quickAdd.ts` (pure, unit-tested); DOM wiring in `services/quickAddUi.ts`. Cards carry `data-variants` as `[id, color, size, price]` tuples (in-stock only) and `data-color-images`, so cards rendered by the infinite-scroll action work with no extra code.
+- Variant rules live in `services/quickAdd.ts` (pure, unit-tested); DOM wiring in `services/quickAddUi.ts`. Cards carry `data-variants` as `[id, color, size, price, compareAtPrice]` tuples (in-stock only) and `data-color-images`, so cards rendered by the infinite-scroll action work with no extra code.
 - The card root is a `<div data-item-id>` with a stretched link on the title (a button cannot live inside a link). Code that counts or reads cards must use `[data-item-id]`, not `a`.
 - Cart item `id` is the variant id, the same as the product page, so both paths merge into one line. `add_to_cart` items carry `item_list_name` (`catalogo`, a category, `busqueda`, `destacados`).
 
@@ -106,6 +106,13 @@ src/
 - Sold-out products stay out of the catalog listing and the product sitemap, which only list products with stock. The page needs the API from `admin-rb` to be deployed first; with the old API it still falls back to the 404.
 
 ---
+
+## Sale prices
+
+- A variant is on sale when `compareAtPrice` (the old price, set in `admin-rb`) is above `price` (what the shopper pays). Rules live in `services/salePrice.ts` (pure, tested): `variantPrice` for one variant, `priceDisplay` for a whole product (cheapest price, the old price of that cheapest variant, and the biggest discount for the badge).
+- Cards show a `sale-badge` ("-33%") over the photo and the price in `text-berry` with the old price struck (`price-old`). The product page does the same next to the price and in the phone buy bar; the script gets `variantSale` and updates them when a variant is picked.
+- The quick add sheet shows the same old price and badge (`displayPrice` in `services/quickAdd.ts`).
+- Cart, WhatsApp message and JSON-LD use `price`, so they charge the sale price.
 
 ## Product page
 

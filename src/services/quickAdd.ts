@@ -1,4 +1,5 @@
 import type { CartItem } from "./cartStore";
+import { priceDisplay, variantPrice, type PriceDisplay } from "./salePrice";
 
 /** Pure variant logic behind the quick-add button on product cards. */
 
@@ -7,6 +8,8 @@ export interface QuickAddVariant {
   color: string | null;
   size: string | null;
   price: number;
+  /** Old price when the variant is on sale (see salePrice.ts). */
+  compareAtPrice: number | null;
 }
 
 export interface QuickAddProduct {
@@ -31,15 +34,22 @@ export interface ResolvedSelection {
   variant: QuickAddVariant | null;
 }
 
-// Compact wire format [id, color, size, price] keeps the card HTML small.
-type VariantTuple = [string, string | null, string | null, number];
+// Compact wire format [id, color, size, price, compareAtPrice] keeps the card
+// HTML small. Cards rendered before compareAtPrice existed send 4 items.
+type VariantTuple = [
+  string,
+  string | null,
+  string | null,
+  number,
+  (number | null)?,
+];
 
 export function serializeVariants(
   variants: (QuickAddVariant & { stock: number })[],
 ): string {
   const tuples: VariantTuple[] = variants
     .filter((v) => v.stock > 0)
-    .map((v) => [v.id, v.color, v.size, v.price]);
+    .map((v) => [v.id, v.color, v.size, v.price, v.compareAtPrice]);
   return JSON.stringify(tuples);
 }
 
@@ -48,12 +58,15 @@ export function parseVariants(raw: string | undefined): QuickAddVariant[] {
   try {
     const tuples: unknown = JSON.parse(raw);
     if (!Array.isArray(tuples)) return [];
-    return (tuples as VariantTuple[]).map(([id, color, size, price]) => ({
-      id,
-      color,
-      size,
-      price,
-    }));
+    return (tuples as VariantTuple[]).map(
+      ([id, color, size, price, compareAtPrice]) => ({
+        id,
+        color,
+        size,
+        price,
+        compareAtPrice: compareAtPrice ?? null,
+      }),
+    );
   } catch {
     return [];
   }
@@ -123,11 +136,9 @@ export function resolveSelection(
 export function displayPrice(
   variants: QuickAddVariant[],
   variant: QuickAddVariant | null,
-): { price: number; isFrom: boolean } {
-  if (variant) return { price: variant.price, isFrom: false };
-  const prices = variants.map((v) => v.price);
-  const lowest = Math.min(...prices);
-  return { price: lowest, isFrom: Math.max(...prices) !== lowest };
+): PriceDisplay {
+  if (variant) return { ...variantPrice(variant), isFrom: false };
+  return priceDisplay(variants);
 }
 
 export function toCartItem(

@@ -133,6 +133,15 @@ body:has(#cart-drawer:not(.hidden)) {
   @apply h-4 w-4 rounded border-gray-400 text-secondary focus:ring-secondary;
 }
 
+/* Sale prices: "-33%" badge (card photo, product page) and the struck old price. */
+@utility sale-badge {
+  @apply inline-flex items-center rounded-full bg-berry px-2.5 py-1 text-xs font-bold text-white shadow-sm;
+}
+
+@utility price-old {
+  @apply font-normal text-gray-500 line-through;
+}
+
 /* Static tag on product cards (color, size). `chip-more` is the "+N" after them. */
 @utility chip {
   @apply flex items-center justify-center rounded-md border border-gray-200 px-1.5 py-0.5 text-chip font-medium text-gray-600;

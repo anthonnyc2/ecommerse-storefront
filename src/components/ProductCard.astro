@@ -3,6 +3,7 @@ import type { PublicProductWithDetails } from "../types/api";
 import defaultImg from "../assets/default-product-image.png";
 import { serializeVariants } from "../services/quickAdd";
 import { pickCardImages } from "../services/cardImages";
+import { priceDisplay } from "../services/salePrice";
 
 interface Props {
   product: PublicProductWithDetails;
@@ -19,8 +20,8 @@ const [mainImage, hoverImage] =
   imageUrls.length > 0 ? imageUrls : [defaultImg.src, null];
 
 // Extract base price, unique sizes and colors
-const basePrice =
-  variants.length > 0 ? Math.min(...variants.map((v) => v.price)) : 0;
+const sale = priceDisplay(variants);
+const basePrice = sale.price;
 const allSizes = [...new Set(variants.map((v) => v.size).filter(Boolean))];
 const visibleSizes = allSizes.slice(0, 4);
 const extraSizes = allSizes.length > 4 ? allSizes.length - 4 : 0;
@@ -108,6 +109,11 @@ for (const img of images) {
       class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/10"
     >
     </div>
+    {
+      sale.discount > 0 && (
+        <span class="sale-badge absolute left-3 top-3">-{sale.discount}%</span>
+      )
+    }
   </div>
 
   <div class="p-5">
@@ -124,9 +130,26 @@ for (const img of images) {
             >{name}</a
           >
         </h3>
-        <p class="mt-1 text-sm font-medium text-gray-500">
-          Desde {basePrice} Bs
-        </p>
+        {
+          sale.discount > 0 ? (
+            <p class="mt-1 flex flex-wrap items-baseline gap-x-2 text-sm font-semibold text-berry">
+              <span>
+                {sale.isFrom && "Desde "}
+                {basePrice} Bs
+              </span>
+              {sale.compareAt !== null && (
+                <s class="price-old">
+                  <span class="sr-only">Antes </span>
+                  {sale.compareAt} Bs
+                </s>
+              )}
+            </p>
+          ) : (
+            <p class="mt-1 text-sm font-medium text-gray-500">
+              Desde {basePrice} Bs
+            </p>
+          )
+        }
 
         <!-- Colors -->
         {

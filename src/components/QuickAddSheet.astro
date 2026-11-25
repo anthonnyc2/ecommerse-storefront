@@ -22,7 +22,13 @@
           class="text-base font-semibold tracking-tight text-gray-900"
         >
         </h2>
-        <p id="quick-add-price" class="mt-1 text-sm font-medium text-gray-600">
+        <p class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+          <span id="quick-add-price" class="font-medium text-gray-600"></span>
+          <s id="quick-add-price-old" class="price-old" hidden>
+            <span class="sr-only">Antes </span>
+            <span id="quick-add-price-old-value"></span>
+          </s>
+          <span id="quick-add-discount" class="sale-badge" hidden></span>
         </p>
       </div>
       <button

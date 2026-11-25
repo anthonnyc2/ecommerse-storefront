@@ -37,6 +37,9 @@ interface SheetParts {
   title: HTMLElement;
   image: HTMLImageElement;
   price: HTMLElement;
+  priceOld: HTMLElement;
+  priceOldValue: HTMLElement;
+  discount: HTMLElement;
   colorsGroup: HTMLElement;
   colors: HTMLElement;
   sizesGroup: HTMLElement;
@@ -57,6 +60,9 @@ function readSheetParts(): SheetParts | null {
     title: byId("quick-add-title"),
     image: byId<HTMLImageElement>("quick-add-image"),
     price: byId("quick-add-price"),
+    priceOld: byId("quick-add-price-old"),
+    priceOldValue: byId("quick-add-price-old-value"),
+    discount: byId("quick-add-discount"),
     colorsGroup: byId("quick-add-colors-group"),
     colors: byId("quick-add-colors"),
     sizesGroup: byId("quick-add-sizes-group"),
@@ -169,13 +175,27 @@ function hintFor(needsColor: boolean, needsSize: boolean, s: Selection) {
   return "";
 }
 
+function renderPrice(
+  parts: SheetParts,
+  { price, isFrom, compareAt, discount }: ReturnType<typeof displayPrice>,
+) {
+  const onSale = discount > 0;
+  parts.price.textContent = `${isFrom ? "Desde " : ""}${price} Bs`;
+  parts.price.classList.toggle("text-berry", onSale);
+  parts.price.classList.toggle("font-semibold", onSale);
+  parts.price.classList.toggle("text-gray-600", !onSale);
+  parts.price.classList.toggle("font-medium", !onSale);
+  parts.priceOld.hidden = compareAt === null;
+  parts.priceOldValue.textContent = `${compareAt} Bs`;
+  parts.discount.hidden = !onSale;
+  parts.discount.textContent = `-${discount}%`;
+}
+
 function renderSheet(parts: SheetParts, current: SheetState) {
   const { product, selection } = current;
   const { variants, colorImages } = product;
   const resolved = resolveSelection(variants, selection);
-  const { price, isFrom } = displayPrice(variants, resolved.variant);
-
-  parts.price.textContent = `${isFrom ? "Desde " : ""}${price} Bs`;
+  renderPrice(parts, displayPrice(variants, resolved.variant));
   parts.image.src = colorImages[selection.color] || product.image;
   parts.colorsGroup.classList.toggle("hidden", !resolved.needsColor);
   parts.sizesGroup.classList.toggle("hidden", !resolved.needsSize);

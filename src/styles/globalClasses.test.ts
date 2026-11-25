@@ -29,6 +29,9 @@ const files = sourceFiles(SRC).map((path) => ({
 // Names that are only ours: `btn`, `btn-*`, `choice*`, `chip*`, ...
 const OWN_CLASS =
   /^(btn(-[a-z]+)*|choice(-[a-z]+)?|chip(-more)?|panel-title|filter-title|focus-ring)$/;
+const SALE_CLASS = /^(sale-badge|price-old)$/;
+const isOwnClass = (token: string) =>
+  OWN_CLASS.test(token) || SALE_CLASS.test(token);
 // `field` and `check` are common words, so they only count inside class attributes.
 const AMBIGUOUS_CLASS = /^(field|check)$/;
 
@@ -51,7 +54,7 @@ function usedClasses() {
   };
   for (const { path, text } of files) {
     for (const token of tokensOf(text)) {
-      if (OWN_CLASS.test(token)) add(token, path);
+      if (isOwnClass(token)) add(token, path);
     }
     for (const value of classAttributeValues(text)) {
       for (const token of tokensOf(value)) {

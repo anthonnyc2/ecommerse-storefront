@@ -18,6 +18,7 @@ import {
   whatsappUrl,
   type StockTone,
 } from "../../services/productPage";
+import { priceDisplay, variantPrice } from "../../services/salePrice";
 
 const { slug } = Astro.params;
 
@@ -137,6 +138,12 @@ const questionWhatsappUrl = whatsappUrl(
 // Price, stock and description as the shopper sees them. The script gets the
 // same labels so it can update them when a color or size is picked.
 const initialPrice = priceLabel(variants.map((v) => v.price));
+const initialSale = priceDisplay(variants);
+const variantSale = Object.fromEntries(
+  variants.map((v) => [v.id, variantPrice(v)]),
+);
+const priceTone = (onSale: boolean) =>
+  onSale ? "text-berry" : "text-gray-900";
 const overallStock = totalStockStatus(variants);
 const variantStock = Object.fromEntries(
   variants.map((v) => [v.id, stockStatus(v.stock)]),
@@ -322,12 +329,29 @@ const productJsonLd = {
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">
               {name}
             </h1>
-            <p
-              class="mt-2 text-3xl font-semibold text-gray-900"
-              data-price-text
-            >
-              {initialPrice}
-            </p>
+            <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <p
+                class={`text-3xl font-semibold ${priceTone(initialSale.discount > 0)}`}
+                data-price-text
+              >
+                {initialPrice}
+              </p>
+              <s
+                class="price-old text-lg"
+                data-price-old
+                hidden={initialSale.compareAt === null}
+              >
+                <span class="sr-only">Antes </span>
+                <span data-price-old-value>{initialSale.compareAt} Bs</span>
+              </s>
+              <span
+                class="sale-badge"
+                data-sale-badge
+                hidden={initialSale.discount === 0}
+              >
+                -{initialSale.discount}%
+              </span>
+            </div>
             <p id="stock-indicator" class="mt-3">
               <span
                 id="stock-value"
@@ -611,9 +635,22 @@ const productJsonLd = {
       class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-gray-200 bg-white/95 px-4 py-3 backdrop-blur transition-transform duration-200 lg:hidden"
     >
       <div class="mx-auto flex max-w-2xl items-center gap-4">
-        <p class="text-xl font-semibold text-gray-900" data-price-text>
-          {initialPrice}
-        </p>
+        <div class="flex flex-col">
+          <p
+            class={`text-xl font-semibold ${priceTone(initialSale.discount > 0)}`}
+            data-price-text
+          >
+            {initialPrice}
+          </p>
+          <s
+            class="price-old text-sm"
+            data-price-old
+            hidden={initialSale.compareAt === null}
+          >
+            <span class="sr-only">Antes </span>
+            <span data-price-old-value>{initialSale.compareAt} Bs</span>
+          </s>
+        </div>
         <button
           type="button"
           id="mobile-buy-btn"
@@ -789,6 +826,8 @@ const productJsonLd = {
     basePrice,
     soldOut: !inStock,
     initialPriceText: initialPrice,
+    initialSale,
+    variantSale,
     overallStock,
     variantStock,
     toneClass: STOCK_TONE_CLASS,
@@ -888,9 +927,22 @@ const productJsonLd = {
         toneClass[status.tone];
     }
 
-    function setPrice(text) {
+    // `sale` is { compareAt, discount } from services/salePrice.ts.
+    function setPrice(text, sale) {
+      const onSale = sale.discount > 0;
       document.querySelectorAll("[data-price-text]").forEach((el) => {
         el.textContent = text;
+        el.classList.toggle("text-berry", onSale);
+        el.classList.toggle("text-gray-900", !onSale);
+      });
+      document.querySelectorAll("[data-price-old]").forEach((el) => {
+        el.hidden = sale.compareAt === null;
+        const value = el.querySelector("[data-price-old-value]");
+        if (value) value.textContent = sale.compareAt + " Bs";
+      });
+      document.querySelectorAll("[data-sale-badge]").forEach((el) => {
+        el.hidden = !onSale;
+        el.textContent = "-" + sale.discount + "%";
       });
     }
 
@@ -900,11 +952,11 @@ const productJsonLd = {
       const variant = selectedVariant();
       if (!variant) {
         setStock(overallStock);
-        setPrice(initialPriceText);
+        setPrice(initialPriceText, initialSale);
         return;
       }
       setStock(variantStock[variant.id]);
-      setPrice(variant.price + " Bs");
+      setPrice(variant.price + " Bs", variantSale[variant.id]);
       if (variant.stock <= 0 && lastOutOfStockVariant !== variant.id) {
         lastOutOfStockVariant = variant.id;
         window.rbTrack?.("out_of_stock_view", {
